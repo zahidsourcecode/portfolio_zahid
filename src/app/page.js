@@ -74,7 +74,7 @@ export default function Home() {
           </Link>
 
           <p className="text-gray-700 text-sm text-justify">
-            I'm a Technical Team Lead based in Bangladesh, currently working with modern
+            I&apos;m a Technical Team Lead based in Bangladesh, currently working with modern
             technologies like React, Next.js, Python, Django, Node.js (Express.js). I am passionate about
             building clean, efficient, and user-focused web applications. My goal is to
             continuously grow as a developer and contribute meaningfully to impactful projects

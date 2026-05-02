@@ -167,7 +167,7 @@ export default function ContactInfo() {
                 {/* CTA */}
                 <div className="px-7 py-6">
                     <p className="text-sm text-gray-500 mb-4">
-                        Want to reach out directly? Send me a message and I'll get back to
+                        Want to reach out directly? Send me a message and I&apos;ll get back to
                         you soon.
                     </p>
                     <Link
