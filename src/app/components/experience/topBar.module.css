@@ -1,0 +1,63 @@
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 64px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+.logoSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo {
+  height: 32px;
+}
+.brand {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #444;
+}
+.nav {
+  display: flex;
+  gap: 32px;
+}
+.link {
+  color: #444;
+  text-decoration: none;
+  font-size: 1rem;
+  position: relative;
+}
+.active {
+  color: #ff7a6a;
+  text-decoration: underline;
+}
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.bell {
+  cursor: pointer;
+}
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.name {
+  font-weight: 500;
+  font-size: 1rem;
+}
+.role {
+  font-size: 0.85rem;
+  color: #888;
+}
