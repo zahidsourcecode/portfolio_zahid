@@ -66,16 +66,16 @@ const contactItems = [
 
 export default function ContactInfo() {
     return (
-        <main className="min-h-screen bg-gradient-to-br from-sky-50 to-indigo-100 flex flex-col items-center justify-center px-4 py-24">
+        <main className="min-h-screen bg-gradient-to-br from-sky-50 to-indigo-100 flex flex-col items-center justify-center px-4 py-20 sm:py-24 pt-24 sm:pt-28">
             {/* Decorative blobs */}
             <div
                 aria-hidden
-                className="pointer-events-none fixed top-[-80px] right-[-80px] w-[340px] h-[340px] rounded-full opacity-20"
+                className="pointer-events-none fixed top-[-80px] right-[-80px] w-[200px] sm:w-[340px] h-[200px] sm:h-[340px] rounded-full opacity-20"
                 style={{ background: "radial-gradient(circle, #3e0097, transparent)" }}
             />
             <div
                 aria-hidden
-                className="pointer-events-none fixed bottom-[-60px] left-[-60px] w-[260px] h-[260px] rounded-full opacity-10"
+                className="pointer-events-none fixed bottom-[-60px] left-[-60px] w-[160px] sm:w-[260px] h-[160px] sm:h-[260px] rounded-full opacity-10"
                 style={{ background: "radial-gradient(circle, #6366f1, transparent)" }}
             />
 

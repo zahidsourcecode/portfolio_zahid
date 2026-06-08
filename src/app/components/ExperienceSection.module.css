@@ -21,4 +21,45 @@
   font-weight: bold;
   margin-bottom: 16px;
   text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.careerTitle {
+  font-weight: 800;
+  font-size: 2.1rem;
+  color: #111;
+  letter-spacing: 1px;
+}
+
+.careerDuration {
+  color: #666;
+  font-size: 0.97rem;
+  border-radius: 16px;
+  margin-left: 4px;
+}
+
+@media (max-width: 640px) {
+  .cardWrapper {
+    padding: 20px 16px;
+    margin: 16px auto;
+    border-radius: 12px;
+  }
+
+  .cardTitle {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .careerTitle {
+    font-size: 1.5rem;
+    letter-spacing: 0;
+  }
+
+  .careerDuration {
+    font-size: 0.85rem;
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
 }

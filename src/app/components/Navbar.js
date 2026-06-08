@@ -39,10 +39,10 @@ export default function Navbar() {
 
   return (
     <nav className="w-full fixed top-0 left-0 z-50 h-16 bg-white dark:bg-gray-900 shadow-md transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 gap-2">
           {/* Nav Links */}
-          <div className="hidden md:flex space-x-6 items-center">
+          <div className="hidden md:flex space-x-6 items-center shrink-0">
             <Link href="/" className="hover:text-indigo-600 font-medium text-black dark:text-white transition-colors">Dashboard</Link>
             <Link href="/experience" className="hover:text-indigo-600 font-medium text-black dark:text-white transition-colors">Experience</Link>
             <Link href="/projects" className="hover:text-indigo-600 font-medium text-black dark:text-white transition-colors">Projects</Link>
@@ -51,19 +51,19 @@ export default function Navbar() {
           </div>
 
           {/* Mobile hamburger */}
-          <div className="md:hidden flex items-center">
-            <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu" className="text-gray-800 dark:text-white focus:outline-none">
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <div className="md:hidden flex items-center shrink-0">
+            <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu" className="text-gray-800 dark:text-white focus:outline-none p-1">
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
 
           {/* Brand + Settings */}
-          <div className="flex items-center space-x-3">
-            <Link href="/" className="flex items-center space-x-2">
-              <img src="/logo.png" alt="Zahid Hasan" className="w-11 h-11 object-cover" />
-              <div className="flex flex-col leading-tight">
-                <span className="text-xl font-bold dark:text-white">Zahid Hasan</span>
-                <span className="text-sm font-medium ml-1 dark:text-white">Technical Team Lead</span>
+          <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 ml-auto md:ml-0">
+            <Link href="/" className="flex items-center space-x-2 min-w-0">
+              <img src="/logo.png" alt="Zahid Hasan" className="w-9 h-9 sm:w-11 sm:h-11 object-cover shrink-0" />
+              <div className="flex flex-col leading-tight min-w-0">
+                <span className="text-base sm:text-xl font-bold dark:text-white truncate">Zahid Hasan</span>
+                <span className="hidden sm:block text-sm font-medium ml-1 dark:text-white truncate">Technical Team Lead</span>
               </div>
             </Link>
 
@@ -137,7 +137,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Dropdown */}
         {isOpen && (
-          <div className="absolute left-0 top-16 mt-2 px-2 md:hidden bg-white dark:bg-gray-900 rounded-2xl shadow-lg py-6 flex flex-col items-start w-full max-w-xs space-y-4 animate-fade-in z-50">
+          <div className="absolute left-0 right-0 top-16 md:hidden bg-white dark:bg-gray-900 shadow-lg py-4 flex flex-col items-stretch w-full border-t border-gray-100 dark:border-gray-800 z-50">
             {[
               { href: "/", label: "Dashboard" },
               { href: "/experience", label: "Experience" },

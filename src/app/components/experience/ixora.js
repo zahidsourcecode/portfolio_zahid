@@ -76,30 +76,13 @@ export default function Ixora() {
               </a>
               {showPopup && (
                 <span
-                  style={{
-                    display: 'block',
-                    position: 'absolute',
-                    top: 28,
-                    left: 0,
-                    zIndex: 100,
-                    background: '#fff',
-                    border: '1px solid #ccc',
-                    borderRadius: 12,
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.18)',
-                    padding: 0,
-                    width: 600,
-                    height: 400,
-                    transition: 'box-shadow 0.2s',
-                  }}
+                  className={styles.mapPopup}
                   onMouseEnter={handlePopupMouseEnter}
                   onMouseLeave={handlePopupMouseLeave}
                 >
                   <iframe
                     title="Ixora Location Map"
-                    width="600"
-                    height="400"
                     frameBorder="0"
-                    style={{ border: 0, borderRadius: 12 }}
                     src="https://www.google.com/maps?q=House+M5+Section+14+Jahangir+Tower+7th+Floor+Mirpur+Dhaka&output=embed"
                     allowFullScreen=""
                     aria-hidden="false"

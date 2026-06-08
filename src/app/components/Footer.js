@@ -34,8 +34,8 @@ export default function Footer() {
   return (
     <footer className={`${isDark ? 'bg-gray-900 text-gray-300' : 'bg-gray-50 text-gray-700'} py-3 transition-colors duration-300`}>
       <div className="max-w-6xl mx-auto px-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
-          <span className="whitespace-nowrap">
+        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-3 text-sm text-center sm:text-left">
+          <span>
             © {new Date().getFullYear()} Portfolio — Built with Next.js
           </span>
 

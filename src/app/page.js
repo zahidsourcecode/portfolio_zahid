@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "./components/Navbar";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
@@ -35,11 +34,10 @@ export default function Home() {
   }, [showVideo]);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-sky-50 to-indigo-100 pt-16">
-      <Navbar />
-      <div className="p-6 flex flex-col md:flex-row items-center md:items-start max-w-5xl mx-auto gap-10">
+    <main className="min-h-screen bg-gradient-to-br from-sky-50 to-indigo-100 pt-20 pb-8">
+      <div className="px-4 sm:p-6 flex flex-col md:flex-row items-center md:items-start max-w-5xl mx-auto gap-8 md:gap-10">
         {/* Left image */}
-        <div className="w-64 h-64 bg-gray-200 rounded-lg shadow-lg flex items-center justify-center">
+        <div className="w-full max-w-[256px] aspect-square bg-gray-200 rounded-lg shadow-lg flex items-center justify-center shrink-0">
           <img
             src="/portfolio_img.jpg"
             alt="Portfolio"
@@ -48,8 +46,8 @@ export default function Home() {
         </div>
 
         {/* Right profile info */}
-        <div className="flex flex-col space-y-6 max-w-md">
-          <div className="flex flex-col space-y-6 max-w-md">
+        <div className="flex flex-col space-y-5 sm:space-y-6 w-full max-w-md text-center md:text-left">
+          <div className="flex flex-col space-y-4 sm:space-y-6">
             <div>
               <p className="text-lg font-bold text-[#3e0097]">Technical Team Lead</p>
               <p className="text-base text-gray-600">
@@ -67,8 +65,8 @@ export default function Home() {
             </div>
           </div>
 
-          <Link href="/contact">
-            <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg w-fit shadow transition cursor-pointer">
+          <Link href="/contact" className="mx-auto md:mx-0 w-fit">
+            <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition cursor-pointer">
               Work with me
             </button>
           </Link>
@@ -81,7 +79,7 @@ export default function Home() {
             through creativity, collaboration, and problem-solving.
           </p>
 
-          <div className="flex space-x-4 mt-2">
+          <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4 mt-2">
             {/* LinkedIn */}
             <a href="https://linkedin.com/in/zahidcseedu" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:scale-115 p-2 transition flex items-center justify-center">
               <img src="/linkedin-icon.png" alt="LinkedIn Icon" style={{ width: "30px", height: "30px" }} />
