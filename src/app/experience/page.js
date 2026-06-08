@@ -1,10 +1,13 @@
-// app/experience/page.js
-import ExperienceSection from '../components/ExperienceSection';
+import ExperienceSection from "../components/ExperienceSection";
+
+export const dynamic = "force-dynamic";
 
 export default function ExperiencePage() {
   return (
-    <main className="page-solid pt-16 px-3 sm:px-4">
-      <ExperienceSection />
+    <main className="page-gradient relative min-w-0 overflow-x-hidden pt-16 sm:pt-20 pb-8 sm:pb-12">
+      <div className="relative mx-auto w-full min-w-0 max-w-5xl px-3 sm:px-4 md:px-6">
+        <ExperienceSection />
+      </div>
     </main>
   );
 }

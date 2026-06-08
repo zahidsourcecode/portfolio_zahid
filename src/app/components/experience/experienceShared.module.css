@@ -1,0 +1,697 @@
+/* Shared experience card styles — brand theme #5ebed5 */
+
+.headerRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(94, 190, 213, 0.18);
+  background: linear-gradient(
+    135deg,
+    rgba(94, 190, 213, 0.1) 0%,
+    rgba(255, 255, 255, 0.6) 100%
+  );
+  min-width: 0;
+}
+
+.headerInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.companyLogo {
+  width: 52px;
+  height: 48px;
+  margin-top: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(94, 190, 213, 0.25);
+  box-shadow: 0 2px 10px rgba(94, 190, 213, 0.15);
+  object-fit: contain;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+
+.companyLogo:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(94, 190, 213, 0.28);
+}
+
+.companyName {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.companyName:hover {
+  color: #3a9db8;
+}
+
+.employmentType {
+  font-size: 0.95rem;
+  color: #475569;
+  margin-bottom: 4px;
+  margin-top: 2px;
+}
+
+.location {
+  font-size: 0.95rem;
+  color: #64748b;
+  max-width: 100%;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.locationInner {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.timeline {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  position: relative;
+  min-width: 0;
+  overflow: visible;
+}
+
+.timelineDot,
+.timelineDotWhite {
+  width: 14px;
+  height: 14px;
+  margin-right: 20px;
+  margin-top: 10px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 3px solid #5ebed5;
+  background: #e8f7fb;
+  box-shadow: 0 0 0 4px rgba(94, 190, 213, 0.12);
+  position: relative;
+  z-index: 1;
+}
+
+.timelineDotWhite {
+  background: #fff;
+}
+
+/* Solid brand line connecting dot to next dot */
+.timeline:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 30px;
+  bottom: -28px;
+  width: 3px;
+  background: #5ebed5;
+  border-radius: 999px;
+  z-index: 0;
+}
+
+.timeline:last-child {
+  margin-bottom: 0 !important;
+}
+
+.timelineContent {
+  flex: 1;
+  padding-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+  min-width: 0;
+  overflow: visible;
+}
+
+.jobTitle {
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  padding-left: 12px;
+  color: #0f172a;
+  border-left: 3px solid #5ebed5;
+  border-radius: 0 6px 6px 0;
+}
+
+.jobDuration {
+  font-size: 0.92rem;
+  color: #64748b;
+  margin-bottom: 10px;
+  padding-left: 15px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.jobDesc {
+  font-size: 0.98rem;
+  color: #334155;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.bulletList {
+  margin: 0;
+  padding-left: 18px;
+  list-style: none;
+}
+
+.bulletList li {
+  position: relative;
+  margin-bottom: 6px;
+  padding-left: 4px;
+}
+
+.bulletList li::marker {
+  content: none;
+}
+
+.bulletList li::before {
+  content: "";
+  position: absolute;
+  left: -16px;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5ebed5;
+  box-shadow: 0 0 0 2px rgba(94, 190, 213, 0.25);
+}
+
+.skillsRow {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(94, 190, 213, 0.07);
+  border: 1px solid rgba(94, 190, 213, 0.16);
+}
+
+.skillsLabel {
+  font-weight: 600;
+  color: #3a9db8;
+  margin-right: 4px;
+}
+
+.skillsList {
+  color: #475569;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.imageRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(94, 190, 213, 0.22);
+  overflow: visible;
+}
+
+.imageItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+}
+
+.imageItem:hover {
+  z-index: 50;
+}
+
+.teamImg {
+  width: 72px;
+  height: 50px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(94, 190, 213, 0.25);
+  box-shadow: 0 2px 8px rgba(94, 190, 213, 0.12);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+  cursor: zoom-in;
+  position: relative;
+  transform-origin: left center;
+}
+
+.teamImg:hover,
+.teamImg:focus-visible {
+  z-index: 51;
+  border-color: #5ebed5;
+  box-shadow:
+    0 16px 40px rgba(94, 190, 213, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .teamImg:hover,
+  .teamImg:focus-visible {
+    transform: scale(5.2);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .teamImg:hover,
+  .teamImg:focus-visible {
+    transform: none;
+  }
+
+  .teamImg:active {
+    transform: scale(2.8);
+    z-index: 51;
+    border-color: #5ebed5;
+    box-shadow:
+      0 12px 28px rgba(94, 190, 213, 0.3),
+      0 6px 16px rgba(0, 0, 0, 0.16);
+  }
+}
+
+.imageLabel {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #334155;
+}
+
+.mapIcon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.mapPinIcon {
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.locationLink {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.locationLink:hover {
+  color: #3a9db8;
+}
+
+.mapPopup {
+  display: block;
+  position: absolute;
+  top: 28px;
+  left: 0;
+  z-index: 100;
+  background: #fff;
+  border: 1px solid rgba(94, 190, 213, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(94, 190, 213, 0.2);
+  padding: 0;
+  width: min(600px, calc(100vw - 32px));
+  height: min(400px, 55vh);
+  overflow: hidden;
+}
+
+.mapPopup iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 14px;
+}
+
+.timelineCard {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  background: transparent;
+  box-shadow: none;
+  width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+@media (min-width: 1024px) {
+  .headerRow {
+    padding: 16px 20px;
+    gap: 22px;
+  }
+
+  .companyName {
+    font-size: 1.28rem;
+  }
+
+  .jobTitle {
+    font-size: 1.12rem;
+  }
+
+  .timelineContent {
+    padding-left: 24px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .headerRow {
+    padding: 14px 16px;
+    gap: 16px;
+  }
+
+  .companyName {
+    font-size: 1.12rem;
+  }
+
+  .employmentType,
+  .location {
+    font-size: 0.88rem;
+  }
+
+  .timelineContent {
+    padding-left: 16px;
+  }
+
+  .imageRow {
+    gap: 12px 16px;
+  }
+
+  .teamImg:hover,
+  .teamImg:focus-visible {
+    transform: scale(4.2);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .teamImg:hover,
+    .teamImg:focus-visible {
+      transform: scale(4.2);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .headerRow {
+    gap: 14px;
+    padding: 12px 14px;
+  }
+
+  .timeline {
+    margin-bottom: 24px;
+  }
+
+  .mapPopup {
+    width: min(520px, calc(100vw - 48px));
+    height: min(360px, 50vh);
+  }
+}
+
+@media (max-width: 639px) {
+  .headerRow {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .companyLogo {
+    width: 44px;
+    height: 40px;
+    margin-top: 0;
+  }
+
+  .companyName {
+    font-size: 1.02rem;
+    line-height: 1.3;
+  }
+
+  .employmentType,
+  .location {
+    font-size: 0.84rem;
+  }
+
+  .location {
+    display: block;
+    margin-top: 4px;
+  }
+
+  .locationInner {
+    display: block;
+    width: 100%;
+  }
+
+  .timeline {
+    margin-bottom: 20px;
+  }
+
+  .timelineDot,
+  .timelineDotWhite {
+    width: 11px;
+    height: 11px;
+    margin-right: 8px;
+    margin-top: 7px;
+    border-width: 2px;
+    box-shadow: 0 0 0 3px rgba(94, 190, 213, 0.12);
+  }
+
+  .timeline:not(:last-child)::before {
+    left: 4px;
+    top: 24px;
+    bottom: -20px;
+    width: 2px;
+  }
+
+  .timelineContent {
+    padding-left: 6px;
+    overflow-wrap: anywhere;
+  }
+
+  .jobTitle {
+    font-size: 0.98rem;
+    padding-left: 8px;
+    line-height: 1.35;
+  }
+
+  .jobDuration {
+    font-size: 0.82rem;
+    padding-left: 11px;
+  }
+
+  .jobDesc {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    text-align: left;
+  }
+
+  .bulletList {
+    padding-left: 16px;
+  }
+
+  .bulletList li {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .skillsRow {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px;
+  }
+
+  .skillsList {
+    word-break: break-word;
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+
+  .imageRow {
+    gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .imageItem {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .teamImg {
+    width: 64px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .teamImg:hover,
+    .teamImg:focus-visible {
+      transform: scale(3.2);
+      transform-origin: left top;
+    }
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .teamImg:active {
+      transform: scale(2.4);
+      transform-origin: left top;
+    }
+  }
+
+  .imageLabel {
+    font-size: 0.82rem;
+    line-height: 1.35;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mapPopup {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100vw - 24px);
+    max-width: 480px;
+    height: min(280px, 52vh);
+    z-index: 200;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerRow {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+  }
+
+  .companyLogo {
+    width: 40px;
+    height: 36px;
+  }
+
+  .companyName {
+    font-size: 0.96rem;
+  }
+
+  .employmentType,
+  .location {
+    font-size: 0.8rem;
+  }
+
+  .timeline {
+    margin-bottom: 18px;
+  }
+
+  .timeline:not(:last-child)::before {
+    bottom: -16px;
+  }
+
+  .jobTitle {
+    font-size: 0.92rem;
+  }
+
+  .jobDuration {
+    font-size: 0.78rem;
+    padding-left: 9px;
+  }
+
+  .skillsRow {
+    border-radius: 10px;
+  }
+
+  .teamImg {
+    width: 56px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 360px) {
+  .timelineDot,
+  .timelineDotWhite {
+    margin-right: 6px;
+  }
+
+  .timelineContent {
+    padding-left: 4px;
+  }
+
+  .jobTitle {
+    padding-left: 6px;
+    border-left-width: 2px;
+  }
+
+  .bulletList {
+    padding-left: 14px;
+  }
+
+  .mapPopup {
+    width: calc(100vw - 16px);
+    height: min(240px, 48vh);
+  }
+}
+
+:global(.dark) .headerRow {
+  background: linear-gradient(
+    135deg,
+    rgba(94, 190, 213, 0.08) 0%,
+    rgba(30, 41, 59, 0.8) 100%
+  );
+  border-color: rgba(94, 190, 213, 0.15);
+}
+
+:global(.dark) .companyName {
+  color: #f1f5f9;
+}
+
+:global(.dark) .companyName:hover {
+  color: #5ebed5;
+}
+
+:global(.dark) .employmentType,
+:global(.dark) .location,
+:global(.dark) .jobDuration {
+  color: #94a3b8;
+}
+
+:global(.dark) .jobTitle,
+:global(.dark) .imageLabel {
+  color: #e2e8f0;
+}
+
+:global(.dark) .jobDesc,
+:global(.dark) .skillsList {
+  color: #cbd5e1;
+}
+
+:global(.dark) .skillsLabel {
+  color: #5ebed5;
+}
+
+:global(.dark) .skillsRow {
+  background: rgba(94, 190, 213, 0.06);
+  border-color: rgba(94, 190, 213, 0.12);
+}
+
+:global(.dark) .timelineDot,
+:global(.dark) .timelineDotWhite {
+  background: #1e293b;
+  border-color: #5ebed5;
+  box-shadow: 0 0 0 4px rgba(94, 190, 213, 0.15);
+}
+
+:global(.dark) .timeline:not(:last-child)::before {
+  background: #5ebed5;
+}
+
+:global(.dark) .teamImg {
+  border-color: rgba(94, 190, 213, 0.2);
+}
+
+:global(.dark) .mapPopup {
+  background: #1e293b;
+  border-color: rgba(94, 190, 213, 0.25);
+}
+
+:global(.dark) .imageRow {
+  border-top-color: rgba(94, 190, 213, 0.12);
+}

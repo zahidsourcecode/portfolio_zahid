@@ -2,11 +2,11 @@
 
 export default function Contact() {
   return (
-    <main className="page-gradient px-3 sm:px-6 flex flex-col items-center">
-      <div className="w-full max-w-3xl transition-all duration-500 mt-20 mb-4">
+    <main className="page-gradient relative min-w-0 overflow-x-hidden px-3 pb-6 pt-16 sm:px-6 sm:pb-8 sm:pt-20">
+      <div className="mx-auto w-full max-w-3xl min-w-0">
         <iframe
           src="https://contact-form-iota-opal.vercel.app/"
-          className="w-full h-[calc(100vh-7rem)] sm:h-[calc(100vh-6rem)] min-h-[480px] rounded-xl border border-gray-200 dark:border-slate-600 shadow-sm"
+          className="h-[calc(100dvh-7.5rem)] w-full min-h-[320px] max-h-[920px] rounded-xl border border-gray-200 shadow-sm dark:border-slate-600 sm:h-[calc(100dvh-6.5rem)] sm:min-h-[420px]"
           title="Contact form"
         ></iframe>
       </div>

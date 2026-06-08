@@ -8,19 +8,19 @@ export default function ProjectDetails({ params }) {
   if (!project) return notFound();
 
   return (
-    <main className="page-gradient px-4 sm:px-6 pt-20 pb-4 flex flex-col items-stretch max-w-7xl mx-auto w-full">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+    <main className="page-gradient mx-auto flex w-full min-w-0 max-w-7xl flex-col items-stretch overflow-x-hidden px-3 pb-6 pt-16 sm:px-6 sm:pt-20">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <Link
           href="/projects"
-          className="w-fit px-4 py-2 rounded-lg bg-brand text-white text-sm sm:text-base hover:bg-brand-dark transition"
+          className="w-fit shrink-0 rounded-lg bg-brand px-4 py-2 text-sm text-white transition hover:bg-brand-dark sm:text-base"
         >
           ← Back to Projects
         </Link>
-        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-indigo-800 dark:text-brand">
+        <h1 className="min-w-0 break-words text-lg font-bold text-indigo-800 dark:text-brand sm:text-right sm:text-2xl lg:text-3xl">
           {project.title}
         </h1>
       </div>
-      <div className="w-full flex-1 min-h-[50vh] h-[calc(100vh-10rem)] sm:h-[calc(100vh-9rem)] overflow-hidden rounded-xl border border-indigo-100 dark:border-slate-700 shadow-sm bg-white dark:bg-slate-800">
+      <div className="flex min-h-[280px] h-[calc(100dvh-12rem)] w-full flex-1 overflow-hidden rounded-xl border border-indigo-100 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:h-[calc(100dvh-10rem)] sm:min-h-[360px]">
         <iframe
           src={project.iframeSrc}
           className="w-full h-full"

@@ -44,7 +44,7 @@ const contactItems = [
 
 export default function ContactInfo() {
     return (
-        <main className="page-gradient flex flex-col items-center justify-center px-4 py-20 sm:py-24 pt-24 sm:pt-28">
+        <main className="page-gradient flex min-w-0 flex-col items-center justify-center overflow-x-hidden px-3 py-16 pt-20 sm:px-4 sm:py-24 sm:pt-28">
             {/* Decorative blobs */}
             <div
                 aria-hidden
@@ -61,7 +61,7 @@ export default function ContactInfo() {
             <div className="w-full max-w-lg bg-white/80 dark:bg-slate-800/90 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-white/60 dark:border-slate-700">
                 {/* Header banner */}
                 <div
-                    className="relative h-28 flex items-end px-7 pb-4"
+                    className="relative flex h-28 items-end px-4 pb-4 sm:px-7"
                     style={{
                         background:
                             "linear-gradient(135deg, #3e0097 0%, #6d28d9 60%, #818cf8 100%)",
@@ -93,7 +93,7 @@ export default function ContactInfo() {
                 </div>
 
                 {/* Avatar bump */}
-                <div className="relative px-7 pt-0 pb-2">
+                <div className="relative px-4 pb-2 pt-0 sm:px-7">
                     <div className="absolute -top-10 right-7 w-20 h-20 rounded-full border-4 border-white dark:border-slate-700 shadow-lg overflow-hidden bg-indigo-100 dark:bg-slate-700">
                         <img
                             src="/logo.png"
@@ -107,10 +107,10 @@ export default function ContactInfo() {
                     </div>
                 </div>
 
-                <hr className="border-gray-100 dark:border-slate-700 mx-7" />
+                <hr className="mx-4 border-gray-100 dark:border-slate-700 sm:mx-7" />
 
                 {/* Contact rows */}
-                <ul className="px-7 py-5 space-y-5">
+                <ul className="space-y-5 px-4 py-5 sm:px-7">
                     {contactItems.map(({ label, imgSrc, value, href }) => (
                         <li key={label} className="flex items-start gap-4 group">
                             <span className="flex items-center justify-center w-9 h-9 rounded-xl shrink-0 mt-0.5 bg-slate-100 dark:bg-slate-700 transition-transform group-hover:scale-110">
@@ -133,10 +133,10 @@ export default function ContactInfo() {
                     ))}
                 </ul>
 
-                <hr className="border-gray-100 dark:border-slate-700 mx-7" />
+                <hr className="mx-4 border-gray-100 dark:border-slate-700 sm:mx-7" />
 
                 {/* CTA */}
-                <div className="px-7 py-6">
+                <div className="px-4 py-6 sm:px-7">
                     <p className="text-sm text-gray-500 dark:text-slate-400 mb-4">
                         Want to reach out directly? Send me a message and I&apos;ll get back to
                         you soon.

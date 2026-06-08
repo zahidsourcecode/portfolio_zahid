@@ -1,82 +1,377 @@
 .cardWrapper {
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-  padding: 32px 28px;
-  max-width: 800px;
-  margin: 40px auto;
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Fira Sans, Ubuntu, Oxygen, Oxygen Sans, Cantarell, Droid Sans, Apple Color Emoji, Segoe UI Emoji, Segoe UI Emoji, Segoe UI Symbol, Lucida Grande, Helvetica, Arial, sans-serif;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 20px 16px 24px;
+  overflow: visible;
+  border-radius: 1rem;
+  border: 1px solid rgba(94, 190, 213, 0.2);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  box-shadow:
+    0 8px 32px rgba(94, 190, 213, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.cardWrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #5ebed5,
+    #b8e8f2,
+    #5ebed5,
+    transparent
+  );
+}
+
+.cardHeader {
+  margin-bottom: 22px;
+}
+
+.headerPanel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(94, 190, 213, 0.22);
+  background:
+    linear-gradient(135deg, rgba(94, 190, 213, 0.16) 0%, rgba(255, 255, 255, 0.92) 48%, rgba(184, 232, 242, 0.18) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 10px 28px rgba(94, 190, 213, 0.12);
+}
+
+.headerGlow {
+  position: absolute;
+  top: -40px;
+  right: -20px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(94, 190, 213, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.headerContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 18px 16px;
+}
+
+.headerIntro {
+  min-width: 0;
+}
+
+.careerTitle {
+  margin: 0 0 8px;
+  font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #0f172a;
+  line-height: 1.15;
+}
+
+.careerAccent {
+  background: linear-gradient(120deg, #3a9db8 0%, #5ebed5 55%, #2d8fa8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.careerSubtitle {
+  margin: 0;
+  max-width: 100%;
+  font-size: clamp(0.68rem, 2.4vw, 0.94rem);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.careerStatsWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.statsCaption {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+  text-align: center;
+}
+
+.statsGrid {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 10px;
+}
+
+.statBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 88px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(94, 190, 213, 0.28);
+  box-shadow:
+    0 8px 20px rgba(94, 190, 213, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.statValue {
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: #0f172a;
+}
+
+.statLabel {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5ebed5;
 }
 
 .sectionDivider {
   height: 1px;
-  background: #f0f0f0;
-  margin: 8px 0;
-  /* Reduced from 24px to 8px */
+  margin: 18px 0;
   border: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(94, 190, 213, 0.45),
+    transparent
+  );
 }
 
-.cardTitle {
-  font-size: 26px;
-  font-weight: bold;
-  margin-bottom: 16px;
-  text-align: center;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.careerTitle {
-  font-weight: 800;
-  font-size: 2.1rem;
-  color: #111;
-  letter-spacing: 1px;
-}
-
-.careerDuration {
-  color: #666;
-  font-size: 0.97rem;
-  border-radius: 16px;
-  margin-left: 4px;
-}
-
-@media (max-width: 640px) {
+@media (min-width: 640px) {
   .cardWrapper {
-    padding: 20px 16px;
-    margin: 16px auto;
-    border-radius: 12px;
+    padding: 32px 28px 36px;
+    border-radius: 1.5rem;
   }
 
-  .cardTitle {
-    font-size: 22px;
-    margin-bottom: 12px;
+  .cardHeader {
+    margin-bottom: 26px;
+  }
+
+  .headerPanel {
+    border-radius: 1.25rem;
+  }
+
+  .headerContent {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px 26px;
   }
 
   .careerTitle {
-    font-size: 1.5rem;
+    font-size: 2.15rem;
+  }
+
+  .careerSubtitle {
+    font-size: clamp(0.82rem, 1.4vw, 0.94rem);
+  }
+
+  .careerStatsWrap {
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  .statsCaption {
+    text-align: right;
+  }
+
+  .statBox {
+    min-width: 96px;
+    padding: 14px 18px;
+  }
+
+  .statValue {
+    font-size: 1.85rem;
+  }
+
+  .sectionDivider {
+    margin: 22px 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardWrapper {
+    padding: 40px 36px 40px;
+  }
+
+  .careerTitle {
+    font-size: 2.35rem;
+  }
+
+  .headerGlow {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+@media (max-width: 639px) {
+  .headerContent {
+    gap: 14px;
+    padding: 16px 14px;
+  }
+
+  .headerIntro {
+    width: 100%;
+  }
+
+  .careerTitle {
+    font-size: clamp(1.45rem, 7vw, 1.85rem);
+  }
+
+  .careerSubtitle {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  .careerStatsWrap {
+    width: 100%;
+  }
+
+  .statsCaption {
+    text-align: left;
+  }
+
+  .statsGrid {
+    width: 100%;
+  }
+
+  .statBox {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+  }
+
+  .statValue {
+    font-size: clamp(1.35rem, 6vw, 1.65rem);
+  }
+}
+
+@media (max-width: 479px) {
+  .headerPanel {
+    border-radius: 0.875rem;
+  }
+
+  .headerGlow {
+    width: 140px;
+    height: 140px;
+    top: -30px;
+    right: -30px;
+  }
+
+  .careerSubtitle {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    font-size: 0.74rem;
+    line-height: 1.45;
+  }
+}
+
+@media (max-width: 380px) {
+  .cardWrapper {
+    padding: 16px 12px 20px;
+    border-radius: 0.875rem;
+  }
+
+  .headerContent {
+    padding: 14px 12px;
+  }
+
+  .careerTitle {
+    font-size: 1.55rem;
+  }
+
+  .careerSubtitle {
+    font-size: 0.7rem;
     letter-spacing: 0;
   }
 
-  .careerDuration {
-    font-size: 0.85rem;
-    margin-left: 0;
-    width: 100%;
-    text-align: center;
+  .statValue {
+    font-size: 1.45rem;
   }
 }
 
 :global(.dark) .cardWrapper {
-  background: #1e293b;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  background: rgba(15, 23, 42, 0.75);
+  border-color: rgba(94, 190, 213, 0.15);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(94, 190, 213, 0.08);
 }
 
-:global(.dark) .sectionDivider {
-  background: #334155;
+:global(.dark) .headerPanel {
+  border-color: rgba(94, 190, 213, 0.18);
+  background:
+    linear-gradient(135deg, rgba(94, 190, 213, 0.12) 0%, rgba(15, 23, 42, 0.92) 52%, rgba(94, 190, 213, 0.08) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 10px 28px rgba(0, 0, 0, 0.28);
 }
 
 :global(.dark) .careerTitle {
   color: #f1f5f9;
 }
 
-:global(.dark) .careerDuration {
+:global(.dark) .careerAccent {
+  background: linear-gradient(120deg, #7dd3e8 0%, #5ebed5 55%, #3a9db8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+:global(.dark) .careerSubtitle,
+:global(.dark) .statsCaption {
   color: #94a3b8;
+}
+
+:global(.dark) .statBox {
+  background: rgba(15, 23, 42, 0.82);
+  border-color: rgba(94, 190, 213, 0.22);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+:global(.dark) .statValue {
+  color: #f1f5f9;
+}
+
+:global(.dark) .statLabel {
+  color: #5ebed5;
 }

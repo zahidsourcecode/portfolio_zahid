@@ -21,8 +21,13 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "Dashboard",
-  description: "Dashboard",
+  title: "Zahid Hasan | Portfolio",
+  description: "Portfolio of Zahid Hasan — Technical Team Lead",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 const themeScript = `

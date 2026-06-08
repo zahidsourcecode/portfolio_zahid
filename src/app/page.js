@@ -166,7 +166,7 @@ export default function Home() {
                 />
               </div>
 
-              <div className="flex w-full max-w-[min(100%,340px)] sm:max-w-[400px] flex-nowrap items-center justify-between sm:justify-center gap-0.5 sm:gap-2 mx-auto px-1">
+              <div className="mx-auto flex w-full max-w-[min(100%,340px)] flex-wrap items-center justify-center gap-1 px-1 sm:max-w-[400px] sm:gap-2">
                 {socialLinks.map(({ href, label, icon }) => (
                   <a
                     key={label}
@@ -291,9 +291,6 @@ export default function Home() {
               <Eye className="h-4 w-4" strokeWidth={2.25} />
             </span>
             <div className="text-center">
-              <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-brand-dark/80 dark:text-brand/90">
-                Live session
-              </p>
               <h2 className="text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-100">
                 Your visit at a glance
               </h2>
