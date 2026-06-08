@@ -66,7 +66,7 @@ const contactItems = [
 
 export default function ContactInfo() {
     return (
-        <main className="min-h-screen bg-gradient-to-br from-sky-50 to-indigo-100 flex flex-col items-center justify-center px-4 py-20 sm:py-24 pt-24 sm:pt-28">
+        <main className="page-gradient flex flex-col items-center justify-center px-4 py-20 sm:py-24 pt-24 sm:pt-28">
             {/* Decorative blobs */}
             <div
                 aria-hidden
@@ -80,7 +80,7 @@ export default function ContactInfo() {
             />
 
             {/* Card */}
-            <div className="w-full max-w-lg bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-white/60">
+            <div className="w-full max-w-lg bg-white/80 dark:bg-slate-800/90 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-white/60 dark:border-slate-700">
                 {/* Header banner */}
                 <div
                     className="relative h-28 flex items-end px-7 pb-4"
@@ -116,7 +116,7 @@ export default function ContactInfo() {
 
                 {/* Avatar bump */}
                 <div className="relative px-7 pt-0 pb-2">
-                    <div className="absolute -top-10 right-7 w-20 h-20 rounded-full border-4 border-white shadow-lg overflow-hidden bg-indigo-100">
+                    <div className="absolute -top-10 right-7 w-20 h-20 rounded-full border-4 border-white dark:border-slate-700 shadow-lg overflow-hidden bg-indigo-100 dark:bg-slate-700">
                         <img
                             src="/logo.png"
                             alt="Zahid Hasan"
@@ -124,12 +124,12 @@ export default function ContactInfo() {
                         />
                     </div>
                     <div className="pt-4 pb-2">
-                        <p className="text-lg font-bold text-[#3e0097]">Zahid Hasan</p>
-                        <p className="text-sm text-gray-500 font-medium">Applicant</p>
+                        <p className="text-lg font-bold text-[#3e0097] dark:text-brand">Zahid Hasan</p>
+                        <p className="text-sm text-gray-500 dark:text-slate-400 font-medium">Applicant</p>
                     </div>
                 </div>
 
-                <hr className="border-gray-100 mx-7" />
+                <hr className="border-gray-100 dark:border-slate-700 mx-7" />
 
                 {/* Contact rows */}
                 <ul className="px-7 py-5 space-y-5">
@@ -146,14 +146,14 @@ export default function ContactInfo() {
                                 )}
                             </span>
                             <div className="flex-1 min-w-0">
-                                <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-0.5">
+                                <p className="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-0.5">
                                     {label}
                                 </p>
                                 <a
                                     href={href}
                                     target={href.startsWith("http") ? "_blank" : undefined}
                                     rel="noreferrer"
-                                    className="text-sm font-medium text-gray-800 hover:text-[#3e0097] transition-colors break-words"
+                                    className="text-sm font-medium text-gray-800 dark:text-slate-200 hover:text-[#3e0097] dark:hover:text-brand transition-colors break-words"
                                 >
                                     {value}
                                 </a>
@@ -162,11 +162,11 @@ export default function ContactInfo() {
                     ))}
                 </ul>
 
-                <hr className="border-gray-100 mx-7" />
+                <hr className="border-gray-100 dark:border-slate-700 mx-7" />
 
                 {/* CTA */}
                 <div className="px-7 py-6">
-                    <p className="text-sm text-gray-500 mb-4">
+                    <p className="text-sm text-gray-500 dark:text-slate-400 mb-4">
                         Want to reach out directly? Send me a message and I&apos;ll get back to
                         you soon.
                     </p>

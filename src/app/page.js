@@ -34,10 +34,10 @@ export default function Home() {
   }, [showVideo]);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-sky-50 to-indigo-100 pt-20 pb-8">
+    <main className="page-gradient pt-20 pb-8">
       <div className="px-4 sm:p-6 flex flex-col md:flex-row items-center md:items-start max-w-5xl mx-auto gap-8 md:gap-10">
         {/* Left image */}
-        <div className="w-full max-w-[256px] aspect-square bg-gray-200 rounded-lg shadow-lg flex items-center justify-center shrink-0">
+        <div className="w-full max-w-[256px] aspect-square bg-gray-200 dark:bg-slate-700 rounded-lg shadow-lg flex items-center justify-center shrink-0">
           <img
             src="/portfolio_img.jpg"
             alt="Portfolio"
@@ -49,29 +49,29 @@ export default function Home() {
         <div className="flex flex-col space-y-5 sm:space-y-6 w-full max-w-md text-center md:text-left">
           <div className="flex flex-col space-y-4 sm:space-y-6">
             <div>
-              <p className="text-lg font-bold text-[#3e0097]">Technical Team Lead</p>
-              <p className="text-base text-gray-600">
+              <p className="text-lg font-bold text-[#3e0097] dark:text-brand">Technical Team Lead</p>
+              <p className="text-base text-gray-600 dark:text-slate-300">
                 at{" "}
                 <a
                   href="https://ixorasolution.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="text-blue-600 dark:text-brand hover:underline"
                 >
                   iXora Solution
                 </a>
               </p>
-              <p className="text-sm text-gray-500">Mirpur-14, Dhaka-1206</p>
+              <p className="text-sm text-gray-500 dark:text-slate-400">Mirpur-14, Dhaka-1206</p>
             </div>
           </div>
 
           <Link href="/contact" className="mx-auto md:mx-0 w-fit">
-            <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition cursor-pointer">
+            <button className="bg-brand hover:bg-brand-dark text-white font-semibold py-2 px-6 rounded-lg shadow transition cursor-pointer">
               Work with me
             </button>
           </Link>
 
-          <p className="text-gray-700 text-sm text-justify">
+          <p className="text-gray-700 dark:text-slate-300 text-sm text-justify">
             I&apos;m a Technical Team Lead based in Bangladesh, currently working with modern
             technologies like React, Next.js, Python, Django, Node.js (Express.js). I am passionate about
             building clean, efficient, and user-focused web applications. My goal is to
