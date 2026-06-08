@@ -30,10 +30,9 @@ const contactItems = [
         icon: null,
         imgSrc: "/book-icon.png",
         label: "Blog",
-        value: "https://medium.com/@zahidcseedu",
-        href: "https://medium.com/@zahidcseedu",
+        value: "ixorasolution.com/author/zh",
+        href: "/blog",
         isLink: true,
-        
     },
     {
         icon: null,
