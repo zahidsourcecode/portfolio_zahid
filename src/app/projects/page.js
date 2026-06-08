@@ -79,60 +79,41 @@ const ListIcon = () => (
 export default function Projects() {
   const [view, setView] = useState("grid");
 
-  const activeBtn = {
-    display: "flex",
-    alignItems: "center",
-    gap: "6px",
-    padding: "8px 14px",
-    borderRadius: "8px",
-    fontSize: "14px",
-    fontWeight: "500",
-    border: "1px solid #4f46e5",
-    background: "#4f46e5",
-    color: "#ffffff",
-    cursor: "pointer",
-  };
-
-  const inactiveBtn = {
-    display: "flex",
-    alignItems: "center",
-    gap: "6px",
-    padding: "8px 14px",
-    borderRadius: "8px",
-    fontSize: "14px",
-    fontWeight: "500",
-    border: "1px solid #e5e7eb",
-    background: "#ffffff",
-    color: "#4b5563",
-    cursor: "pointer",
-  };
-
   return (
-    <main className="min-h-screen bg-gradient-to-br from-sky-50 to-indigo-100 p-6 pt-20">
+    <main className="min-h-screen bg-gradient-to-br from-sky-50 to-indigo-100 px-4 sm:px-6 py-6 pt-20">
       {/* Header row */}
-     <div style={{display:"flex", alignItems:"center", justifyContent:"flex-end", marginBottom:"32px", paddingTop:"20px"}}>
-  
-  <div style={{display:"flex", gap:"8px"}}>
-    <button onClick={() => setView("grid")} style={{padding:"8px 14px", background: view==="grid" ? "#4f46e5" : "#fff", color: view==="grid" ? "#fff" : "#374151", border:"1px solid #4f46e5", borderRadius:"8px", cursor:"pointer", display:"flex", alignItems:"center", gap:"6px"}}>
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
-      Grid
-    </button>
-    <button onClick={() => setView("list")} style={{padding:"8px 14px", background: view==="list" ? "#4f46e5" : "#fff", color: view==="list" ? "#fff" : "#374151", border:"1px solid #4f46e5", borderRadius:"8px", cursor:"pointer", display:"flex", alignItems:"center", gap:"6px"}}>
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="2" width="14" height="2.5" rx="1"/><rect x="1" y="6.75" width="14" height="2.5" rx="1"/><rect x="1" y="11.5" width="14" height="2.5" rx="1"/></svg>
-      List
-    </button>
-  </div>
-</div>
+      <div className="flex items-center justify-end mb-6 sm:mb-8 pt-2 sm:pt-5">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setView("grid")}
+            className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-lg text-sm font-medium border border-indigo-600 cursor-pointer transition ${
+              view === "grid" ? "bg-indigo-600 text-white" : "bg-white text-gray-700"
+            }`}
+          >
+            <GridIcon />
+            Grid
+          </button>
+          <button
+            onClick={() => setView("list")}
+            className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-lg text-sm font-medium border border-indigo-600 cursor-pointer transition ${
+              view === "list" ? "bg-indigo-600 text-white" : "bg-white text-gray-700"
+            }`}
+          >
+            <ListIcon />
+            List
+          </button>
+        </div>
+      </div>
 
       {/* Grid view */}
       {view === "grid" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 max-w-7xl mx-auto">
           {projects.map((project) => (
             <div
               key={project.id}
-              className={`relative ${project.bg} rounded-3xl shadow-lg p-8 hover:shadow-2xl transition-shadow border border-gray-100 flex flex-col min-h-[340px]`}
+              className={`relative ${project.bg} rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8 hover:shadow-2xl transition-shadow border border-gray-100 flex flex-col min-h-[280px] sm:min-h-[340px]`}
             >
-              <div className="font-bold text-2xl mt-2 mb-2 text-gray-900">
+              <div className="font-bold text-xl sm:text-2xl mt-1 sm:mt-2 mb-2 text-gray-900">
                 {project.role}
               </div>
               <div className="flex flex-wrap gap-2 mb-4">
@@ -163,50 +144,34 @@ export default function Projects() {
 
       {/* List view */}
       {view === "list" && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "16px",
-            maxWidth: "80rem",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        >
+        <div className="flex flex-col gap-4 max-w-7xl mx-auto">
           {projects.map((project) => (
             <div
               key={project.id}
-              className={`${project.bg} rounded-2xl shadow border border-gray-100 hover:shadow-lg transition-shadow`}
-              style={{
-                padding: "24px",
-                display: "flex",
-                alignItems: "center",
-                gap: "16px",
-              }}
+              className={`${project.bg} rounded-2xl shadow border border-gray-100 hover:shadow-lg transition-shadow p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-4`}
             >
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div className="font-bold text-xl text-gray-900" style={{ marginBottom: "4px" }}>
+              <div className="flex-1 min-w-0">
+                <div className="font-bold text-lg sm:text-xl text-gray-900 mb-1">
                   {project.role}
                 </div>
-                <div className="text-gray-700 text-sm" style={{ marginBottom: "12px" }}>
+                <div className="text-gray-700 text-sm mb-3">
                   {project.description}
                 </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="bg-white rounded-full text-gray-600 text-sm font-medium shadow"
-                      style={{ padding: "4px 12px" }}
+                      className="bg-white rounded-full text-gray-600 text-sm font-medium shadow px-3 py-1"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
-              <div style={{ flexShrink: 0 }}>
+              <div className="shrink-0 self-start sm:self-center">
                 <Link
                   href={`/details/${project.id}`}
-                  className="bg-gray-900 text-white px-5 py-2 rounded-lg font-semibold shadow hover:bg-indigo-700 transition"
+                  className="inline-block bg-gray-900 text-white px-5 py-2 rounded-lg font-semibold shadow hover:bg-indigo-700 transition"
                 >
                   Details
                 </Link>
