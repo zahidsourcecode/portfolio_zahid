@@ -1,65 +1,44 @@
 "use client";
 
 import Link from "next/link";
-import {
-    
-    ArrowRight,
-   
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const contactItems = [
     {
-        icon: null,
         imgSrc: "/linkedin-icon.png",
         label: "LinkedIn",
         value: "linkedin.com/in/zahidcseedu",
         href: "https://linkedin.com/in/zahidcseedu",
-        isLink: true,
-        
     },
     {
-        icon: null,
         imgSrc: "/globe-icon.png",
         label: "Portfolio",
         value: "google.com",
         href: "https://google.com",
-        isLink: true,
-       
     },
     {
-        icon: null,
         imgSrc: "/book-icon.png",
         label: "Blog",
         value: "ixorasolution.com/author/zh",
         href: "/blog",
-        isLink: true,
     },
     {
-        icon: null,
         imgSrc: "/call-icon.png",
         label: "Phone",
         value: "+8801704038252",
         href: "tel:+8801704038252",
-        isLink: true,
-        
     },
     {
-        icon: null,
         imgSrc: "/location-icon.png",
         label: "Address",
         value: "Block-A, Aftabnagar, Rampura, Dhaka, Bangladesh",
-        href: "https://www.google.com/maps?q=bti+Chorus,+Dhaka,+Bangladesh",
-        isLink: true,
-        
+        href: "https://www.google.com/maps/place/BTI+Chorus/@23.768061,90.4201549,17z/data=!3m1!4b1!4m6!3m5!1s0x3755c7005f87ef3f:0x601cd5d9a9d4ccd3!8m2!3d23.7680562!4d90.4250258!16s%2Fg%2F11ldxmv1cp?entry=ttu",
     },
     {
-        icon: null,
         imgSrc: "/mail-icon.png",
         label: "Email",
         value: "zahidcseedu@yahoo.com",
         href: "mailto:zahidcseedu@yahoo.com",
-        isLink: true,
-        accent: "#3e0097",
     },
 ];
 
@@ -132,17 +111,10 @@ export default function ContactInfo() {
 
                 {/* Contact rows */}
                 <ul className="px-7 py-5 space-y-5">
-                    {contactItems.map(({ icon: Icon, label, imgSrc, value, href, accent }) => (
+                    {contactItems.map(({ label, imgSrc, value, href }) => (
                         <li key={label} className="flex items-start gap-4 group">
-                            <span
-                                className="flex items-center justify-center w-9 h-9 rounded-xl shrink-0 mt-0.5 transition-transform group-hover:scale-110"
-                                style={imgSrc ? { background: "#f1f5f9" } : { background: accent + "15", color: accent }}
-                            >
-                                {imgSrc ? (
-                                    <img src={imgSrc} alt={label} className="w-7 h-7 object-contain" />
-                                ) : (
-                                    <Icon size={17} />
-                                )}
+                            <span className="flex items-center justify-center w-9 h-9 rounded-xl shrink-0 mt-0.5 bg-slate-100 dark:bg-slate-700 transition-transform group-hover:scale-110">
+                                <img src={imgSrc} alt={label} className="w-7 h-7 object-contain" />
                             </span>
                             <div className="flex-1 min-w-0">
                                 <p className="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-0.5">

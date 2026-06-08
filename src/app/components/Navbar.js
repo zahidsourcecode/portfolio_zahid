@@ -3,8 +3,9 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Settings, Sun, Moon, ChevronRight } from "lucide-react";
+import { Menu, X, Settings, Sun, Moon, Upload } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import UploadCvModal from "./UploadCvModal";
 
 const navLinks = [
   { href: "/", label: "Dashboard" },
@@ -20,6 +21,7 @@ export default function Navbar() {
   const { isDark, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showUploadCv, setShowUploadCv] = useState(false);
   const settingsRef = useRef(null);
 
   useEffect(() => {
@@ -53,20 +55,22 @@ export default function Navbar() {
       <div className="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-3">
           {/* Brand */}
-          <Link href="/" className="flex items-center gap-2.5 min-w-0 group shrink-0">
-            <div className="relative">
-              <div className="absolute inset-0 rounded-full bg-brand/30 blur-md scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <img
-                src="/logo.png"
-                alt="Zahid Hasan"
-                className="relative w-9 h-9 sm:w-10 sm:h-10 object-cover rounded-full ring-2 ring-brand/40 ring-offset-2 ring-offset-white dark:ring-offset-slate-900"
-              />
-            </div>
-            <div className="flex flex-col leading-tight min-w-0">
-              <span className="text-base sm:text-lg font-bold text-slate-800 dark:text-white truncate group-hover:text-brand-dark dark:group-hover:text-brand transition-colors">
-                Zahid Hasan
+          <Link href="/" className="flex items-center gap-2.5 min-w-0 group shrink-0 cursor-pointer">
+            <img
+              src="/logo.png"
+              alt="Zahid Hasan"
+              className="w-10 h-10 sm:w-12 sm:h-12 object-contain transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-[1.28] group-active:scale-[1.12]"
+            />
+            <div className="flex flex-col leading-tight min-w-0 origin-left transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-105">
+              <span className="text-base sm:text-lg font-bold truncate">
+                <span className="text-slate-800 transition-colors duration-300 group-hover:text-brand dark:text-white dark:group-hover:text-brand">
+                  Zahid{" "}
+                </span>
+                <span className="text-brand-dark transition-colors duration-300 group-hover:text-brand-darker dark:text-brand dark:group-hover:text-brand-muted">
+                  Hasan
+                </span>
               </span>
-              <span className="hidden sm:block text-xs font-medium text-brand-dark dark:text-brand-muted truncate">
+              <span className="hidden sm:block text-xs font-medium text-slate-500 transition-colors duration-300 group-hover:text-brand-dark dark:text-brand/80 dark:group-hover:text-brand truncate">
                 Technical Team Lead
               </span>
             </div>
@@ -137,11 +141,15 @@ export default function Navbar() {
 
                   <div className="px-4 border-t border-brand/15 dark:border-brand/10 pt-2 mt-1">
                     <button
-                      disabled
-                      className="w-full flex items-center justify-between py-2 text-sm text-slate-300 dark:text-slate-600 cursor-not-allowed"
+                      type="button"
+                      onClick={() => {
+                        setShowSettings(false);
+                        setShowUploadCv(true);
+                      }}
+                      className="w-full flex items-center gap-2 py-2 text-sm text-slate-700 dark:text-slate-200 hover:text-brand-dark dark:hover:text-brand transition-colors cursor-pointer"
                     >
-                      <span>Edit Profile</span>
-                      <ChevronRight size={14} />
+                      <Upload size={14} className="text-brand" />
+                      Upload CV
                     </button>
                   </div>
                 </div>
@@ -186,6 +194,8 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+      <UploadCvModal open={showUploadCv} onClose={() => setShowUploadCv(false)} />
     </nav>
   );
 }

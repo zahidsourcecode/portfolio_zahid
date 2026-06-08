@@ -1,0 +1,55 @@
+export const projects = [
+  {
+    id: "todo",
+    title: "To-Do List",
+    role: "Task Manager App",
+    tags: ["React", "Kanban", "Productivity"],
+    image: "/portfolio_img.jpg",
+    description: "A Kanban board for managing tasks.",
+    bg: "bg-orange-100 dark:bg-orange-950/40",
+    iframeSrc: "https://kanban-board-sigma-sepia.vercel.app/",
+  },
+  {
+    id: "movie",
+    title: "Movie website",
+    role: "Movie Search App",
+    tags: ["React", "API", "Movies"],
+    image: "/portfolio_img.jpg",
+    description: "A simple movie website to search, view, and manage movies.",
+    bg: "bg-green-100 dark:bg-green-950/40",
+    iframeSrc: "https://movie-app-ashen-iota-35.vercel.app/",
+  },
+  {
+    id: "eschool",
+    title: "E-School Landing Page",
+    role: "E School Landing Page",
+    tags: ["HTML", "CSS", "Bootstrap"],
+    image: "/portfolio_img.jpg",
+    description:
+      "A static educational landing page built using HTML, CSS, and Bootstrap.",
+    bg: "bg-blue-100 dark:bg-blue-950/40",
+    iframeSrc: "",
+  },
+  {
+    id: "crudapp",
+    title: "Full-Stack CRUD App",
+    role: "User Management System",
+    tags: ["React", "MongoDB", "Express", "Node.js"],
+    image: "/portfolio_img.jpg",
+    description:
+      "A full-stack application to manage users. Features include registration, login, and CRUD operations using Postman.",
+    bg: "bg-purple-100 dark:bg-purple-950/40",
+    iframeSrc: "https://crud-frontend-iota-one.vercel.app/",
+  },
+  {
+    id: "courier",
+    title: "Courier Package Tracker",
+    role: "Real-Time Package Tracker",
+    tags: ["Next.js", "Socket.IO", "MongoDB", "Tailwind"],
+    image: "/portfolio_img.jpg",
+    description:
+      "A real-time package tracking system with alerting and drill-down views for dispatchers.",
+    bg: "bg-yellow-100 dark:bg-yellow-950/40",
+    iframeSrc: "https://courier-tracker-frontend-eosin.vercel.app/",
+  },
+];

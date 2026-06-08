@@ -1,52 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-
-const projects = [
-  {
-    id: "todo",
-    title: "To-Do List",
-    role: "Task Manager App",
-    tags: ["React", "Kanban", "Productivity"],
-    iframeSrc: "https://kanban-board-sigma-sepia.vercel.app/",
-  },
-  {
-    id: "movie",
-    title: "Movie website",
-    role: "Movie Search App",
-    tags: ["React", "API", "Movies"],
-    iframeSrc: "https://movie-app-ashen-iota-35.vercel.app/",
-  },
-  {
-    id: "eschool",
-    title: "E-School Landing Page",
-    role: "E School Landing Page",
-    tags: ["HTML", "CSS", "Bootstrap"],
-    iframeSrc: "",
-  },
-  {
-    id: "crudapp",
-    title: "Full-Stack CRUD App",
-    role: "User Management System",
-    tags: ["React", "MongoDB", "Express", "Node.js"],
-    logo: "/portfolio_img.jpg",
-    description:
-      "A full-stack application to manage users. Features include registration, login, and CRUD operations uisng postman.",
-    iframeSrc: "https://crud-frontend-iota-one.vercel.app/",
-    
-  },
-  {
-  id: "courier",
-  title: "Courier Package Tracker",
-  role: "Real-Time Package Tracker",
-  tags: ["Next.js", "Socket.IO", "MongoDB", "Tailwind"],
-  logo: "/portfolio_img.jpg", // update this if you have a custom image
-  description:
-    "A real-time package tracking system with alerting and drill-down views for dispatchers.",
-  iframeSrc: "https://courier-tracker-frontend-eosin.vercel.app/",
-  bg: "bg-yellow-100",
-},
-
-];
+import { projects } from "../../data/projects";
 
 export default function ProjectDetails({ params }) {
   const project = projects.find((p) => p.id === params.id);
