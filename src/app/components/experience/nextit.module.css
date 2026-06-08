@@ -239,3 +239,37 @@
     word-break: break-word;
   }
 }
+
+:global(.dark) .companyName {
+  color: #f1f5f9;
+}
+
+:global(.dark) .employmentType,
+:global(.dark) .location,
+:global(.dark) .jobDuration {
+  color: #94a3b8;
+}
+
+:global(.dark) .jobTitle,
+:global(.dark) .skillsLabel,
+:global(.dark) .imageLabel {
+  color: #e2e8f0;
+}
+
+:global(.dark) .jobDesc,
+:global(.dark) .skillsList {
+  color: #cbd5e1;
+}
+
+:global(.dark) .timelineDot {
+  background: #475569;
+  border-color: #64748b;
+}
+
+:global(.dark) .timelineDot::after {
+  background: #475569;
+}
+
+:global(.dark) .teamImg {
+  border-color: #475569;
+}

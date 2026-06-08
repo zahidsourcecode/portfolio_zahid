@@ -3,11 +3,36 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --brand: #5ebed5;
+  --brand-dark: #3a9db8;
+  --brand-darker: #2a7f96;
+  --brand-light: #e8f7fb;
+  --brand-muted: #b8e8f2;
+  --page-from: #f0f9ff;
+  --page-to: #e0e7ff;
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --muted-text: #4b5563;
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #e2e8f0;
+  --page-from: #0f172a;
+  --page-to: #020617;
+  --card-bg: #1e293b;
+  --card-border: #334155;
+  --muted-text: #94a3b8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-darker: var(--brand-darker);
+  --color-brand-light: var(--brand-light);
+  --color-brand-muted: var(--brand-muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -29,4 +54,19 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
   min-width: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.page-gradient {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, var(--page-from), var(--page-to));
+  color: var(--foreground);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.page-solid {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  transition: background 0.3s ease, color 0.3s ease;
 }

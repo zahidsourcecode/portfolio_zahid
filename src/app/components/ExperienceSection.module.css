@@ -63,3 +63,20 @@
     text-align: center;
   }
 }
+
+:global(.dark) .cardWrapper {
+  background: #1e293b;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+:global(.dark) .sectionDivider {
+  background: #334155;
+}
+
+:global(.dark) .careerTitle {
+  color: #f1f5f9;
+}
+
+:global(.dark) .careerDuration {
+  color: #94a3b8;
+}

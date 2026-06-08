@@ -2,31 +2,25 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, Settings, Sun, Moon, ChevronRight } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
+
+const navLinks = [
+  { href: "/", label: "Dashboard" },
+  { href: "/experience", label: "Experience" },
+  { href: "/projects", label: "Projects" },
+  { href: "/skills", label: "Skills" },
+  { href: "/contact-info", label: "Contact" },
+];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const { isDark, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") === "dark";
-    }
-    return false;
-  });
   const settingsRef = useRef(null);
 
-  // Toggle dark class on <html> AND save to localStorage
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDark]);
-
-  // Close settings panel on outside click
   useEffect(() => {
     function handleClickOutside(e) {
       if (settingsRef.current && !settingsRef.current.contains(e.target)) {
@@ -37,77 +31,98 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  const isActive = (href) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  const linkClass = (href) =>
+    `relative px-3.5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+      isActive(href)
+        ? "text-white bg-brand shadow-md shadow-brand/30"
+        : "text-slate-600 dark:text-slate-300 hover:text-brand-dark dark:hover:text-brand hover:bg-brand-light/60 dark:hover:bg-brand/10"
+    }`;
+
   return (
-    <nav className="w-full fixed top-0 left-0 z-50 h-16 bg-white dark:bg-gray-900 shadow-md transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 gap-2">
-          {/* Nav Links */}
-          <div className="hidden md:flex space-x-6 items-center shrink-0">
-            <Link href="/" className="hover:text-indigo-600 font-medium text-black dark:text-white transition-colors">Dashboard</Link>
-            <Link href="/experience" className="hover:text-indigo-600 font-medium text-black dark:text-white transition-colors">Experience</Link>
-            <Link href="/projects" className="hover:text-indigo-600 font-medium text-black dark:text-white transition-colors">Projects</Link>
-            <Link href="/skills" className="hover:text-indigo-600 font-medium text-black dark:text-white transition-colors">Skills</Link>
-            <Link href="/contact-info" className="hover:text-indigo-600 font-medium text-black dark:text-white transition-colors">Contact</Link>
+    <nav className="w-full fixed top-0 left-0 z-50 transition-all duration-300">
+      <div className="absolute inset-0 bg-white/80 dark:bg-slate-900/85 backdrop-blur-xl border-b border-brand/20 dark:border-brand/15 shadow-[0_4px_24px_-4px_rgba(94,190,213,0.25)]" />
+
+      <div className="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 gap-3">
+          {/* Brand */}
+          <Link href="/" className="flex items-center gap-2.5 min-w-0 group shrink-0">
+            <div className="relative">
+              <div className="absolute inset-0 rounded-full bg-brand/30 blur-md scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <img
+                src="/logo.png"
+                alt="Zahid Hasan"
+                className="relative w-9 h-9 sm:w-10 sm:h-10 object-cover rounded-full ring-2 ring-brand/40 ring-offset-2 ring-offset-white dark:ring-offset-slate-900"
+              />
+            </div>
+            <div className="flex flex-col leading-tight min-w-0">
+              <span className="text-base sm:text-lg font-bold text-slate-800 dark:text-white truncate group-hover:text-brand-dark dark:group-hover:text-brand transition-colors">
+                Zahid Hasan
+              </span>
+              <span className="hidden sm:block text-xs font-medium text-brand-dark dark:text-brand-muted truncate">
+                Technical Team Lead
+              </span>
+            </div>
+          </Link>
+
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-1 bg-brand-light/50 dark:bg-slate-800/60 rounded-full px-1.5 py-1 border border-brand/15 dark:border-brand/10">
+            {navLinks.map(({ href, label }) => (
+              <Link key={href} href={href} className={linkClass(href)}>
+                {label}
+              </Link>
+            ))}
           </div>
 
-          {/* Mobile hamburger */}
-          <div className="md:hidden flex items-center shrink-0">
-            <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu" className="text-gray-800 dark:text-white focus:outline-none p-1">
-              {isOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
-          </div>
-
-          {/* Brand + Settings */}
-          <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 ml-auto md:ml-0">
-            <Link href="/" className="flex items-center space-x-2 min-w-0">
-              <img src="/logo.png" alt="Zahid Hasan" className="w-9 h-9 sm:w-11 sm:h-11 object-cover shrink-0" />
-              <div className="flex flex-col leading-tight min-w-0">
-                <span className="text-base sm:text-xl font-bold dark:text-white truncate">Zahid Hasan</span>
-                <span className="hidden sm:block text-sm font-medium ml-1 dark:text-white truncate">Technical Team Lead</span>
-              </div>
-            </Link>
-
-            {/* Settings button + dropdown */}
+          {/* Right actions */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <div className="relative" ref={settingsRef}>
               <button
                 onClick={() => setShowSettings(!showSettings)}
                 aria-label="Settings"
                 className={`p-2 rounded-full transition-all duration-200 cursor-pointer ${
                   showSettings
-                    ? "bg-indigo-100 dark:bg-indigo-900 text-indigo-600"
-                    : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-indigo-600"
+                    ? "bg-brand text-white shadow-md shadow-brand/30"
+                    : "text-slate-500 dark:text-slate-400 hover:bg-brand-light dark:hover:bg-brand/15 hover:text-brand-dark dark:hover:text-brand"
                 }`}
               >
-                <Settings size={20} className={`transition-transform duration-300 ${showSettings ? "rotate-45" : ""}`} />
+                <Settings
+                  size={20}
+                  className={`transition-transform duration-300 ${showSettings ? "rotate-45" : ""}`}
+                />
               </button>
 
-              {/* Settings Panel */}
               {showSettings && (
-                <div className="absolute right-0 top-12 w-64 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700 rounded-2xl shadow-xl py-3 z-50">
-                  {/* Header */}
-                  <div className="px-4 pb-2 border-b border-gray-100 dark:border-gray-700">
-                    <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Settings</p>
+                <div className="absolute right-0 top-12 w-64 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-brand/20 dark:border-brand/15 rounded-2xl shadow-xl shadow-brand/10 py-3 z-50 overflow-hidden">
+                  <div className="px-4 pb-2 border-b border-brand/15 dark:border-brand/10">
+                    <p className="text-xs font-semibold text-brand-dark dark:text-brand uppercase tracking-widest">
+                      Settings
+                    </p>
                   </div>
 
-                  {/* Theme toggle */}
                   <div className="px-4 py-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         {isDark ? (
-                          <Moon size={16} className="text-indigo-400" />
+                          <Moon size={16} className="text-brand" />
                         ) : (
                           <Sun size={16} className="text-amber-500" />
                         )}
                         <div>
-                          <p className="text-sm font-medium text-gray-800 dark:text-gray-100">Theme</p>
-                          <p className="text-xs text-gray-400">{isDark ? "Dark mode" : "Light mode"}</p>
+                          <p className="text-sm font-medium text-slate-800 dark:text-slate-100">Theme</p>
+                          <p className="text-xs text-slate-400">{isDark ? "Dark mode" : "Light mode"}</p>
                         </div>
                       </div>
-                      {/* Toggle switch */}
                       <button
-                        onClick={() => setIsDark(!isDark)}
+                        onClick={toggleTheme}
                         className={`relative w-11 h-6 rounded-full transition-colors duration-300 focus:outline-none cursor-pointer ${
-                          isDark ? "bg-indigo-600" : "bg-gray-200"
+                          isDark ? "bg-brand" : "bg-slate-200"
                         }`}
                       >
                         <span
@@ -119,11 +134,10 @@ export default function Navbar() {
                     </div>
                   </div>
 
-                  {/* Divider + future items placeholder */}
-                  <div className="px-4 border-t border-gray-100 dark:border-gray-700 pt-2 mt-1">
+                  <div className="px-4 border-t border-brand/15 dark:border-brand/10 pt-2 mt-1">
                     <button
                       disabled
-                      className="w-full flex items-center justify-between py-2 text-sm text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                      className="w-full flex items-center justify-between py-2 text-sm text-slate-300 dark:text-slate-600 cursor-not-allowed"
                     >
                       <span>Edit Profile</span>
                       <ChevronRight size={14} />
@@ -132,30 +146,44 @@ export default function Navbar() {
                 </div>
               )}
             </div>
+
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle Menu"
+              className={`md:hidden p-2 rounded-full transition-all duration-200 ${
+                isOpen
+                  ? "bg-brand text-white"
+                  : "text-slate-700 dark:text-slate-200 hover:bg-brand-light dark:hover:bg-brand/15 hover:text-brand-dark"
+              }`}
+            >
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </div>
 
-        {/* Mobile Menu Dropdown */}
-        {isOpen && (
-          <div className="absolute left-0 right-0 top-16 md:hidden bg-white dark:bg-gray-900 shadow-lg py-4 flex flex-col items-stretch w-full border-t border-gray-100 dark:border-gray-800 z-50">
-            {[
-              { href: "/", label: "Dashboard" },
-              { href: "/experience", label: "Experience" },
-              { href: "/projects", label: "Projects" },
-              { href: "/skills", label: "Skills" },
-              { href: "/contact-info", label: "Contact" },
-            ].map(({ href, label }) => (
+        {/* Mobile menu */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
+            isOpen ? "max-h-96 opacity-100 pb-4" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="flex flex-col gap-1 pt-2 border-t border-brand/15 dark:border-brand/10">
+            {navLinks.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
                 onClick={() => setIsOpen(false)}
-                className="w-full text-left px-4 py-2 rounded-lg text-gray-900 dark:text-white font-bold hover:bg-indigo-50 dark:hover:bg-indigo-900 hover:text-indigo-700 transition"
+                className={`px-4 py-2.5 rounded-xl font-medium transition-all duration-200 ${
+                  isActive(href)
+                    ? "bg-brand text-white shadow-md shadow-brand/25"
+                    : "text-slate-700 dark:text-slate-200 hover:bg-brand-light/70 dark:hover:bg-brand/10 hover:text-brand-dark dark:hover:text-brand"
+                }`}
               >
                 {label}
               </Link>
             ))}
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );

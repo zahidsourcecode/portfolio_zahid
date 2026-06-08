@@ -12,7 +12,7 @@ const projects = [
     logo: "/portfolio_img.jpg",
     description: "A Kanban board for managing tasks.",
     iframeSrc: "https://kanban-board-sigma-sepia.vercel.app/",
-    bg: "bg-orange-100",
+    bg: "bg-orange-100 dark:bg-orange-950/40",
   },
   {
     id: "movie",
@@ -22,7 +22,7 @@ const projects = [
     logo: "/portfolio_img.jpg",
     description: "A simple movie website to search, view, and manage movies.",
     iframeSrc: "https://movie-app-ashen-iota-35.vercel.app/",
-    bg: "bg-green-100",
+    bg: "bg-green-100 dark:bg-green-950/40",
   },
   {
     id: "eschool",
@@ -33,7 +33,7 @@ const projects = [
     description:
       "A static educational landing page built using HTML, CSS, and Bootstrap.",
     iframeSrc: "",
-    bg: "bg-blue-100",
+    bg: "bg-blue-100 dark:bg-blue-950/40",
   },
   {
     id: "crudapp",
@@ -44,7 +44,7 @@ const projects = [
     description:
       "A full-stack application to manage users. Features include registration, login, and CRUD operations using postman.",
     iframeSrc: "https://crud-frontend-iota-one.vercel.app/",
-    bg: "bg-purple-100",
+    bg: "bg-purple-100 dark:bg-purple-950/40",
   },
   {
     id: "courier",
@@ -55,7 +55,7 @@ const projects = [
     description:
       "A real-time package tracking system with alerting and drill-down views for dispatchers.",
     iframeSrc: "https://courier-tracker-frontend-eosin.vercel.app/",
-    bg: "bg-yellow-100",
+    bg: "bg-yellow-100 dark:bg-yellow-950/40",
   },
 ];
 
@@ -80,14 +80,14 @@ export default function Projects() {
   const [view, setView] = useState("grid");
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-sky-50 to-indigo-100 px-4 sm:px-6 py-6 pt-20">
+    <main className="page-gradient px-4 sm:px-6 py-6 pt-20">
       {/* Header row */}
       <div className="flex items-center justify-end mb-6 sm:mb-8 pt-2 sm:pt-5">
         <div className="flex gap-2">
           <button
             onClick={() => setView("grid")}
-            className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-lg text-sm font-medium border border-indigo-600 cursor-pointer transition ${
-              view === "grid" ? "bg-indigo-600 text-white" : "bg-white text-gray-700"
+            className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-lg text-sm font-medium border border-brand cursor-pointer transition ${
+              view === "grid" ? "bg-brand text-white" : "bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-200"
             }`}
           >
             <GridIcon />
@@ -95,8 +95,8 @@ export default function Projects() {
           </button>
           <button
             onClick={() => setView("list")}
-            className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-lg text-sm font-medium border border-indigo-600 cursor-pointer transition ${
-              view === "list" ? "bg-indigo-600 text-white" : "bg-white text-gray-700"
+            className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-lg text-sm font-medium border border-brand cursor-pointer transition ${
+              view === "list" ? "bg-brand text-white" : "bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-200"
             }`}
           >
             <ListIcon />
@@ -111,22 +111,22 @@ export default function Projects() {
           {projects.map((project) => (
             <div
               key={project.id}
-              className={`relative ${project.bg} rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8 hover:shadow-2xl transition-shadow border border-gray-100 flex flex-col min-h-[280px] sm:min-h-[340px]`}
+              className={`relative ${project.bg} rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8 hover:shadow-2xl transition-shadow border border-gray-100 dark:border-slate-700 flex flex-col min-h-[280px] sm:min-h-[340px]`}
             >
-              <div className="font-bold text-xl sm:text-2xl mt-1 sm:mt-2 mb-2 text-gray-900">
+              <div className="font-bold text-xl sm:text-2xl mt-1 sm:mt-2 mb-2 text-gray-900 dark:text-slate-100">
                 {project.role}
               </div>
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="bg-white rounded-full px-3 py-1 text-gray-600 text-sm font-medium shadow"
+                    className="bg-white dark:bg-slate-800 rounded-full px-3 py-1 text-gray-600 dark:text-slate-300 text-sm font-medium shadow"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
-              <div className="mb-4 text-gray-700 text-sm">
+              <div className="mb-4 text-gray-700 dark:text-slate-300 text-sm">
                 {project.description}
               </div>
               <div className="flex items-center justify-between mt-auto">
@@ -148,20 +148,20 @@ export default function Projects() {
           {projects.map((project) => (
             <div
               key={project.id}
-              className={`${project.bg} rounded-2xl shadow border border-gray-100 hover:shadow-lg transition-shadow p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-4`}
+              className={`${project.bg} rounded-2xl shadow border border-gray-100 dark:border-slate-700 hover:shadow-lg transition-shadow p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-4`}
             >
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-lg sm:text-xl text-gray-900 mb-1">
+                <div className="font-bold text-lg sm:text-xl text-gray-900 dark:text-slate-100 mb-1">
                   {project.role}
                 </div>
-                <div className="text-gray-700 text-sm mb-3">
+                <div className="text-gray-700 dark:text-slate-300 text-sm mb-3">
                   {project.description}
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="bg-white rounded-full text-gray-600 text-sm font-medium shadow px-3 py-1"
+                      className="bg-white dark:bg-slate-800 rounded-full text-gray-600 dark:text-slate-300 text-sm font-medium shadow px-3 py-1"
                     >
                       {tag}
                     </span>
