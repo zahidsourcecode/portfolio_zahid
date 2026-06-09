@@ -53,6 +53,10 @@ export function runPageAutoScroll({ startAfterFirstSection = false } = {}) {
     return () => {};
   }
 
+  if (window.matchMedia("(pointer: coarse)").matches) {
+    return () => {};
+  }
+
   const startY = getScrollStartY(startAfterFirstSection);
   window.scrollTo({ top: startY, behavior: "auto" });
 
@@ -67,10 +71,13 @@ export function runPageAutoScroll({ startAfterFirstSection = false } = {}) {
     stopped = true;
     cancelAnimationFrame(rafId);
     window.removeEventListener("mousemove", onMouseMove);
+    window.removeEventListener("touchstart", onUserInput, { capture: true });
+    window.removeEventListener("wheel", onUserInput, { passive: true });
     document.body.classList.remove("page-auto-scroll");
   };
 
   const onMouseMove = () => stop();
+  const onUserInput = () => stop();
 
   const pixelsPerSecond = 95;
   const maxScroll = getMaxScroll();
@@ -105,6 +112,8 @@ export function runPageAutoScroll({ startAfterFirstSection = false } = {}) {
   };
 
   window.addEventListener("mousemove", onMouseMove, { passive: true });
+  window.addEventListener("touchstart", onUserInput, { passive: true, capture: true });
+  window.addEventListener("wheel", onUserInput, { passive: true });
   rafId = requestAnimationFrame(tick);
 
   return stop;

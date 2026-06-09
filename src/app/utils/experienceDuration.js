@@ -191,30 +191,6 @@ export function formatEmploymentType(roles, employmentType = "Full-time", now = 
   return `${employmentType} · ${formatDurationMonths(monthsBetween(start, end, now))}`;
 }
 
-export function formatCareerHeaderDuration(rolesOrStart, endStr = "Present", now = new Date()) {
-  const range = typeof rolesOrStart === "string"
-    ? { start: rolesOrStart, end: endStr }
-    : getCompanyDateRange(rolesOrStart);
-
-  const totalMonths = monthsBetween(range.start, range.end, now);
-
-  if (totalMonths < 12) {
-    const monthLabel = totalMonths === 1 ? "Month" : "Months";
-    return `${totalMonths} ${monthLabel}`;
-  }
-
-  const years = Math.floor(totalMonths / 12);
-  const months = totalMonths % 12;
-  const yearLabel = years === 1 ? "Year" : "Years";
-
-  if (months === 0) {
-    return `${years} ${yearLabel}`;
-  }
-
-  const monthLabel = months === 1 ? "Month" : "Months";
-  return `${years} ${yearLabel} ${months} ${monthLabel}`;
-}
-
 export function getCareerDurationParts(rolesOrStart, endStr = "Present", now = new Date()) {
   const range = typeof rolesOrStart === "string"
     ? { start: rolesOrStart, end: endStr }

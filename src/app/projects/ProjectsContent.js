@@ -11,25 +11,9 @@ import {
   FolderKanban,
 } from "lucide-react";
 import { projects } from "../data/projects";
+import { GridIcon, ListIcon } from "../components/ViewToggleIcons";
 
 const PROJECTS_PER_PAGE = 4;
-
-const GridIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-    <rect x="1" y="1" width="6" height="6" rx="1" />
-    <rect x="9" y="1" width="6" height="6" rx="1" />
-    <rect x="1" y="9" width="6" height="6" rx="1" />
-    <rect x="9" y="9" width="6" height="6" rx="1" />
-  </svg>
-);
-
-const ListIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-    <rect x="1" y="2" width="14" height="2.5" rx="1" />
-    <rect x="1" y="6.75" width="14" height="2.5" rx="1" />
-    <rect x="1" y="11.5" width="14" height="2.5" rx="1" />
-  </svg>
-);
 
 function ProjectImage({ project, variant = "grid" }) {
   if (variant === "grid") {
@@ -192,13 +176,17 @@ export default function ProjectsContent() {
                   <ChevronLeft size={18} />
                 </button>
 
+                <span className="min-w-12 text-center text-sm font-medium text-slate-600 dark:text-slate-300 sm:hidden">
+                  {currentPage} / {totalPages}
+                </span>
+
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                   <button
                     key={page}
                     onClick={() => goToPage(page)}
                     aria-label={`Page ${page}`}
                     aria-current={page === currentPage ? "page" : undefined}
-                    className={`min-w-[36px] h-9 px-2 rounded-lg text-sm font-medium cursor-pointer transition-colors ${
+                    className={`hidden sm:inline-flex min-w-[36px] h-9 px-2 rounded-lg text-sm font-medium cursor-pointer transition-colors ${
                       page === currentPage
                         ? "bg-brand text-white shadow-md shadow-brand/25"
                         : "border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand-light/60 dark:hover:bg-brand/10 hover:text-brand-dark dark:hover:text-brand"

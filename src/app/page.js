@@ -176,7 +176,7 @@ export default function Home() {
                 />
               </div>
 
-              <div className="mx-auto flex w-full max-w-[360px] flex-nowrap items-center justify-center gap-0.5 px-0.5 sm:max-w-[400px] sm:gap-1.5">
+              <div className="mx-auto flex w-full max-w-[360px] flex-wrap items-center justify-center gap-1 px-0.5 sm:max-w-[400px] sm:flex-nowrap sm:gap-1.5">
                 {socialLinks.map(({ href, label, icon }) => (
                   <a
                     key={label}
@@ -231,10 +231,14 @@ export default function Home() {
             {/* Content panel */}
             <div className="lg:w-[58%] p-5 sm:p-8 lg:p-10 flex flex-col justify-center min-w-0">
               <div className="mb-4 sm:mb-6 rounded-r-xl border-l-[3px] border-brand bg-gradient-to-r from-brand/[0.08] via-brand/[0.03] to-transparent py-3 sm:py-4 pl-3 sm:pl-5 pr-2">
-                <div className="origin-left cursor-default transition-transform duration-300 ease-out hover:scale-[1.04]">
-                  <h1 className="font-[family-name:var(--font-playfair)] text-[1.75rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold leading-tight text-slate-900 dark:text-white">
-                    Zahid{" "}
-                    <span className="text-brand dark:text-brand">Hasan</span>
+                <div className="group origin-left cursor-pointer transition-transform duration-300 ease-out hover:scale-[1.04]">
+                  <h1 className="font-[family-name:var(--font-playfair)] text-[1.75rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold leading-tight">
+                    <span className="text-slate-900 transition-colors duration-300 group-hover:text-brand dark:text-white dark:group-hover:text-brand">
+                      Zahid{" "}
+                    </span>
+                    <span className="text-brand transition-colors duration-300 group-hover:text-brand-dark dark:text-brand dark:group-hover:text-brand-muted">
+                      Hasan
+                    </span>
                   </h1>
                   <p className="mt-1.5 sm:mt-2 text-sm sm:text-base font-medium tracking-wide text-slate-600 dark:text-slate-300">
                     Technical Team Lead

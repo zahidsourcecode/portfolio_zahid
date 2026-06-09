@@ -94,7 +94,7 @@ export default function ContactInfo() {
 
                 {/* Avatar bump */}
                 <div className="relative px-4 pb-2 pt-0 sm:px-7">
-                    <div className="absolute -top-10 right-7 w-20 h-20 rounded-full border-4 border-white dark:border-slate-700 shadow-lg overflow-hidden bg-indigo-100 dark:bg-slate-700">
+                    <div className="absolute -top-10 right-4 h-16 w-16 rounded-full border-4 border-white dark:border-slate-700 shadow-lg overflow-hidden bg-indigo-100 dark:bg-slate-700 sm:right-7 sm:h-20 sm:w-20">
                         <img
                             src="/logo.png"
                             alt="Zahid Hasan"

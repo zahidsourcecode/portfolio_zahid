@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import {
-  formatCareerHeaderDuration,
   formatEmploymentType,
   formatExperienceRange,
   getCareerDurationParts,
@@ -31,15 +30,6 @@ export function EmploymentTypeDisplay({ roles, employmentType = "Full-time" }) {
   const text = useLiveDurationText(
     (now) => formatEmploymentType(roles, employmentType, now),
     [roles, employmentType],
-  );
-
-  return <span suppressHydrationWarning>{text}</span>;
-}
-
-export function CareerDurationDisplay({ roles }) {
-  const text = useLiveDurationText(
-    (now) => formatCareerHeaderDuration(roles, "Present", now),
-    [roles],
   );
 
   return <span suppressHydrationWarning>{text}</span>;

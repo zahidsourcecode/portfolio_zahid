@@ -20,7 +20,7 @@ export default function ProjectDetails({ params }) {
           {project.title}
         </h1>
       </div>
-      <div className="flex min-h-[280px] h-[calc(100dvh-12rem)] w-full flex-1 overflow-hidden rounded-xl border border-indigo-100 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:h-[calc(100dvh-10rem)] sm:min-h-[360px]">
+      <div className="flex min-h-[240px] h-[calc(100dvh-14rem-env(safe-area-inset-bottom,0px))] w-full flex-1 overflow-hidden rounded-xl border border-indigo-100 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:min-h-[320px] sm:h-[calc(100dvh-12rem-env(safe-area-inset-bottom,0px))]">
         <iframe
           src={project.iframeSrc}
           className="w-full h-full"

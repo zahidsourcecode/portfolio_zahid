@@ -721,3 +721,85 @@
   color: var(--brand);
   border-color: color-mix(in srgb, var(--brand) 40%, #334155);
 }
+
+@media (max-width: 639px) {
+  .summary,
+  .pillarText {
+    text-align: left;
+  }
+
+  .tableWrap {
+    overflow: visible;
+    border: none;
+    background: transparent;
+  }
+
+  .table {
+    min-width: 0;
+    display: block;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .table tbody tr {
+    display: block;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.65rem;
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  :global(.dark) .table tbody tr {
+    border-color: #334155;
+    background: color-mix(in srgb, #0f172a 92%, #1e293b);
+  }
+
+  .table tbody tr:hover {
+    background: #ffffff;
+  }
+
+  :global(.dark) .table tbody tr:hover {
+    background: color-mix(in srgb, #0f172a 92%, #1e293b);
+  }
+
+  .skillsTable tbody th.categoryCell {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    border-right: none;
+    border-bottom: 1px solid #eef2f6;
+    padding: 0.75rem 1rem;
+  }
+
+  :global(.dark) .skillsTable tbody th.categoryCell {
+    border-bottom-color: #334155;
+  }
+
+  .skillsTable tbody td.skillsCell {
+    display: block;
+    padding: 0.75rem 1rem 1rem;
+  }
+
+  .strengthsTable tbody td.strengthIndex {
+    display: block;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    padding: 0.85rem 1rem 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .strengthsTable tbody td.strengthCell {
+    display: block;
+    padding: 0 1rem 0.85rem;
+  }
+}

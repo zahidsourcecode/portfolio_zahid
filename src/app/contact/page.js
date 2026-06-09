@@ -6,7 +6,7 @@ export default function Contact() {
       <div className="mx-auto w-full max-w-3xl min-w-0">
         <iframe
           src="https://contact-form-iota-opal.vercel.app/"
-          className="h-[calc(100dvh-7.5rem)] w-full min-h-[320px] max-h-[920px] rounded-xl border border-gray-200 shadow-sm dark:border-slate-600 sm:h-[calc(100dvh-6.5rem)] sm:min-h-[420px]"
+          className="h-[calc(100dvh-11rem-env(safe-area-inset-bottom,0px))] w-full min-h-[280px] max-h-[820px] rounded-xl border border-gray-200 shadow-sm dark:border-slate-600 sm:h-[calc(100dvh-9.5rem-env(safe-area-inset-bottom,0px))] sm:min-h-[380px]"
           title="Contact form"
         ></iframe>
       </div>

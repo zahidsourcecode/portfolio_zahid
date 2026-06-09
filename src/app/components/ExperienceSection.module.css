@@ -92,12 +92,21 @@
   margin: 0;
   max-width: 100%;
   font-size: clamp(0.68rem, 2.4vw, 0.94rem);
-  line-height: 1.4;
+  line-height: 1.45;
   letter-spacing: 0.01em;
   color: #64748b;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+@media (min-width: 768px) {
+  .careerSubtitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+  }
 }
 
 .careerStatsWrap {

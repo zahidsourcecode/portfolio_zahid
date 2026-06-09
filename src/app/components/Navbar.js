@@ -15,9 +15,9 @@ import {
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/experience", label: "Experience" },
+  { href: "/skills", label: "Skills" },
   { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
-  { href: "/skills", label: "Skills" },
   { href: "/contact-info", label: "Contact" },
 ];
 
@@ -60,7 +60,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full fixed top-0 left-0 z-50 transition-all duration-300">
+    <nav className="w-full fixed top-0 left-0 z-50 pt-[env(safe-area-inset-top,0px)] transition-all duration-300">
       <div className="absolute inset-0 bg-white/80 dark:bg-slate-900/85 backdrop-blur-xl border-b border-brand/20 dark:border-brand/15 shadow-[0_4px_24px_-4px_rgba(94,190,213,0.25)]" />
 
       <div className="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
