@@ -1,85 +1,280 @@
-'use client';
+"use client";
 
-const skillRows = [
-  ['Frontend', 'HTML5, CSS3, Bootstrap, JavaScript, TypeScript, React.js, Next.js, Tailwind CSS'],
-  ['Backend & API', 'Node.js, Express.js'],
-  ['Databases', 'MS SQL Server (T-SQL), MongoDB'],
-  ['Concepts', 'OOP, SOLID, Design Patterns, Data Structures, Algorithms, HTTP'],
-  ['Tools', 'VS Code, GitHub, Postman, Figma'],
+import Link from "next/link";
+import { ArrowRight, Globe, MapPin } from "lucide-react";
+import styles from "./skills.module.css";
+
+const pillars = [
+  {
+    label: "Primary",
+    title: "Frontend engineering",
+    text: "React, Next.js, and TypeScript for accessible, production-grade interfaces.",
+  },
+  {
+    label: "Supporting",
+    title: "Backend & data",
+    text: "Node.js, .NET APIs, SQL Server, PostgreSQL, and MongoDB in enterprise contexts.",
+  },
+  {
+    label: "Current role",
+    title: "Technical leadership",
+    text: "Team mentoring, architecture, code review, and delivery in distributed teams.",
+  },
+];
+
+const skillProfile = [
+  {
+    category: "Frontend",
+    skills: [
+      "React.js",
+      "Next.js",
+      "TypeScript",
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "Bootstrap",
+      "Tailwind CSS",
+      "jQuery",
+      "Angular",
+      "AngularJS",
+      "PrimeNG",
+      "RxJS",
+      "MEAN",
+      "MERN",
+    ],
+  },
+  {
+    category: "Backend & APIs",
+    skills: [
+      "Node.js",
+      "Express.js",
+      "Python",
+      "Django",
+      "C#",
+      "ASP.NET MVC",
+      "Web API",
+      "REST APIs",
+      "Entity Framework",
+      "EF Core",
+      "LINQ",
+      "ADO.NET",
+      "Ajax",
+      "Microservices",
+      "RabbitMQ",
+    ],
+  },
+  {
+    category: "Database",
+    skills: [
+      "MS SQL Server",
+      "PostgreSQL",
+      "SQLite",
+      "MongoDB",
+      "T-SQL",
+      "DDL",
+      "DML",
+      "DCL",
+      "Datatypes",
+      "Constraints",
+      "Triggers",
+      "Indexes",
+      "Filters",
+      "Sorting",
+      "Functions",
+      "Joins",
+      "Transactions",
+      "CTE",
+      "Temp tables",
+      "Views",
+      "SQL Job",
+      "Query optimisation",
+      "RDLC",
+      "Crystal Reports",
+      "SSRS",
+    ],
+  },
+  {
+    category: "Cloud & tooling",
+    skills: [
+      "Azure",
+      "Azure DevOps",
+      "Azure App Service",
+      "Azure SQL",
+      "Azure Functions",
+      "Azure Key Vault",
+      "Azure Storage",
+      "Entra ID",
+      "Docker",
+      "CI/CD",
+      "Git",
+      "GitHub",
+      "Jira",
+      "VS Code",
+      "Postman",
+      "Swagger",
+      "Figma",
+    ],
+  },
+  {
+    category: "Engineering practice",
+    skills: [
+      "OOP",
+      "SOLID",
+      "Design patterns",
+      "DDD",
+      "ACID",
+      "Data structures",
+      "Algorithms",
+      "Unit testing",
+      "Agile",
+      "Scrum",
+    ],
+  },
+  {
+    category: "Leadership",
+    skills: [
+      "Technical leadership",
+      "Team mentoring",
+      "Code review",
+      "Architecture",
+      "Stakeholder communication",
+    ],
+  },
+  {
+    category: "AI-assisted delivery",
+    skills: ["ChatGPT", "Claude", "Cursor", "Gemini", "AI-assisted development"],
+  },
+];
+
+const strengths = [
+  "Clear concept and strong grounding in OOP, data structures & algorithms, and design patterns; delivers maintainable software with clear structure and consistent standards.",
+  "Worked in complex business domains with full-stack capability across frontend, backend, and SQL development; able to find and resolve problems in complex SQL queries.",
+  "Able to work under delivery pressure and meet deadlines within a defined time frame while maintaining quality.",
+  "Good team player, willing to accept responsibility, and able to adapt in changing environments; comfortable in remote, cross-border teams with async communication, balancing hands-on development with mentoring and technical direction.",
+  "Quick learner with the ability to grasp new technology & concepts and an effective working method in short time; enthusiastic, self-motivated, confident, patient, positive, optimistic, and friendly as a person.",
 ];
 
 export default function SkillsPage() {
   return (
-    <main className="page-gradient min-w-0 overflow-x-hidden px-3 sm:px-6 py-8 sm:py-12 pt-16 sm:pt-20 pb-10">
-      <section className="mx-auto max-w-6xl min-w-0">
-        <h1 className="mb-6 text-lg font-bold text-[#3e0097] dark:text-brand sm:mb-10 sm:text-xl">
-          Skills
-        </h1>
+    <main className={`page-gradient ${styles.page}`}>
+      <div className={styles.inner}>
+        <article className={styles.sheet}>
+          <header className={styles.hero}>
+            <h1 className={styles.title}>Skills</h1>
+            <p className={styles.role}>Technical Team Lead · Software Engineer</p>
+            <p className={styles.summary}>
+              A concise technical profile for senior engineering roles across the EU — focused on
+              modern web development, reliable delivery, and collaborative leadership in remote
+              settings.
+            </p>
 
-        <div className="mb-8 sm:mb-12">
-          <h2 className="mb-3 text-xl font-semibold text-[#3e0097] dark:text-brand sm:mb-4 sm:text-2xl">
-            Special Skills
-          </h2>
-          <ul className="list-disc space-y-3 pl-5 text-base sm:pl-6 sm:text-lg">
-            <li>
-              <strong>Focus Area:</strong> Frontend development with React.js, Next.js — building
-              responsive and user-friendly web interfaces
-            </li>
-            <li>
-              <strong>Tech Stack:</strong> React.js, Next.js, Express.js
-            </li>
-            <li>
-              <strong>Databases:</strong> SQL Server (Query optimization), MongoDB
-            </li>
-            <li>
-              <strong>Other:</strong> Eager to learn, detail-oriented, meets deadlines
-            </li>
-          </ul>
-        </div>
+            <div className={styles.metaRow}>
+              <span className={styles.metaItem}>
+                <Globe size={14} className="text-brand" aria-hidden />
+                <strong>Languages:</strong> English, Bengali
+              </span>
+              <span className={styles.metaItem}>
+                <MapPin size={14} className="text-brand" aria-hidden />
+                <strong>Work model:</strong> Remote, hybrid
+              </span>
+              <span className={styles.metaItem}>
+                <strong>Availability:</strong> EU time-zone overlap
+              </span>
+            </div>
+          </header>
 
-        <div>
-          <h2 className="mb-3 text-xl font-semibold text-[#3e0097] dark:text-brand sm:mb-4 sm:text-2xl">
-            All Skills
-          </h2>
-
-          <div className="space-y-3 sm:hidden">
-            {skillRows.map(([category, tools]) => (
-              <article
-                key={category}
-                className="rounded-xl border border-gray-200 bg-white/80 p-4 shadow-sm dark:border-slate-600 dark:bg-slate-800/80"
-              >
-                <h3 className="mb-2 text-sm font-semibold text-[#3e0097] dark:text-brand">
-                  {category}
-                </h3>
-                <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-                  {tools}
-                </p>
-              </article>
+          <section className={styles.pillars} aria-label="Core competencies">
+            {pillars.map((pillar) => (
+              <div key={pillar.title} className={styles.pillar}>
+                <p className={styles.pillarLabel}>{pillar.label}</p>
+                <h2 className={styles.pillarTitle}>{pillar.title}</h2>
+                <p className={styles.pillarText}>{pillar.text}</p>
+              </div>
             ))}
+          </section>
+
+          <div className={styles.body}>
+            <div className={styles.sectionHead}>
+              <h2 className={styles.sectionTitle}>Technical profile</h2>
+            </div>
+
+            <div className={styles.tableWrap}>
+              <table className={`${styles.table} ${styles.skillsTable}`}>
+                <caption className={styles.tableCaption}>
+                  Technical skills grouped by competence area
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Competence area</th>
+                    <th scope="col">Skills &amp; technologies</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {skillProfile.map(({ category, skills }) => (
+                    <tr key={category}>
+                      <th scope="row" className={styles.categoryCell}>
+                        {category}
+                      </th>
+                      <td className={styles.skillsCell}>
+                        {skills.map((skill) => (
+                          <span key={skill} className={styles.skill}>
+                            {skill}
+                          </span>
+                        ))}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className={styles.divider} aria-hidden />
+
+            <div className={styles.sectionHead}>
+              <h2 className={styles.sectionTitle}>Professional strengths</h2>
+            </div>
+
+            <div className={styles.tableWrap}>
+              <table className={`${styles.table} ${styles.strengthsTable}`}>
+                <caption className={styles.tableCaption}>
+                  Key professional attributes
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col" className={styles.strengthCol}>
+                      No.
+                    </th>
+                    <th scope="col">Professional strength</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {strengths.map((text, index) => (
+                    <tr key={text}>
+                      <td className={styles.strengthIndex}>{index + 1}.</td>
+                      <td className={styles.strengthCell}>{text}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
-          <div className="hidden overflow-x-auto sm:block">
-            <table className="w-full border border-gray-300 text-left text-sm dark:border-slate-600 sm:text-base">
-              <thead className="bg-purple-100 text-[#3e0097] dark:bg-slate-800 dark:text-brand">
-                <tr>
-                  <th className="border px-4 py-2 whitespace-nowrap">Category</th>
-                  <th className="border px-4 py-2">Technologies / Tools</th>
-                </tr>
-              </thead>
-              <tbody>
-                {skillRows.map(([category, tools]) => (
-                  <tr key={category} className="border-t dark:border-slate-600">
-                    <td className="border px-4 py-2 align-top font-medium whitespace-nowrap dark:border-slate-600">
-                      {category}
-                    </td>
-                    <td className="border px-4 py-2 align-top dark:border-slate-600">{tools}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+          <footer className={styles.footer}>
+            <p className={styles.footerText}>
+              Full career history and project context are available on the experience page.
+            </p>
+            <div className={styles.footerActions}>
+              <Link href="/experience" className={styles.primaryLink}>
+                Experience
+                <ArrowRight size={15} aria-hidden />
+              </Link>
+              <Link href="/contact" className={styles.secondaryLink}>
+                Contact
+              </Link>
+            </div>
+          </footer>
+        </article>
+      </div>
     </main>
   );
 }
