@@ -3,10 +3,16 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
-import { ArrowUpRight, ChevronLeft, ChevronRight, FolderKanban } from "lucide-react";
+import {
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  FolderKanban,
+} from "lucide-react";
 import { projects } from "../data/projects";
 
-const PROJECTS_PER_PAGE = 3;
+const PROJECTS_PER_PAGE = 4;
 
 const GridIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -94,6 +100,34 @@ function DetailsButton({ id }) {
         className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
       />
     </Link>
+  );
+}
+
+function LiveDemoButton({ demoUrl }) {
+  if (!demoUrl) return null;
+
+  return (
+    <a
+      href={demoUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1.5 w-fit px-4 py-2 rounded-lg border border-brand/35 bg-white/90 text-sm font-semibold text-brand-dark shadow-sm transition-colors hover:border-brand hover:bg-brand-light/50 group shrink-0 dark:bg-slate-800/90 dark:text-brand dark:hover:bg-brand/10"
+    >
+      Live demo
+      <ExternalLink
+        size={15}
+        className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+      />
+    </a>
+  );
+}
+
+function ProjectActions({ id, demoUrl }) {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <DetailsButton id={id} />
+      <LiveDemoButton demoUrl={demoUrl} />
+    </div>
   );
 }
 
@@ -203,7 +237,7 @@ export default function ProjectsContent() {
         </div>
 
         {view === "grid" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
             {paginatedProjects.map((project) => (
               <article
                 key={project.id}
@@ -222,7 +256,7 @@ export default function ProjectsContent() {
                     {project.description}
                   </p>
 
-                  <DetailsButton id={project.id} />
+                  <ProjectActions id={project.id} demoUrl={project.iframeSrc} />
                 </div>
               </article>
             ))}
@@ -247,7 +281,7 @@ export default function ProjectsContent() {
                 </div>
 
                 <div className="shrink-0 self-start sm:self-center">
-                  <DetailsButton id={project.id} />
+                  <ProjectActions id={project.id} demoUrl={project.iframeSrc} />
                 </div>
               </article>
             ))}

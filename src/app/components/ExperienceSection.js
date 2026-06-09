@@ -8,7 +8,7 @@ import styles from "./ExperienceSection.module.css";
 export default function ExperienceSection() {
   return (
     <div className={styles.cardWrapper}>
-      <div className={styles.cardHeader}>
+      <div className={styles.cardHeader} data-page-section>
         <div className={styles.headerPanel}>
           <div className={styles.headerGlow} aria-hidden="true" />
           <div className={styles.headerContent}>

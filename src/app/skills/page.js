@@ -1,24 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Globe, MapPin } from "lucide-react";
+import { ArrowRight, Layers, Users, MessageSquare } from "lucide-react";
+import PageAutoScroll from "../components/PageAutoScroll";
 import styles from "./skills.module.css";
 
 const pillars = [
   {
-    label: "Primary",
-    title: "Frontend engineering",
-    text: "React, Next.js, and TypeScript for accessible, production-grade interfaces.",
+    label: "Core practice",
+    title: "Full-stack development",
+    text: "Hands-on across frontend, backend, and SQL — React/Next.js, .NET/Node APIs, and database design in production environments.",
+    highlights: ["React & Next.js", ".NET & Node", "SQL & data"],
+    icon: Layers,
+    accentClass: styles.pillarAccent1,
   },
   {
-    label: "Supporting",
-    title: "Backend & data",
-    text: "Node.js, .NET APIs, SQL Server, PostgreSQL, and MongoDB in enterprise contexts.",
+    label: "Leadership",
+    title: "Technical team lead",
+    text: "Mentors engineers, shapes architecture, runs code review, and drives delivery while staying close to the codebase.",
+    highlights: ["Mentoring", "Architecture", "Code review"],
+    icon: Users,
+    accentClass: styles.pillarAccent2,
   },
   {
-    label: "Current role",
-    title: "Technical leadership",
-    text: "Team mentoring, architecture, code review, and delivery in distributed teams.",
+    label: "Client-facing",
+    title: "Customer & stakeholder handling",
+    text: "Works directly with clients and stakeholders — requirements, scope, progress updates, and reliable follow-through across time zones.",
+    highlights: ["Requirements", "Progress updates", "Stakeholders"],
+    icon: MessageSquare,
+    accentClass: styles.pillarAccent3,
   },
 ];
 
@@ -51,12 +61,12 @@ const skillProfile = [
       "Python",
       "Django",
       "C#",
+      "LINQ",
       "ASP.NET MVC",
       "Web API",
       "REST APIs",
       "Entity Framework",
       "EF Core",
-      "LINQ",
       "ADO.NET",
       "Ajax",
       "Microservices",
@@ -96,6 +106,7 @@ const skillProfile = [
   {
     category: "Cloud & tooling",
     skills: [
+      "Figma",
       "Azure",
       "Azure DevOps",
       "Azure App Service",
@@ -112,7 +123,6 @@ const skillProfile = [
       "VS Code",
       "Postman",
       "Swagger",
-      "Figma",
     ],
   },
   {
@@ -121,6 +131,7 @@ const skillProfile = [
       "OOP",
       "SOLID",
       "Design patterns",
+      "Gang of Four",
       "DDD",
       "ACID",
       "Data structures",
@@ -156,41 +167,57 @@ const strengths = [
 
 export default function SkillsPage() {
   return (
-    <main className={`page-gradient ${styles.page}`}>
+    <main className={`page-gradient min-w-0 ${styles.page}`}>
+      <PageAutoScroll />
       <div className={styles.inner}>
         <article className={styles.sheet}>
-          <header className={styles.hero}>
+          <header className={styles.hero} data-page-section>
             <h1 className={styles.title}>Skills</h1>
-            <p className={styles.role}>Technical Team Lead · Software Engineer</p>
-            <p className={styles.summary}>
-              A concise technical profile for senior engineering roles across the EU — focused on
-              modern web development, reliable delivery, and collaborative leadership in remote
-              settings.
+            <p className={styles.role}>
+              Technical Team Lead · Full-Stack Software Engineer
             </p>
-
-            <div className={styles.metaRow}>
-              <span className={styles.metaItem}>
-                <Globe size={14} className="text-brand" aria-hidden />
-                <strong>Languages:</strong> English, Bengali
-              </span>
-              <span className={styles.metaItem}>
-                <MapPin size={14} className="text-brand" aria-hidden />
-                <strong>Work model:</strong> Remote, hybrid
-              </span>
-              <span className={styles.metaItem}>
-                <strong>Availability:</strong> EU time-zone overlap
-              </span>
-            </div>
+            <p className={styles.summary}>
+              I believe no one is born with technology skills. Technology was created by people,
+              and since I am also one of the people living in this world, I can learn it too. There
+              is no magic involved. All it takes is time, consistent practice, dedication,
+              patience, perseverance, and hard work.
+            </p>
           </header>
 
-          <section className={styles.pillars} aria-label="Core competencies">
-            {pillars.map((pillar) => (
-              <div key={pillar.title} className={styles.pillar}>
-                <p className={styles.pillarLabel}>{pillar.label}</p>
-                <h2 className={styles.pillarTitle}>{pillar.title}</h2>
-                <p className={styles.pillarText}>{pillar.text}</p>
-              </div>
-            ))}
+          <section className={styles.pillarsSection} aria-label="Role overview">
+            <div className={styles.pillarsHeader}>
+              <h2 className={styles.pillarsHeading}>How I work</h2>
+              <p className={styles.pillarsSubheading}>
+                Full-stack delivery, technical leadership, and client engagement
+              </p>
+            </div>
+
+            <div className={styles.pillars}>
+              {pillars.map(({ label, title, text, highlights, icon: Icon, accentClass }) => (
+                <article key={title} className={styles.pillar}>
+                  <div className={`${styles.pillarGlow} ${accentClass}`} aria-hidden />
+                  <div className={styles.pillarTop} aria-hidden />
+
+                  <div className={styles.pillarBody}>
+                    <div className={styles.pillarHead}>
+                      <span className={styles.pillarIcon}>
+                        <Icon className={styles.pillarIconSvg} strokeWidth={2.1} />
+                      </span>
+                      <span className={styles.pillarLabel}>{label}</span>
+                    </div>
+
+                    <h2 className={styles.pillarTitle}>{title}</h2>
+                    <p className={styles.pillarText}>{text}</p>
+
+                    <ul className={styles.pillarTags}>
+                      {highlights.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              ))}
+            </div>
           </section>
 
           <div className={styles.body}>
@@ -216,11 +243,13 @@ export default function SkillsPage() {
                         {category}
                       </th>
                       <td className={styles.skillsCell}>
-                        {skills.map((skill) => (
-                          <span key={skill} className={styles.skill}>
-                            {skill}
-                          </span>
-                        ))}
+                        <div className={styles.skillPills}>
+                          {skills.map((skill) => (
+                            <span key={skill} className={styles.skillPill}>
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
                       </td>
                     </tr>
                   ))}

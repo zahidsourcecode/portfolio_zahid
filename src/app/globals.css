@@ -46,13 +46,14 @@
 
 html {
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
-  overflow-x: hidden;
+  overflow: visible;
   min-width: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -70,9 +71,22 @@ iframe {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+.page-fit-content {
+  min-height: auto !important;
+}
+
+.page-gradient.page-fit-content {
+  background-attachment: scroll;
+}
+
 .page-solid {
   min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
   transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.page-auto-scroll,
+body.page-auto-scroll * {
+  cursor: pointer !important;
 }

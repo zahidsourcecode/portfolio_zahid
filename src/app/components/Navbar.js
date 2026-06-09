@@ -6,6 +6,11 @@ import { usePathname } from "next/navigation";
 import { Menu, X, Settings, Sun, Moon, Upload } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import UploadCvModal from "./UploadCvModal";
+import {
+  AUTO_SCROLL_PATHS,
+  handleAutoScrollLinkClick,
+  markAutoScrollFromMenu,
+} from "../utils/pageAutoScroll";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -48,6 +53,12 @@ export default function Navbar() {
         : "text-slate-600 dark:text-slate-300 hover:text-brand-dark dark:hover:text-brand hover:bg-brand-light/60 dark:hover:bg-brand/10"
     }`;
 
+  const onNavClick = (href) => {
+    if (!AUTO_SCROLL_PATHS.includes(href)) return;
+    if (pathname !== href) markAutoScrollFromMenu();
+    handleAutoScrollLinkClick(pathname, href);
+  };
+
   return (
     <nav className="w-full fixed top-0 left-0 z-50 transition-all duration-300">
       <div className="absolute inset-0 bg-white/80 dark:bg-slate-900/85 backdrop-blur-xl border-b border-brand/20 dark:border-brand/15 shadow-[0_4px_24px_-4px_rgba(94,190,213,0.25)]" />
@@ -79,7 +90,12 @@ export default function Navbar() {
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1 bg-brand-light/50 dark:bg-slate-800/60 rounded-full px-1.5 py-1 border border-brand/15 dark:border-brand/10">
             {navLinks.map(({ href, label }) => (
-              <Link key={href} href={href} className={linkClass(href)}>
+              <Link
+                key={href}
+                href={href}
+                className={linkClass(href)}
+                onClick={() => onNavClick(href)}
+              >
                 {label}
               </Link>
             ))}
@@ -181,7 +197,10 @@ export default function Navbar() {
               <Link
                 key={href}
                 href={href}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  onNavClick(href);
+                  setIsOpen(false);
+                }}
                 className={`px-4 py-2.5 rounded-xl font-medium transition-all duration-200 ${
                   isActive(href)
                     ? "bg-brand text-white shadow-md shadow-brand/25"
