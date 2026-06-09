@@ -588,6 +588,13 @@
     box-shadow 0.2s ease;
 }
 
+@media (max-width: 767px) {
+  .skillPill {
+    white-space: normal;
+    text-align: center;
+  }
+}
+
 .skillPill:hover {
   border-color: color-mix(in srgb, var(--brand) 45%, #e2e8f0);
   background: color-mix(in srgb, var(--brand-light) 65%, #ffffff);
@@ -722,7 +729,7 @@
   border-color: color-mix(in srgb, var(--brand) 40%, #334155);
 }
 
-@media (max-width: 639px) {
+@media (max-width: 767px) {
   .summary,
   .pillarText {
     text-align: left;

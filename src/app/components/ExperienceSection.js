@@ -16,12 +16,20 @@ export default function ExperienceSection() {
               <h2 className={styles.careerTitle}>
                 My <span className={styles.careerAccent}>Career</span>
               </h2>
-              <p className={styles.careerSubtitle}>
+              <p className={styles.careerLead}>
                 Junior to team lead · ERP, web & AI-assisted development
+              </p>
+              <p className={styles.careerDescription}>
+                Over nine years I have built ERP, accounting, POS, and e-commerce solutions
+                with .NET, Angular, React, and Node.js. Today I lead teams, mentor
+                developers, and use AI-assisted tools to deliver reliable software at scale.
               </p>
             </div>
             <div className={styles.careerStatsWrap}>
-              <span className={styles.statsCaption}>Total experience</span>
+              <div className={styles.statsCaptionWrap}>
+                <span className={styles.statsCaptionAccent} aria-hidden="true" />
+                <span className={styles.statsCaption}>Total experience</span>
+              </div>
               <CareerDurationStats roles={allExperienceRoles} styles={styles} />
             </div>
           </div>

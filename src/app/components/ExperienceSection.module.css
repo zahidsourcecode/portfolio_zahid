@@ -69,6 +69,7 @@
 
 .headerIntro {
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 .careerTitle {
@@ -88,24 +89,32 @@
   color: transparent;
 }
 
-.careerSubtitle {
-  margin: 0;
+.careerLead {
+  margin: 0 0 8px;
   max-width: 100%;
-  font-size: clamp(0.68rem, 2.4vw, 0.94rem);
+  font-size: clamp(0.72rem, 2.4vw, 0.88rem);
+  font-weight: 600;
   line-height: 1.45;
-  letter-spacing: 0.01em;
-  color: #64748b;
-  white-space: normal;
-  overflow: visible;
-  text-overflow: unset;
+  letter-spacing: 0.02em;
+  color: var(--brand-dark);
 }
 
-@media (min-width: 768px) {
-  .careerSubtitle {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.4;
+.careerDescription {
+  margin: 0;
+  max-width: 100%;
+  font-size: clamp(0.68rem, 2.2vw, 0.9rem);
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  color: #64748b;
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+}
+
+@media (min-width: 640px) {
+  .careerLead,
+  .careerDescription {
+    max-width: 36rem;
   }
 }
 
@@ -113,57 +122,324 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  gap: 10px;
+}
+
+.statsCaptionWrap {
+  display: flex;
+  align-items: center;
   gap: 8px;
+}
+
+.statsCaptionAccent {
+  width: 3px;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--brand) 0%, var(--brand-dark) 100%);
+  box-shadow: 0 0 10px rgba(94, 190, 213, 0.45);
+  flex-shrink: 0;
 }
 
 .statsCaption {
   font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #64748b;
+  color: var(--brand-dark);
   text-align: center;
+}
+
+.statsPanel {
+  position: relative;
+  padding: 12px;
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.82) 0%, rgba(232, 247, 251, 0.72) 100%);
+  border: 1px solid rgba(94, 190, 213, 0.28);
+  box-shadow:
+    0 14px 32px rgba(94, 190, 213, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: statsPanelIn 0.55s ease-out both;
+}
+
+.statsPanel::after {
+  content: "";
+  position: absolute;
+  inset: 18% 8% auto;
+  height: 42%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(94, 190, 213, 0.14) 0%,
+    transparent 72%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes statsPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.statsPanel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(94, 190, 213, 0.55),
+    rgba(94, 190, 213, 0.08),
+    rgba(58, 157, 184, 0.35)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 .statsGrid {
   display: flex;
+  flex-direction: column;
   align-items: stretch;
-  justify-content: center;
-  gap: 10px;
+  gap: 8px;
 }
 
-.statBox {
+.statsPrimaryRow,
+.statsSecondaryRow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 8px;
+}
+
+.statsDivider {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 6px;
+}
+
+.statsDividerLive {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(94, 190, 213, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.statsDividerLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(94, 190, 213, 0.45),
+    transparent
+  );
+}
+
+.statsDividerDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--brand);
+  box-shadow: 0 0 10px rgba(94, 190, 213, 0.75);
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(94, 190, 213, 0.65);
+  }
+
+  50% {
+    opacity: 0.72;
+    transform: scale(0.88);
+    box-shadow: 0 0 14px rgba(94, 190, 213, 0.95);
+  }
+}
+
+.statsDividerLabel {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-dark);
+}
+
+.statBox,
+.statBoxSmall {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 88px;
-  padding: 12px 16px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.statBox {
+  flex: 1 1 0;
+  min-width: 84px;
+  min-height: 78px;
+  padding: 14px 12px 12px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(94, 190, 213, 0.28);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(232, 247, 251, 0.72) 100%
+  );
+  border: 1px solid rgba(94, 190, 213, 0.24);
   box-shadow:
-    0 8px 20px rgba(94, 190, 213, 0.14),
+    0 8px 18px rgba(94, 190, 213, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.98);
+}
+
+.statBox::before,
+.statBoxSmall::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand-dark), var(--brand), var(--brand-muted));
+  opacity: 0.85;
+}
+
+.statBox::after,
+.statBoxSmall::after {
+  content: "";
+  position: absolute;
+  inset: 8px 8px auto;
+  height: 38%;
+  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.statBoxSmall {
+  flex: 1 1 0;
+  min-width: 54px;
+  min-height: 58px;
+  padding: 10px 8px 8px;
+  border-radius: 11px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(241, 250, 252, 0.82) 100%
+  );
+  border: 1px solid rgba(94, 190, 213, 0.2);
+  box-shadow:
+    0 5px 12px rgba(94, 190, 213, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
+.statBox:hover,
+.statBoxSmall:hover {
+  transform: translateY(-2px);
+  border-color: rgba(94, 190, 213, 0.42);
+  box-shadow:
+    0 12px 24px rgba(94, 190, 213, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.98);
+}
+
 .statValue {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
-  font-size: 1.65rem;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(135deg, #0f172a 0%, #1e4d5c 52%, var(--brand-dark) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.statValueSmall {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.06em;
   font-variant-numeric: tabular-nums;
-  color: #0f172a;
+  background: linear-gradient(135deg, #0f172a 0%, #1e4d5c 48%, var(--brand-dark) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.statValueTick {
+  animation: statTick 0.35s ease-out;
+}
+
+@keyframes statTick {
+  0% {
+    opacity: 0.55;
+    transform: translateY(2px) scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .statLabel {
-  margin-top: 4px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  position: relative;
+  z-index: 1;
+  margin-top: 6px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #5ebed5;
+  color: var(--brand-dark);
+}
+
+.statLabelSmall {
+  position: relative;
+  z-index: 1;
+  margin-top: 4px;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand);
 }
 
 .sectionDivider {
@@ -204,8 +480,12 @@
     font-size: 2.15rem;
   }
 
-  .careerSubtitle {
-    font-size: clamp(0.82rem, 1.4vw, 0.94rem);
+  .careerLead {
+    font-size: clamp(0.78rem, 1.3vw, 0.88rem);
+  }
+
+  .careerDescription {
+    font-size: clamp(0.8rem, 1.3vw, 0.9rem);
   }
 
   .careerStatsWrap {
@@ -213,17 +493,36 @@
     flex-shrink: 0;
   }
 
+  .statsCaptionWrap {
+    justify-content: flex-end;
+  }
+
   .statsCaption {
     text-align: right;
   }
 
+  .statsPanel {
+    padding: 14px;
+  }
+
   .statBox {
     min-width: 96px;
-    padding: 14px 18px;
+    min-height: 84px;
+    padding: 16px 14px 14px;
+  }
+
+  .statBoxSmall {
+    min-width: 62px;
+    min-height: 62px;
+    padding: 10px 10px 9px;
   }
 
   .statValue {
-    font-size: 1.85rem;
+    font-size: 1.95rem;
+  }
+
+  .statValueSmall {
+    font-size: 1.12rem;
   }
 
   .sectionDivider {
@@ -260,34 +559,48 @@
     font-size: clamp(1.45rem, 7vw, 1.85rem);
   }
 
-  .careerSubtitle {
-    white-space: normal;
-    overflow: visible;
-    text-overflow: unset;
+  .careerLead {
     font-size: 0.76rem;
-    line-height: 1.45;
   }
 
-  .careerStatsWrap {
-    width: 100%;
+  .careerDescription {
+    font-size: 0.74rem;
+    line-height: 1.5;
   }
 
   .statsCaption {
     text-align: left;
   }
 
-  .statsGrid {
+  .statsPanel {
+    padding: 10px;
+  }
+
+  .statsPrimaryRow,
+  .statsSecondaryRow {
     width: 100%;
   }
 
   .statBox {
     flex: 1;
     min-width: 0;
-    padding: 10px 12px;
+    min-height: 72px;
+    padding: 12px 8px 10px;
+  }
+
+  .statBoxSmall {
+    flex: 1;
+    min-width: 0;
+    min-height: 54px;
+    padding: 8px 6px 7px;
   }
 
   .statValue {
-    font-size: clamp(1.35rem, 6vw, 1.65rem);
+    font-size: clamp(1.4rem, 6vw, 1.75rem);
+  }
+
+  .statValueSmall {
+    font-size: clamp(0.92rem, 4.2vw, 1.05rem);
   }
 }
 
@@ -303,12 +616,12 @@
     right: -30px;
   }
 
-  .careerSubtitle {
-    white-space: normal;
-    overflow: visible;
-    text-overflow: unset;
+  .careerLead {
     font-size: 0.74rem;
-    line-height: 1.45;
+  }
+
+  .careerDescription {
+    font-size: 0.72rem;
   }
 }
 
@@ -326,9 +639,13 @@
     font-size: 1.55rem;
   }
 
-  .careerSubtitle {
+  .careerLead {
     font-size: 0.7rem;
     letter-spacing: 0;
+  }
+
+  .careerDescription {
+    font-size: 0.68rem;
   }
 
   .statValue {
@@ -357,6 +674,14 @@
   color: #f1f5f9;
 }
 
+:global(.dark) .careerLead {
+  color: var(--brand);
+}
+
+:global(.dark) .careerDescription {
+  color: #94a3b8;
+}
+
 :global(.dark) .careerAccent {
   background: linear-gradient(120deg, #7dd3e8 0%, #5ebed5 55%, #3a9db8 100%);
   -webkit-background-clip: text;
@@ -364,13 +689,47 @@
   color: transparent;
 }
 
-:global(.dark) .careerSubtitle,
 :global(.dark) .statsCaption {
-  color: #94a3b8;
+  color: var(--brand);
+}
+
+:global(.dark) .statsPanel {
+  background:
+    linear-gradient(145deg, rgba(15, 23, 42, 0.94) 0%, rgba(30, 41, 59, 0.88) 100%);
+  border-color: rgba(94, 190, 213, 0.2);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+:global(.dark) .statsDividerLabel {
+  color: var(--brand);
+}
+
+:global(.dark) .statsDividerLive {
+  background: rgba(15, 23, 42, 0.72);
+  border-color: rgba(94, 190, 213, 0.24);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 :global(.dark) .statBox {
-  background: rgba(15, 23, 42, 0.82);
+  background: linear-gradient(
+    180deg,
+    rgba(30, 41, 59, 0.95) 0%,
+    rgba(15, 23, 42, 0.88) 100%
+  );
+}
+
+:global(.dark) .statBoxSmall {
+  background: linear-gradient(
+    180deg,
+    rgba(30, 41, 59, 0.9) 0%,
+    rgba(15, 23, 42, 0.82) 100%
+  );
+}
+
+:global(.dark) .statBox,
+:global(.dark) .statBoxSmall {
   border-color: rgba(94, 190, 213, 0.22);
   box-shadow:
     0 8px 20px rgba(0, 0, 0, 0.28),
@@ -378,9 +737,33 @@
 }
 
 :global(.dark) .statValue {
-  color: #f1f5f9;
+  background: linear-gradient(135deg, #f8fafc 0%, #bae8f2 55%, var(--brand) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-:global(.dark) .statLabel {
-  color: #5ebed5;
+:global(.dark) .statValueSmall {
+  background: linear-gradient(135deg, #f8fafc 0%, #bae8f2 55%, var(--brand) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+:global(.dark) .statLabel,
+:global(.dark) .statLabelSmall {
+  color: var(--brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statsPanel,
+  .statsDividerDot,
+  .statValueTick {
+    animation: none;
+  }
+
+  .statBox:hover,
+  .statBoxSmall:hover {
+    transform: none;
+  }
 }

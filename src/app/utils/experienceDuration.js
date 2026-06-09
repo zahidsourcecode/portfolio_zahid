@@ -191,19 +191,60 @@ export function formatEmploymentType(roles, employmentType = "Full-time", now = 
   return `${employmentType} · ${formatDurationMonths(monthsBetween(start, end, now))}`;
 }
 
+function toCareerStartDateTime(startStr, now = new Date()) {
+  const parsed = parseExperienceDate(startStr, now);
+  const day = resolveBoundaryDay(parsed, "start");
+  return new Date(parsed.year, parsed.month, day, 0, 0, 0, 0);
+}
+
+function toCareerEndDateTime(endStr, now = new Date()) {
+  const parsed = parseExperienceDate(endStr, now);
+  if (parsed.isPresent) {
+    return new Date(now.getTime());
+  }
+
+  const day = resolveBoundaryDay(parsed, "end");
+  return new Date(parsed.year, parsed.month, day, 23, 59, 59, 999);
+}
+
 export function getCareerDurationParts(rolesOrStart, endStr = "Present", now = new Date()) {
   const range = typeof rolesOrStart === "string"
     ? { start: rolesOrStart, end: endStr }
     : getCompanyDateRange(rolesOrStart);
 
-  const totalMonths = monthsBetween(range.start, range.end, now);
+  const startDate = toCareerStartDateTime(range.start, now);
+  const endDate = toCareerEndDateTime(range.end, now);
 
-  if (totalMonths < 12) {
-    return { years: 0, months: totalMonths };
+  let years = endDate.getFullYear() - startDate.getFullYear();
+  let months = endDate.getMonth() - startDate.getMonth();
+  let days = endDate.getDate() - startDate.getDate();
+
+  if (days < 0) {
+    months -= 1;
+    days += lastDayOfMonth(endDate.getFullYear(), endDate.getMonth() - 1);
   }
 
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+
+  const anchor = new Date(startDate);
+  anchor.setFullYear(anchor.getFullYear() + years);
+  anchor.setMonth(anchor.getMonth() + months);
+  anchor.setDate(anchor.getDate() + days);
+
+  const remainderMs = Math.max(0, endDate.getTime() - anchor.getTime());
+  const hours = Math.floor(remainderMs / 3600000);
+  const minutes = Math.floor((remainderMs % 3600000) / 60000);
+  const seconds = Math.floor((remainderMs % 60000) / 1000);
+
   return {
-    years: Math.floor(totalMonths / 12),
-    months: totalMonths % 12,
+    years,
+    months,
+    days,
+    hours,
+    minutes,
+    seconds,
   };
 }

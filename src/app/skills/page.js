@@ -167,7 +167,7 @@ const strengths = [
 
 export default function SkillsPage() {
   return (
-    <main className={`page-gradient min-w-0 ${styles.page}`}>
+    <main className={`page-gradient min-w-0 overflow-x-hidden ${styles.page}`}>
       <PageAutoScroll />
       <div className={styles.inner}>
         <article className={styles.sheet}>

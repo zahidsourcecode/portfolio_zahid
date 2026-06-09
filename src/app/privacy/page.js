@@ -84,7 +84,7 @@ export default function PrivacyPage() {
 
         <Link
           href="/"
-          className="mt-8 inline-flex rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
+          className="mt-8 inline-flex min-h-11 items-center rounded-full border border-brand/30 px-4 py-2.5 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
         >
           ← Back to Home
         </Link>

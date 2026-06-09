@@ -1,10 +1,12 @@
 "use client"
-import React, { useState } from "react";
+import React from "react";
 import { ixoraRoles } from "../../data/experienceDates";
 import {
   EmploymentTypeDisplay,
   ExperienceRangeDisplay,
 } from "./ExperienceDurationDisplay";
+import { MapPreview } from "./MapPreview";
+import { useMapPopup } from "./useMapPopup";
 import styles from "./experienceShared.module.css";
 
 const seniorSkills = [
@@ -20,25 +22,7 @@ const teamLeadSkills = [
 ];
 
 export default function Ixora() {
-  const [showPopup, setShowPopup] = useState(false);
-  let popupHideTimeout = null;
-
-  // Handlers for address link
-  const handleAddressMouseEnter = () => {
-    if (popupHideTimeout) clearTimeout(popupHideTimeout);
-    setShowPopup(true);
-  };
-  const handleAddressMouseLeave = () => {
-    popupHideTimeout = setTimeout(() => setShowPopup(false), 120);
-  };
-  // Handlers for popup
-  const handlePopupMouseEnter = () => {
-    if (popupHideTimeout) clearTimeout(popupHideTimeout);
-    setShowPopup(true);
-  };
-  const handlePopupMouseLeave = () => {
-    popupHideTimeout = setTimeout(() => setShowPopup(false), 120);
-  };
+  const { showPopup, linkHandlers, popupHandlers, close } = useMapPopup();
 
   return (
     <div className={styles.timelineCard}>
@@ -76,27 +60,17 @@ export default function Ixora() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.locationLink}
-                onMouseEnter={handleAddressMouseEnter}
-                onMouseLeave={handleAddressMouseLeave}
+                {...linkHandlers}
               >
                 7th Floor, House: M5, Jahangir Tower, Mirpur: 14, Dhaka · Hybrid
               </a>
-              {showPopup && (
-                <span
-                  className={styles.mapPopup}
-                  onMouseEnter={handlePopupMouseEnter}
-                  onMouseLeave={handlePopupMouseLeave}
-                >
-                  <iframe
-                    title="Ixora Location Map"
-                    frameBorder="0"
-                    src="https://www.google.com/maps?q=House+M5+Section+14+Jahangir+Tower+7th+Floor+Mirpur+Dhaka&output=embed"
-                    allowFullScreen=""
-                    aria-hidden="false"
-                    tabIndex="0"
-                  ></iframe>
-                </span>
-              )}
+              <MapPreview
+                show={showPopup}
+                title="Ixora Location Map"
+                src="https://www.google.com/maps?q=House+M5+Section+14+Jahangir+Tower+7th+Floor+Mirpur+Dhaka&output=embed"
+                popupHandlers={popupHandlers}
+                onClose={close}
+              />
             </span>
           </div>
         </div>

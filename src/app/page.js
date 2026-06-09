@@ -188,7 +188,7 @@ export default function Home() {
                     }
                     rel="noreferrer"
                     aria-label={label}
-                    className="shrink-0 rounded-lg p-0.5 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl sm:p-1"
+                    className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
                   >
                     <img
                       src={icon}
@@ -205,7 +205,7 @@ export default function Home() {
                   type="button"
                   onClick={() => setShowVideo(true)}
                   aria-label="Play intro video"
-                  className="shrink-0 rounded-lg p-0.5 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl sm:p-1"
+                  className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
                 >
                   <img
                     src="/youtube-icon.png"
@@ -217,7 +217,7 @@ export default function Home() {
                   type="button"
                   onClick={() => setShowCv(true)}
                   aria-label={cvLink.label}
-                  className="shrink-0 rounded-lg p-0.5 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl sm:p-1"
+                  className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
                 >
                   <img
                     src={cvLink.icon}
@@ -313,7 +313,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4 p-3 sm:p-5">
+          <div className="grid grid-cols-1 min-[380px]:grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4 p-3 sm:p-5">
             {visitSummaryCards.map(({ key, label, icon: Icon, mono }) => {
               const isLoading = visitSummary[key] === "Detecting…";
 
@@ -378,7 +378,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => setShowVideo(false)}
-              className="rounded-full bg-brand/15 p-1.5 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
+              className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-full bg-brand/15 p-2 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
               aria-label="Close video"
             >
               <X size={18} />
@@ -426,7 +426,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setShowCv(false)}
-                className="rounded-full bg-brand/15 p-1.5 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
+                className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-full bg-brand/15 p-2 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
                 aria-label="Close CV viewer"
               >
                 <X size={18} />

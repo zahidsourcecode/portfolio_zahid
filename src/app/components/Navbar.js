@@ -88,7 +88,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1 bg-brand-light/50 dark:bg-slate-800/60 rounded-full px-1.5 py-1 border border-brand/15 dark:border-brand/10">
+          <div className="hidden lg:flex items-center gap-1 bg-brand-light/50 dark:bg-slate-800/60 rounded-full px-1.5 py-1 border border-brand/15 dark:border-brand/10">
             {navLinks.map(({ href, label }) => (
               <Link
                 key={href}
@@ -107,7 +107,7 @@ export default function Navbar() {
               <button
                 onClick={() => setShowSettings(!showSettings)}
                 aria-label="Settings"
-                className={`p-2 rounded-full transition-all duration-200 cursor-pointer ${
+                className={`p-2.5 rounded-full transition-all duration-200 cursor-pointer ${
                   showSettings
                     ? "bg-brand text-white shadow-md shadow-brand/30"
                     : "text-slate-500 dark:text-slate-400 hover:bg-brand-light dark:hover:bg-brand/15 hover:text-brand-dark dark:hover:text-brand"
@@ -175,7 +175,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle Menu"
-              className={`md:hidden p-2 rounded-full transition-all duration-200 ${
+              className={`lg:hidden p-2.5 rounded-full transition-all duration-200 ${
                 isOpen
                   ? "bg-brand text-white"
                   : "text-slate-700 dark:text-slate-200 hover:bg-brand-light dark:hover:bg-brand/15 hover:text-brand-dark"
@@ -188,7 +188,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-out ${
             isOpen ? "max-h-96 opacity-100 pb-4" : "max-h-0 opacity-0"
           }`}
         >

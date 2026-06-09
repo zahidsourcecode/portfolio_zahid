@@ -1,30 +1,16 @@
 "use client"
-import React, { useState } from "react";
+import React from "react";
 import { nextitRoles } from "../../data/experienceDates";
 import {
   EmploymentTypeDisplay,
   ExperienceRangeDisplay,
 } from "./ExperienceDurationDisplay";
+import { MapPreview } from "./MapPreview";
+import { useMapPopup } from "./useMapPopup";
 import styles from "./experienceShared.module.css";
 
 export default function NextIT() {
-  const [showPopup, setShowPopup] = useState(false);
-  let popupHideTimeout = null;
-
-  const handleAddressMouseEnter = () => {
-    if (popupHideTimeout) clearTimeout(popupHideTimeout);
-    setShowPopup(true);
-  };
-  const handleAddressMouseLeave = () => {
-    popupHideTimeout = setTimeout(() => setShowPopup(false), 120);
-  };
-  const handlePopupMouseEnter = () => {
-    if (popupHideTimeout) clearTimeout(popupHideTimeout);
-    setShowPopup(true);
-  };
-  const handlePopupMouseLeave = () => {
-    popupHideTimeout = setTimeout(() => setShowPopup(false), 120);
-  };
+  const { showPopup, linkHandlers, popupHandlers, close } = useMapPopup();
 
   return (
     <div className={styles.timelineCard}>
@@ -62,27 +48,17 @@ export default function NextIT() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.locationLink}
-                onMouseEnter={handleAddressMouseEnter}
-                onMouseLeave={handleAddressMouseLeave}
+                {...linkHandlers}
               >
                 Apartment- A2 & A3, House- 03, Rd 13, Gulshan, Dhaka · On-site
               </a>
-              {showPopup && (
-                <span
-                  className={styles.mapPopup}
-                  onMouseEnter={handlePopupMouseEnter}
-                  onMouseLeave={handlePopupMouseLeave}
-                >
-                  <iframe
-                    title="Next IT Location Map"
-                    frameBorder="0"
-                    src="https://www.google.com/maps?q=NEXT+IT+Limited&output=embed"
-                    allowFullScreen=""
-                    aria-hidden="false"
-                    tabIndex="0"
-                  ></iframe>
-                </span>
-              )}
+              <MapPreview
+                show={showPopup}
+                title="Next IT Location Map"
+                src="https://www.google.com/maps?q=NEXT+IT+Limited&output=embed"
+                popupHandlers={popupHandlers}
+                onClose={close}
+              />
             </span>
           </div>
         </div>

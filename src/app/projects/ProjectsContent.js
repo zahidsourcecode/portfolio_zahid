@@ -106,9 +106,13 @@ function LiveDemoButton({ demoUrl }) {
   );
 }
 
-function ProjectActions({ id, demoUrl }) {
+function ProjectActions({ id, demoUrl, stacked = false }) {
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div
+      className={`flex flex-wrap items-center gap-2 ${
+        stacked ? "w-full flex-col sm:w-auto sm:flex-row [&_a]:w-full sm:[&_a]:w-fit" : ""
+      }`}
+    >
       <DetailsButton id={id} />
       <LiveDemoButton demoUrl={demoUrl} />
     </div>
@@ -159,60 +163,55 @@ export default function ProjectsContent() {
           </p>
         </div>
 
-        <div className="mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          {totalPages > 1 ? (
-            <>
-              <p className="text-sm text-slate-500 dark:text-slate-400 order-2 sm:order-1">
-                Page {currentPage} of {totalPages} · {projects.length} projects
-              </p>
+        <div className="mb-6 flex items-center gap-2 sm:gap-3">
+          <p className="min-w-0 flex-1 truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+            {totalPages > 1
+              ? `Page ${currentPage} of ${totalPages} · ${projects.length} projects`
+              : `${projects.length} projects`}
+          </p>
 
-              <div className="flex items-center gap-1.5 order-3 sm:order-2">
+          {totalPages > 1 && (
+            <nav
+              aria-label="Projects pagination"
+              className="flex shrink-0 items-center justify-center gap-1 sm:gap-1.5"
+            >
+              <button
+                onClick={() => goToPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                aria-label="Previous page"
+                className="p-2 rounded-lg border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand hover:text-white cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-slate-600 dark:disabled:hover:text-slate-300 transition-colors"
+              >
+                <ChevronLeft size={18} />
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                 <button
-                  onClick={() => goToPage(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  aria-label="Previous page"
-                  className="p-2 rounded-lg border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand hover:text-white cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-slate-600 dark:disabled:hover:text-slate-300 transition-colors"
+                  key={page}
+                  onClick={() => goToPage(page)}
+                  aria-label={`Page ${page}`}
+                  aria-current={page === currentPage ? "page" : undefined}
+                  className={`inline-flex min-w-[36px] h-9 items-center justify-center px-2 rounded-lg text-sm font-medium cursor-pointer transition-colors ${
+                    page === currentPage
+                      ? "bg-brand text-white shadow-md shadow-brand/25"
+                      : "border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand-light/60 dark:hover:bg-brand/10 hover:text-brand-dark dark:hover:text-brand"
+                  }`}
                 >
-                  <ChevronLeft size={18} />
+                  {page}
                 </button>
+              ))}
 
-                <span className="min-w-12 text-center text-sm font-medium text-slate-600 dark:text-slate-300 sm:hidden">
-                  {currentPage} / {totalPages}
-                </span>
-
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button
-                    key={page}
-                    onClick={() => goToPage(page)}
-                    aria-label={`Page ${page}`}
-                    aria-current={page === currentPage ? "page" : undefined}
-                    className={`hidden sm:inline-flex min-w-[36px] h-9 px-2 rounded-lg text-sm font-medium cursor-pointer transition-colors ${
-                      page === currentPage
-                        ? "bg-brand text-white shadow-md shadow-brand/25"
-                        : "border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand-light/60 dark:hover:bg-brand/10 hover:text-brand-dark dark:hover:text-brand"
-                    }`}
-                  >
-                    {page}
-                  </button>
-                ))}
-
-                <button
-                  onClick={() => goToPage(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  aria-label="Next page"
-                  className="p-2 rounded-lg border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand hover:text-white cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-slate-600 dark:disabled:hover:text-slate-300 transition-colors"
-                >
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-            </>
-          ) : (
-            <p className="text-sm text-slate-500 dark:text-slate-400 order-2 sm:order-1">
-              {projects.length} projects
-            </p>
+              <button
+                onClick={() => goToPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                aria-label="Next page"
+                className="p-2 rounded-lg border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand hover:text-white cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-slate-600 dark:disabled:hover:text-slate-300 transition-colors"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </nav>
           )}
 
-          <div className="flex gap-2 order-1 sm:order-3 self-end sm:self-auto">
+          <div className={`flex shrink-0 gap-1.5 sm:gap-2 ${totalPages > 1 ? "flex-1 justify-end" : ""}`}>
             <button onClick={() => setView("grid")} className={viewBtnClass("grid")}>
               <GridIcon />
               Grid
@@ -268,8 +267,8 @@ export default function ProjectsContent() {
                   <TagList tags={project.tags} />
                 </div>
 
-                <div className="shrink-0 self-start sm:self-center">
-                  <ProjectActions id={project.id} demoUrl={project.iframeSrc} />
+                <div className="w-full shrink-0 self-stretch sm:w-auto sm:self-center">
+                  <ProjectActions id={project.id} demoUrl={project.iframeSrc} stacked />
                 </div>
               </article>
             ))}
