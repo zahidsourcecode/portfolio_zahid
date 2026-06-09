@@ -22,7 +22,8 @@ const playfair = Playfair_Display({
 
 export const metadata = {
   title: "Zahid Hasan | Portfolio",
-  description: "Portfolio of Zahid Hasan — Technical Team Lead",
+  description:
+    "Technical Team Lead portfolio — open to remote software roles in the Netherlands, Denmark, and the EU.",
 };
 
 export const viewport = {

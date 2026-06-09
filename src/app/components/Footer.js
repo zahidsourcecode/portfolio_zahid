@@ -5,12 +5,13 @@ import { usePathname } from "next/navigation";
 import { ChevronUp } from "lucide-react";
 
 const navLinks = [
-  { href: "/", label: "Dashboard" },
+  { href: "/", label: "Home" },
   { href: "/experience", label: "Experience" },
   { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
   { href: "/skills", label: "Skills" },
   { href: "/contact-info", label: "Contact" },
+  { href: "/privacy", label: "Privacy" },
 ];
 
 export default function Footer() {

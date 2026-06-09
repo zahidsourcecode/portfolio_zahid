@@ -8,11 +8,13 @@ import {
   ArrowRight,
   Download,
   Globe,
+  Clock,
   AppWindow,
   Laptop,
-  Eye,
-  Clock,
+  Network,
 } from "lucide-react";
+import { allExperienceRoles } from "./data/experienceDates";
+import { getCareerDurationParts } from "./utils/experienceDuration";
 
 const VIMEO_VIDEO_ID = "1182190333";
 const VIMEO_EMBED = `https://player.vimeo.com/video/${VIMEO_VIDEO_ID}?autoplay=1&title=0&byline=0&portrait=0`;
@@ -58,10 +60,10 @@ function getTimezoneLabel() {
   }
 }
 
-const visitorCards = [
-  { key: "location", label: "Location", icon: MapPin },
-  { key: "ip", label: "IP Address", icon: Globe },
+const visitSummaryCards = [
   { key: "timezone", label: "Time Zone", icon: Clock },
+  { key: "region", label: "Region", icon: MapPin },
+  { key: "ip", label: "IP Address", icon: Network, mono: true },
   { key: "browser", label: "Browser", icon: AppWindow },
   { key: "os", label: "OS", icon: Laptop },
 ];
@@ -98,16 +100,24 @@ const cvLink = {
 export default function Home() {
   const [showVideo, setShowVideo] = useState(false);
   const [showCv, setShowCv] = useState(false);
-  const [visitorInfo, setVisitorInfo] = useState({
-    location: "Detecting…",
-    ip: "Detecting…",
+  const [experienceLabel, setExperienceLabel] = useState("9+ years");
+  const [visitSummary, setVisitSummary] = useState({
     timezone: "Detecting…",
+    region: "Detecting…",
+    ip: "Detecting…",
     browser: "Detecting…",
     os: "Detecting…",
   });
 
   useEffect(() => {
-    setVisitorInfo((prev) => ({
+    const { years, months } = getCareerDurationParts(allExperienceRoles);
+    if (years > 0) {
+      setExperienceLabel(months > 0 ? `${years}+ years` : `${years} years`);
+    }
+  }, []);
+
+  useEffect(() => {
+    setVisitSummary((prev) => ({
       ...prev,
       browser: getBrowserName(),
       os: getOSName(),
@@ -117,17 +127,17 @@ export default function Home() {
     fetch("/api/visitor-info")
       .then((res) => res.json())
       .then((data) => {
-        setVisitorInfo((prev) => ({
+        setVisitSummary((prev) => ({
           ...prev,
+          region: data.location || "Unknown",
           ip: data.ip || "Unknown",
-          location: data.location || "Unknown",
         }));
       })
       .catch(() => {
-        setVisitorInfo((prev) => ({
+        setVisitSummary((prev) => ({
           ...prev,
+          region: "Unavailable",
           ip: "Unavailable",
-          location: "Unavailable",
         }));
       });
   }, []);
@@ -166,7 +176,7 @@ export default function Home() {
                 />
               </div>
 
-              <div className="mx-auto flex w-full max-w-[min(100%,340px)] flex-wrap items-center justify-center gap-1 px-1 sm:max-w-[400px] sm:gap-2">
+              <div className="mx-auto flex w-full max-w-[360px] flex-nowrap items-center justify-center gap-0.5 px-0.5 sm:max-w-[400px] sm:gap-1.5">
                 {socialLinks.map(({ href, label, icon }) => (
                   <a
                     key={label}
@@ -178,16 +188,16 @@ export default function Home() {
                     }
                     rel="noreferrer"
                     aria-label={label}
-                    className="shrink-0 p-1 sm:p-2 rounded-xl hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer"
+                    className="shrink-0 rounded-lg p-0.5 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl sm:p-1"
                   >
                     <img
                       src={icon}
                       alt={label}
-                      className={
-                        label === "LinkedIn"
-                          ? "w-[34px] h-[34px] sm:w-10 sm:h-10"
-                          : "w-8 h-8 sm:w-9 sm:h-9"
-                      }
+                      className={`object-contain ${
+                        label === "GitHub" || label === "LeetCode"
+                          ? "h-6 w-6 sm:h-7 sm:w-7"
+                          : "h-7 w-7 sm:h-9 sm:w-9"
+                      }`}
                     />
                   </a>
                 ))}
@@ -195,24 +205,24 @@ export default function Home() {
                   type="button"
                   onClick={() => setShowVideo(true)}
                   aria-label="Play intro video"
-                  className="shrink-0 p-1 sm:p-2 rounded-xl hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer"
+                  className="shrink-0 rounded-lg p-0.5 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl sm:p-1"
                 >
                   <img
                     src="/youtube-icon.png"
                     alt="Play video"
-                    className="w-[30px] h-[24px] sm:w-[34px] sm:h-[28px]"
+                    className="h-[22px] w-[28px] object-contain sm:h-[26px] sm:w-[34px]"
                   />
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowCv(true)}
                   aria-label={cvLink.label}
-                  className="shrink-0 p-1 sm:p-2 rounded-xl hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer"
+                  className="shrink-0 rounded-lg p-0.5 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl sm:p-1"
                 >
                   <img
                     src={cvLink.icon}
                     alt={cvLink.label}
-                    className="w-8 h-8 sm:w-9 sm:h-9"
+                    className="h-6 w-6 object-contain sm:h-7 sm:w-7"
                   />
                 </button>
               </div>
@@ -221,13 +231,15 @@ export default function Home() {
             {/* Content panel */}
             <div className="lg:w-[58%] p-5 sm:p-8 lg:p-10 flex flex-col justify-center min-w-0">
               <div className="mb-4 sm:mb-6 rounded-r-xl border-l-[3px] border-brand bg-gradient-to-r from-brand/[0.08] via-brand/[0.03] to-transparent py-3 sm:py-4 pl-3 sm:pl-5 pr-2">
-                <h1 className="font-[family-name:var(--font-playfair)] text-[1.75rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold leading-tight text-slate-900 dark:text-white">
-                  Zahid{" "}
-                  <span className="text-brand dark:text-brand">Hasan</span>
-                </h1>
-                <p className="mt-1.5 sm:mt-2 text-sm sm:text-base font-medium tracking-wide text-slate-600 dark:text-slate-300">
-                  Technical Team Lead
-                </p>
+                <div className="origin-left cursor-default transition-transform duration-300 ease-out hover:scale-[1.04]">
+                  <h1 className="font-[family-name:var(--font-playfair)] text-[1.75rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold leading-tight text-slate-900 dark:text-white">
+                    Zahid{" "}
+                    <span className="text-brand dark:text-brand">Hasan</span>
+                  </h1>
+                  <p className="mt-1.5 sm:mt-2 text-sm sm:text-base font-medium tracking-wide text-slate-600 dark:text-slate-300">
+                    Technical Team Lead
+                  </p>
+                </div>
 
                 <div className="mt-3 sm:mt-4 space-y-1.5">
                   <a
@@ -255,7 +267,7 @@ export default function Home() {
                 using <span className="font-semibold text-slate-900 dark:text-white">Claude</span>,{" "}
                 <span className="font-semibold text-slate-900 dark:text-white">Cursor</span>, and
                 ChatGPT. Over{" "}
-                <span className="font-semibold text-slate-900 dark:text-white">10 years</span> of
+                <span className="font-semibold text-slate-900 dark:text-white">{experienceLabel}</span> of
                 experience building{" "}
                 <span className="font-semibold text-slate-900 dark:text-white">ERP</span>, Accounting,
                 POS, and E-commerce solutions. Skilled in Angular, React.js, Next.js,
@@ -284,22 +296,22 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Visitor info */}
+        {/* Your visit summary */}
         <section className="mt-6 sm:mt-8 rounded-2xl sm:rounded-3xl border border-brand/20 bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl shadow-xl shadow-brand/10 overflow-hidden">
           <div className="flex items-center justify-center gap-2 sm:gap-3 border-b border-brand/15 bg-gradient-to-r from-brand/15 via-brand/5 to-brand/15 px-4 py-3 sm:px-6 sm:py-3.5">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand text-white shadow-md shadow-brand/30">
-              <Eye className="h-4 w-4" strokeWidth={2.25} />
+              <Globe className="h-4 w-4" strokeWidth={2.25} />
             </span>
             <div className="text-center">
               <h2 className="text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-100">
-                Your visit at a glance
+                Your visit summary
               </h2>
             </div>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4 p-3 sm:p-5">
-            {visitorCards.map(({ key, label, icon: Icon }) => {
-              const isLoading = visitorInfo[key] === "Detecting…";
+            {visitSummaryCards.map(({ key, label, icon: Icon, mono }) => {
+              const isLoading = visitSummary[key] === "Detecting…";
 
               return (
                 <div
@@ -319,27 +331,28 @@ export default function Home() {
                     <Icon className="h-[18px] w-[18px] sm:h-5 sm:w-5" strokeWidth={2.1} />
                   </span>
 
-                  <span
-                    className={`font-semibold uppercase text-brand-dark/75 dark:text-brand/80 ${
-                      key === "os"
-                        ? "text-xs sm:text-sm tracking-[0.12em]"
-                        : "text-[10px] sm:text-[11px] tracking-[0.14em]"
-                    }`}
-                  >
+                  <span className="font-semibold uppercase text-[10px] sm:text-[11px] tracking-[0.14em] text-brand-dark/75 dark:text-brand/80">
                     {label}
                   </span>
 
                   <span
                     className={`relative max-w-full break-words text-xs sm:text-sm font-bold leading-snug text-slate-800 dark:text-white ${
-                      key === "ip" ? "font-mono tracking-tight" : ""
+                      mono ? "font-mono tracking-tight" : ""
                     } ${isLoading ? "animate-pulse text-brand-dark/70 dark:text-brand/70" : ""}`}
                   >
-                    {visitorInfo[key]}
+                    {visitSummary[key]}
                   </span>
                 </div>
               );
             })}
           </div>
+
+          <p className="border-t border-brand/10 px-4 py-3 text-center text-[11px] text-slate-500 dark:text-slate-400 sm:px-6 sm:text-xs">
+            Browser and OS are read locally. IP and region are approximate.{" "}
+            <Link href="/privacy" className="font-medium text-brand-dark hover:text-brand dark:text-brand">
+              Privacy policy
+            </Link>
+          </p>
         </section>
       </div>
 

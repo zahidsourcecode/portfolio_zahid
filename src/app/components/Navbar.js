@@ -8,7 +8,7 @@ import { useTheme } from "../context/ThemeContext";
 import UploadCvModal from "./UploadCvModal";
 
 const navLinks = [
-  { href: "/", label: "Dashboard" },
+  { href: "/", label: "Home" },
   { href: "/experience", label: "Experience" },
   { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
