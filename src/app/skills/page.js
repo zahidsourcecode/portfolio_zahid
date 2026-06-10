@@ -104,7 +104,7 @@ const skillProfile = [
     ],
   },
   {
-    category: "Cloud & tooling",
+    category: "Cloud ",
     skills: [
       "Figma",
       "Azure",
@@ -126,7 +126,7 @@ const skillProfile = [
     ],
   },
   {
-    category: "Engineering practice",
+    category: "Principles",
     skills: [
       "OOP",
       "SOLID",
@@ -147,12 +147,13 @@ const skillProfile = [
       "Technical leadership",
       "Team mentoring",
       "Code review",
+      "Code smell",
       "Architecture",
-      "Stakeholder communication",
+      "Customer communication",
     ],
   },
   {
-    category: "AI-assisted delivery",
+    category: "AI-Acceleration",
     skills: ["ChatGPT", "Claude", "Cursor", "Gemini", "AI-assisted development"],
   },
 ];
@@ -172,15 +173,12 @@ export default function SkillsPage() {
       <div className={styles.inner}>
         <article className={styles.sheet}>
           <header className={styles.hero} data-page-section>
-            <h1 className={styles.title}>Skills</h1>
-            <p className={styles.role}>
-              Technical Team Lead · Full-Stack Software Engineer
-            </p>
+            <h1 className={styles.title}>I Believe</h1>
             <p className={styles.summary}>
-              I believe no one is born with technology skills. Technology was created by people,
+              No one is born with technology skills. Technology was created by people of this world,
               and since I am also one of the people living in this world, I can learn it too. There
               is no magic involved. All it takes is time, consistent practice, dedication,
-              patience, perseverance, and hard work.
+              patience, perseverance, and hard working.
             </p>
           </header>
 
@@ -222,7 +220,7 @@ export default function SkillsPage() {
 
           <div className={styles.body}>
             <div className={styles.sectionHead}>
-              <h2 className={styles.sectionTitle}>Technical profile</h2>
+              <h2 className={styles.sectionTitle}>Technical Skills</h2>
             </div>
 
             <div className={styles.tableWrap}>
@@ -232,7 +230,7 @@ export default function SkillsPage() {
                 </caption>
                 <thead>
                   <tr>
-                    <th scope="col">Competence area</th>
+                    <th scope="col"></th>
                     <th scope="col">Skills &amp; technologies</th>
                   </tr>
                 </thead>

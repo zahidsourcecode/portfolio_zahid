@@ -102,7 +102,12 @@ export default function Footer() {
             <img
               src="/nextjs-logo.png"
               alt="Next.js"
-              className="h-4 w-auto object-contain sm:h-[18px]"
+              className="h-5 w-auto object-contain sm:h-[22px] dark:hidden"
+            />
+            <img
+              src="/nextjs-logo-white.png"
+              alt="Next.js"
+              className="hidden h-5 w-auto object-contain sm:h-[22px] dark:block"
             />
           </a>
         </div>

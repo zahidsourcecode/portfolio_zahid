@@ -73,23 +73,26 @@ const socialLinks = [
     href: "https://linkedin.com/in/zahidcseedu",
     label: "LinkedIn",
     icon: "/linkedin-icon.png",
+    iconDark: "/linkedin-icon-dark.png",
   },
   {
     href: "https://github.com/zahidsourcecode",
     label: "GitHub",
     icon: "/github-icon.png",
+    iconDark: "/github-icon-dark.png",
   },
   {
     href: "https://leetcode.com/u/zahidcseedu/",
     label: "LeetCode",
     icon: "/leetcode-icon.png",
   },
-  {
-    href: "https://www.google.com/maps/place/BTI+Chorus/@23.768061,90.4201549,17z/data=!3m1!4b1!4m6!3m5!1s0x3755c7005f87ef3f:0x601cd5d9a9d4ccd3!8m2!3d23.7680562!4d90.4250258!16s%2Fg%2F11ldxmv1cp?entry=ttu",
-    label: "Map",
-    icon: "/map-icon.png",
-  },
 ];
+
+const mapLink = {
+  href: "https://www.google.com/maps/place/BTI+Chorus/@23.768061,90.4201549,17z/data=!3m1!4b1!4m6!3m5!1s0x3755c7005f87ef3f:0x601cd5d9a9d4ccd3!8m2!3d23.7680562!4d90.4250258!16s%2Fg%2F11ldxmv1cp?entry=ttu",
+  label: "Map",
+  icon: "/map-icon.png",
+};
 
 const cvLink = {
   href: "/CV.pdf",
@@ -176,8 +179,27 @@ export default function Home() {
                 />
               </div>
 
-              <div className="mx-auto flex w-full max-w-[360px] flex-wrap items-center justify-center gap-1 px-0.5 sm:max-w-[400px] sm:flex-nowrap sm:gap-1.5">
-                {socialLinks.map(({ href, label, icon }) => (
+              <div className="relative mx-auto w-full max-w-[360px] sm:max-w-[400px]">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 -inset-x-1 rounded-2xl border border-transparent bg-transparent sm:-inset-x-2 dark:border-brand/20 dark:bg-gradient-to-r dark:from-brand/10 dark:via-brand/15 dark:to-brand/10 dark:shadow-[0_0_28px_rgba(94,190,213,0.28),0_0_56px_rgba(94,190,213,0.12),inset_0_1px_0_rgba(94,190,213,0.18)]"
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[70%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/25 blur-2xl dark:block"
+                />
+                <div className="relative flex w-full flex-wrap items-center justify-center gap-1 px-2 py-2 sm:flex-nowrap sm:gap-1.5 sm:px-3 sm:py-2.5">
+                {socialLinks.map(({ href, label, icon, iconDark }) => {
+                  const iconClass =
+                    label === "GitHub"
+                      ? "h-6 w-6 sm:h-7 sm:w-7"
+                      : label === "LeetCode"
+                        ? "h-6 w-6 sm:h-8 sm:w-8"
+                        : label === "LinkedIn"
+                          ? "h-8 w-8 sm:h-10 sm:w-10"
+                          : "h-7 w-7 sm:h-9 sm:w-9";
+
+                  return (
                   <a
                     key={label}
                     href={href}
@@ -190,17 +212,29 @@ export default function Home() {
                     aria-label={label}
                     className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
                   >
-                    <img
-                      src={icon}
-                      alt={label}
-                      className={`object-contain ${
-                        label === "GitHub" || label === "LeetCode"
-                          ? "h-6 w-6 sm:h-7 sm:w-7"
-                          : "h-7 w-7 sm:h-9 sm:w-9"
-                      }`}
-                    />
+                    {iconDark ? (
+                      <>
+                        <img
+                          src={icon}
+                          alt={label}
+                          className={`object-contain ${iconClass} dark:hidden`}
+                        />
+                        <img
+                          src={iconDark}
+                          alt={label}
+                          className={`hidden object-contain ${iconClass} dark:block`}
+                        />
+                      </>
+                    ) : (
+                      <img
+                        src={icon}
+                        alt={label}
+                        className={`object-contain ${iconClass}`}
+                      />
+                    )}
                   </a>
-                ))}
+                  );
+                })}
                 <button
                   type="button"
                   onClick={() => setShowVideo(true)}
@@ -213,6 +247,19 @@ export default function Home() {
                     className="h-[22px] w-[28px] object-contain sm:h-[26px] sm:w-[34px]"
                   />
                 </button>
+                <a
+                  href={mapLink.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={mapLink.label}
+                  className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
+                >
+                  <img
+                    src={mapLink.icon}
+                    alt={mapLink.label}
+                    className="h-6 w-6 object-contain sm:h-8 sm:w-8"
+                  />
+                </a>
                 <button
                   type="button"
                   onClick={() => setShowCv(true)}
@@ -225,6 +272,7 @@ export default function Home() {
                     className="h-6 w-6 object-contain sm:h-7 sm:w-7"
                   />
                 </button>
+                </div>
               </div>
             </div>
 
