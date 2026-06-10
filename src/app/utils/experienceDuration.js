@@ -31,7 +31,7 @@ function lastDayOfMonth(year, month) {
   return new Date(year, month + 1, 0).getDate();
 }
 
-export function parseExperienceDate(str, now = new Date()) {
+function parseExperienceDate(str, now = new Date()) {
   if (!str || str.toLowerCase() === "present") {
     return {
       year: now.getFullYear(),
@@ -111,7 +111,7 @@ function resolveBoundaryDay(date, boundary) {
   return boundary === "start" ? 1 : lastDayOfMonth(date.year, date.month);
 }
 
-export function monthsBetween(startStr, endStr, now = new Date()) {
+function monthsBetween(startStr, endStr, now = new Date()) {
   const start = parseExperienceDate(startStr, now);
   const end = parseExperienceDate(endStr, now);
 
@@ -137,7 +137,7 @@ export function monthsBetween(startStr, endStr, now = new Date()) {
   return (end.year - start.year) * 12 + (end.month - start.month) + 1;
 }
 
-export function getCompanyDateRange(roles) {
+function getCompanyDateRange(roles) {
   if (!roles?.length) {
     throw new Error("At least one role is required to calculate a date range.");
   }
@@ -160,7 +160,7 @@ export function getCompanyDateRange(roles) {
   return { start, end };
 }
 
-export function formatDurationMonths(totalMonths) {
+function formatDurationMonths(totalMonths) {
   if (totalMonths <= 0) return "0 mos";
 
   if (totalMonths < 12) {

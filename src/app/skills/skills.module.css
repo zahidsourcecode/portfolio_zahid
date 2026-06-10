@@ -45,19 +45,6 @@
   }
 }
 
-.eyebrow {
-  margin-bottom: 0.65rem;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--brand-dark);
-}
-
-:global(.dark) .eyebrow {
-  color: var(--brand);
-}
-
 .title {
   font-family: var(--font-playfair), Georgia, serif;
   font-size: clamp(1.85rem, 4vw, 2.45rem);
@@ -93,37 +80,6 @@
 
 :global(.dark) .summary {
   color: #94a3b8;
-}
-
-.metaRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
-  margin-top: 1.35rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid #e2e8f0;
-  font-size: 0.8rem;
-  color: #64748b;
-}
-
-:global(.dark) .metaRow {
-  border-top-color: #334155;
-  color: #94a3b8;
-}
-
-.metaItem {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.metaItem strong {
-  font-weight: 600;
-  color: #334155;
-}
-
-:global(.dark) .metaItem strong {
-  color: #cbd5e1;
 }
 
 .pillarsSection {
@@ -428,11 +384,6 @@
   color: #cbd5e1;
 }
 
-.sectionNote {
-  font-size: 0.75rem;
-  color: #94a3b8;
-}
-
 .tableWrap {
   overflow-x: auto;
   overflow-y: hidden;
@@ -588,13 +539,6 @@
     box-shadow 0.2s ease;
 }
 
-@media (max-width: 767px) {
-  .skillPill {
-    white-space: normal;
-    text-align: center;
-  }
-}
-
 .skillPill:hover {
   border-color: color-mix(in srgb, var(--brand) 45%, #e2e8f0);
   background: color-mix(in srgb, var(--brand-light) 65%, #ffffff);
@@ -733,6 +677,11 @@
   .summary,
   .pillarText {
     text-align: left;
+  }
+
+  .skillPill {
+    white-space: normal;
+    text-align: center;
   }
 
   .tableWrap {

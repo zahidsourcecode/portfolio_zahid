@@ -103,7 +103,7 @@ export function CareerDurationStats({ roles, styles }) {
   return (
     <div className={styles.statsPanel} suppressHydrationWarning>
       <div className={styles.statsPrimaryRow}>
-        {primaryUnits.map(({ value, label }, index) => (
+        {primaryUnits.map(({ value, label }) => (
           <StatUnit
             key={label}
             value={value}

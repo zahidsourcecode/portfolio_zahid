@@ -211,13 +211,6 @@
   pointer-events: none;
 }
 
-.statsGrid {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 8px;
-}
-
 .statsPrimaryRow,
 .statsSecondaryRow {
   position: relative;

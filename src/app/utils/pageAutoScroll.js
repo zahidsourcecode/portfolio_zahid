@@ -21,7 +21,7 @@ export function consumeAutoScrollFromMenu() {
   }
 }
 
-export function schedulePageAutoScroll(options = {}) {
+function schedulePageAutoScroll(options = {}) {
   return window.setTimeout(() => {
     runPageAutoScroll(options);
   }, AUTO_SCROLL_START_DELAY_MS);

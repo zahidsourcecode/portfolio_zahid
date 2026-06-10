@@ -1,5 +1,5 @@
-"use client"
-import React from "react";
+"use client";
+
 import { nextitRoles } from "../../data/experienceDates";
 import {
   EmploymentTypeDisplay,
