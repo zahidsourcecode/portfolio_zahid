@@ -9,6 +9,9 @@ const inputClassName =
 const labelClassName =
   "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400";
 
+const CONTACT_TO_EMAIL = "zahidcseedu@yahoo.com";
+const FORM_SUBMIT_URL = `https://formsubmit.co/ajax/${encodeURIComponent(CONTACT_TO_EMAIL)}`;
+
 export default function ContactForm() {
   const [form, setForm] = useState({
     name: "",
@@ -41,30 +44,45 @@ export default function ContactForm() {
       return;
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatus("error");
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+
     setStatus("sending");
     setErrorMessage("");
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(FORM_SUBMIT_URL, {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, subject, message }),
+        body: JSON.stringify({
+          name,
+          email,
+          _replyto: email,
+          subject,
+          message,
+          _subject: `Portfolio contact: ${subject}`,
+          _template: "table",
+          _captcha: "false",
+        }),
       });
 
       let data = {};
       try {
         data = await res.json();
       } catch {
-        throw new Error("Unexpected server response.");
+        throw new Error("Unexpected response from email service.");
       }
 
-      if (!res.ok) {
+      if (!res.ok || data.success === "false") {
         const msg =
-          typeof data.error === "string"
-            ? data.error
+          typeof data.message === "string"
+            ? data.message
             : "Something went wrong. Please try again.";
         throw new Error(msg);
       }
