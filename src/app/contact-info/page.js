@@ -13,17 +13,24 @@ import {
 
 const contactItems = [
   {
+    icon: "/call-icon.png",
+    label: "Phone",
+    value: "+880 1704 038252",
+    href: "tel:+8801704038252",
+    external: false,
+  },
+  {
+    icon: "/mail-icon.png",
+    label: "Email",
+    value: "zahidcseedu@yahoo.com",
+    href: "mailto:zahidcseedu@yahoo.com",
+    external: false,
+  },
+  {
     icon: "/linkedin-icon.png",
     label: "LinkedIn",
     value: "linkedin.com/in/zahidcseedu",
     href: "https://linkedin.com/in/zahidcseedu",
-    external: true,
-  },
-  {
-    icon: "/globe-icon.png",
-    label: "Portfolio",
-    value: "zahid-career.vercel.app",
-    href: "https://zahid-career.vercel.app/",
     external: true,
   },
   {
@@ -34,11 +41,11 @@ const contactItems = [
     external: true,
   },
   {
-    icon: "/call-icon.png",
-    label: "Phone",
-    value: "+880 1704 038252",
-    href: "tel:+8801704038252",
-    external: false,
+    icon: "/globe-icon.png",
+    label: "Portfolio",
+    value: "zahid-career.vercel.app",
+    href: "https://zahid-career.vercel.app/",
+    external: true,
   },
   {
     icon: "/location-icon.png",
@@ -46,13 +53,6 @@ const contactItems = [
     value: "Block-A, Aftabnagar, Rampura, Dhaka, Bangladesh",
     href: "https://www.google.com/maps/place/BTI+Chorus/@23.768061,90.4201549,17z/data=!3m1!4b1!4m6!3m5!1s0x3755c7005f87ef3f:0x601cd5d9a9d4ccd3!8m2!3d23.7680562!4d90.4250258!16s%2Fg%2F11ldxmv1cp?entry=ttu",
     external: true,
-  },
-  {
-    icon: "/mail-icon.png",
-    label: "Email",
-    value: "zahidcseedu@yahoo.com",
-    href: "mailto:zahidcseedu@yahoo.com",
-    external: false,
   },
 ];
 
