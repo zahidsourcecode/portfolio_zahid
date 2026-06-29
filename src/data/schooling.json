@@ -1,0 +1,91 @@
+{
+  "hero": {
+    "eyebrow": "Education",
+    "title": "Schooling",
+    "summary": "A foundation in science and computer science engineering — from school in Dhaka through university, building the academic base for a career in software development and technical leadership."
+  },
+  "professionalCertification": {
+    "sectionTitle": "Professional certification",
+    "issuerLabel": "Microsoft Certified",
+    "reportCaption": "Exam score report",
+    "credlyLinkLabel": "View badge on Credly",
+    "microsoftCert": {
+      "title": "Microsoft 365 Certified: Fundamentals",
+      "exam": "MS-900",
+      "examLabel": "Microsoft 365 Fundamentals",
+      "score": "714",
+      "passingScore": "700",
+      "status": "Pass",
+      "date": "July 30, 2022",
+      "credlyUrl": "https://www.credly.com/badges/f450cf2e-e452-47bb-a1ea-809666af414b/public_url",
+      "reportImage": "/ms-900-score-report.png",
+      "reportImageAlt": "Microsoft MS-900 exam score report showing a passing score of 714"
+    }
+  },
+  "academicBackground": {
+    "sectionTitle": "Academic background",
+    "cgpaLabel": "Grade point average",
+    "certificateColumnLabel": "Certificate",
+    "tableHeaders": {
+      "degree": "Degree",
+      "major": "Major",
+      "institution": "Institution",
+      "year": "Year",
+      "cgpa": "CGPA",
+      "certificate": "Certificate"
+    },
+    "education": [
+      {
+        "id": "bsc-cse",
+        "degree": "B. Sc. (Engg.)",
+        "major": "CSE",
+        "institution": "Patuakhali Science & Technology University",
+        "website": "http://pstu.ac.bd/",
+        "year": "2016 (December)",
+        "cgpa": "3.50",
+        "cgpaMax": "4.00",
+        "certificate": "/certificates/pstu.pdf",
+        "certificateLabel": "University certificate"
+      },
+      {
+        "id": "hsc",
+        "degree": "HSC",
+        "major": "Science",
+        "institution": "Adamjee Cantonment College, Dhaka Cant.",
+        "website": "https://acc.edu.bd/",
+        "year": "2012",
+        "cgpa": "5.00",
+        "cgpaMax": "5.00",
+        "certificate": "/certificates/hsc.pdf",
+        "certificateLabel": "HSC certificate"
+      },
+      {
+        "id": "ssc",
+        "degree": "SSC",
+        "major": "Science",
+        "institution": "Kalachandpur High School & College, Gulshan",
+        "website": "https://gkhscgulshan.edu.bd/",
+        "year": "2010",
+        "cgpa": "5.00",
+        "cgpaMax": "5.00",
+        "certificate": "/certificates/ssc.pdf",
+        "certificateLabel": "SSC certificate"
+      }
+    ]
+  },
+  "footer": {
+    "text": "Professional experience and technical skills are on the experience and skills pages.",
+    "links": [
+      {
+        "href": "/experience",
+        "label": "Experience",
+        "variant": "primary"
+      },
+      {
+        "href": "/skills",
+        "label": "Skills",
+        "variant": "secondary"
+      }
+    ]
+  }
+}

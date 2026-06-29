@@ -1,7 +1,7 @@
 const MENU_SCROLL_KEY = "portfolio:auto-scroll-after-section";
 export const AUTO_SCROLL_START_DELAY_MS = 2000;
 
-export const AUTO_SCROLL_PATHS = ["/skills", "/experience"];
+export const AUTO_SCROLL_PATHS = ["/skills", "/experience", "/schooling"];
 
 export function markAutoScrollFromMenu() {
   try {

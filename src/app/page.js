@@ -326,7 +326,7 @@ export default function Home() {
                 Express.js, <span className="font-semibold text-slate-900 dark:text-white">.NET</span>, Azure, PostgreSQL,{" "}
                 <span className="font-semibold text-slate-900 dark:text-white">MS SQL</span>, and
                 RESTful APIs. Strong background in Agile, OOP, and software design
-                patterns. Microsoft 365 Fundamentals (MS-900) Certified.
+                patterns.
               </p>
 
               <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-3 mb-5 sm:mb-7">
