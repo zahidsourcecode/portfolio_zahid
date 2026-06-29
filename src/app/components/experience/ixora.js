@@ -98,16 +98,16 @@ export default function Ixora() {
           </div>
           <div className={styles.imageRow}>
             <div className={styles.imageItem}>
-              <img src="/ixora-team-lead-awards.png" alt="Promotion awards celebration at iXora" className={styles.teamImg} tabIndex={0} />
-              <span className={styles.imageLabel}>Promotion awards</span>
+              <img src="/ixora-team-lead-awards.png" alt="TT Champion — single and double at iXora" className={styles.teamImg} tabIndex={0} />
+              <span className={styles.imageLabel}>TT Champion (Single & Double)</span>
             </div>
             <div className={styles.imageItem}>
               <img src="/ixora-promotion-gift.png" alt="Receiving promotion gift at iXora" className={styles.teamImg} tabIndex={0} />
               <span className={styles.imageLabel}>Promotion gift</span>
             </div>
             <div className={styles.imageItem}>
-              <img src="/ixora-team-lead-office.png" alt="Technical Team Lead at iXora office" className={styles.teamImg} tabIndex={0} />
-              <span className={styles.imageLabel}>Office moments</span>
+              <img src="/ixora-team-lead-office.png" alt="Iftar party at iXora office" className={styles.teamImg} tabIndex={0} />
+              <span className={styles.imageLabel}>Iftar party</span>
             </div>
           </div>
         </div>
@@ -145,8 +145,8 @@ export default function Ixora() {
               <span className={styles.imageLabel}>Office inauguration</span>
             </div>
             <div className={styles.imageItem}>
-              <img src="/my-desk.jpg" alt="My Desk" className={styles.teamImg} tabIndex={0} />
-              <span className={styles.imageLabel}>My desk</span>
+              <img src="/ixora-birthday-wish.png" alt="Birthday wish celebration at iXora" className={styles.teamImg} tabIndex={0} />
+              <span className={styles.imageLabel}>BirthDay wish</span>
             </div>
           </div>
         </div>

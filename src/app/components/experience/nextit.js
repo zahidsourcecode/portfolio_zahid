@@ -104,8 +104,12 @@ export default function NextIT() {
           </div>
           <div className={styles.imageRow}>
             <div className={styles.imageItem}>
-              <img src="/office-space.jpeg" alt="Office Space" className={styles.teamImg} tabIndex={0} />
+              <img src="/office-space.jpeg" alt="Next IT office space" className={styles.teamImg} tabIndex={0} />
               <span className={styles.imageLabel}>Office Space</span>
+            </div>
+            <div className={styles.imageItem}>
+              <img src="/nextit-office-space.png" alt="Next IT team at the office" className={styles.teamImg} tabIndex={0} />
+              <span className={styles.imageLabel}>Office Team</span>
             </div>
           </div>
         </div>

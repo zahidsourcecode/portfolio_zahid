@@ -85,6 +85,10 @@ export default function Onair() {
               <img src="/it-park.png" alt="Jashore Software Technology Park" className={styles.teamImg} tabIndex={0} />
               <span className={styles.imageLabel}>Jashore IT Park, Jashore</span>
             </div>
+            <div className={styles.imageItem}>
+              <img src="/onair-office-desk.png" alt="Office desk at Jashore IT Park" className={styles.teamImg} tabIndex={0} />
+              <span className={styles.imageLabel}>Office Desk</span>
+            </div>
           </div>
         </div>
       </div>
