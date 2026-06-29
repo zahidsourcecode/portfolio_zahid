@@ -171,6 +171,8 @@ export default function CompanyExperience({ company, skillsLabel }) {
           imageAlt={experienceLetter.imageAlt}
           title={experienceLetter.modalTitle || experienceLetter.label}
           imageScale={experienceLetter.imageScale}
+          downloadHref={experienceLetter.image}
+          downloadName={experienceLetter.image.split("/").pop()}
         />
       )}
     </div>
