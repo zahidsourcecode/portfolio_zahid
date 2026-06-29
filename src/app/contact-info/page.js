@@ -243,7 +243,7 @@ function QuickLink({ href, icon: Icon, label, external = false }) {
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
-      className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-brand/20 bg-white/80 px-3 py-2 text-xs font-semibold text-brand-dark transition-colors hover:border-brand hover:bg-brand-light/50 dark:bg-slate-800/80 dark:text-brand dark:hover:bg-brand/10"
+      className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-brand/20 bg-white/80 px-3 py-2 text-xs font-semibold text-brand-dark transition-colors hover:border-brand hover:bg-brand-light/50 dark:bg-slate-800/80 dark:text-brand dark:hover:bg-brand/10"
     >
       <Icon size={13} strokeWidth={2.2} />
       {label}

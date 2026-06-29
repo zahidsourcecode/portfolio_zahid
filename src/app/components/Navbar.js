@@ -137,7 +137,7 @@ export default function Navbar() {
               <button
                 onClick={() => setShowSettings(!showSettings)}
                 aria-label={settings.ariaLabel}
-                className={`p-2.5 rounded-full transition-all duration-200 cursor-pointer ${
+                className={`inline-flex min-h-11 min-w-11 items-center justify-center rounded-full transition-all duration-200 cursor-pointer ${
                   showSettings
                     ? "bg-brand text-white shadow-md shadow-brand/30"
                     : "text-slate-500 dark:text-slate-400 hover:bg-brand-light dark:hover:bg-brand/15 hover:text-brand-dark dark:hover:text-brand"
@@ -209,7 +209,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               aria-label={mobileMenu.toggleAriaLabel}
-              className={`lg:hidden p-2.5 rounded-full transition-all duration-200 ${
+              className={`lg:hidden inline-flex min-h-11 min-w-11 items-center justify-center rounded-full transition-all duration-200 ${
                 isOpen
                   ? "bg-brand text-white"
                   : "text-slate-700 dark:text-slate-200 hover:bg-brand-light dark:hover:bg-brand/15 hover:text-brand-dark"
@@ -222,7 +222,7 @@ export default function Navbar() {
 
         <div
           className={`lg:hidden overflow-hidden transition-all duration-300 ease-out ${
-            isOpen ? "max-h-96 opacity-100 pb-4" : "max-h-0 opacity-0"
+            isOpen ? "max-h-[calc(100dvh-4.5rem)] opacity-100 pb-4 overflow-y-auto" : "max-h-0 opacity-0"
           }`}
         >
           <div className="flex flex-col gap-1 pt-2 border-t border-brand/15 dark:border-brand/10">
@@ -234,7 +234,7 @@ export default function Navbar() {
                   onNavClick(href);
                   setIsOpen(false);
                 }}
-                className={`px-4 py-2.5 rounded-xl font-medium transition-all duration-200 ${
+                className={`px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
                   isActive(href)
                     ? "bg-brand text-white shadow-md shadow-brand/25"
                     : "text-slate-700 dark:text-slate-200 hover:bg-brand-light/70 dark:hover:bg-brand/10 hover:text-brand-dark dark:hover:text-brand"

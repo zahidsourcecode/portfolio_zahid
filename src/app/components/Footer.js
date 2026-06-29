@@ -65,9 +65,9 @@ export default function Footer() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/60 to-transparent"
       />
-      <div className="relative mx-auto flex max-w-6xl flex-col gap-3 px-3 py-3 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-4 lg:py-2.5">
+      <div className="relative mx-auto flex max-w-6xl flex-col gap-3 px-3 py-3 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-4 md:py-2.5">
         <p
-          className={`${copyrightClassName} flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-center text-[10px] leading-snug sm:justify-start sm:text-[11px] sm:leading-none`}
+          className={`${copyrightClassName} flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-center text-xs leading-snug sm:justify-start sm:leading-none`}
         >
           <span className="font-semibold text-brand-dark dark:text-brand">© {year}</span>
           <span aria-hidden className="text-brand/35">·</span>
@@ -87,7 +87,7 @@ export default function Footer() {
 
         <nav
           aria-label={footer.navAriaLabel}
-          className="flex flex-wrap items-center justify-center gap-0.5 lg:flex-1"
+          className="flex flex-wrap items-center justify-center gap-1 sm:gap-0.5 md:flex-1"
         >
           {navLinks.map(({ href, label }) => (
             <Link
@@ -98,7 +98,7 @@ export default function Footer() {
                 if (pathname !== href) markAutoScrollFromMenu();
                 handleAutoScrollLinkClick(pathname, href);
               }}
-              className={`inline-flex min-h-9 items-center rounded-md px-2.5 py-1.5 text-[11px] font-medium transition-colors sm:text-xs ${
+              className={`inline-flex min-h-11 items-center rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${
                 isActive(href)
                   ? "bg-brand/15 text-brand-dark dark:text-brand"
                   : "text-slate-500 hover:text-brand-dark dark:text-slate-400 dark:hover:text-brand"
@@ -109,18 +109,18 @@ export default function Footer() {
           ))}
         </nav>
 
-        <div className="flex items-center justify-center gap-2 sm:gap-2.5 lg:ml-auto lg:justify-end">
+        <div className="flex items-center justify-center gap-2 sm:gap-2.5 md:ml-auto md:justify-end">
           <button
             type="button"
             onClick={scrollToTop}
             aria-label={footer.scrollToTopAriaLabel}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-brand/25 bg-brand/10 text-brand-dark transition-all hover:bg-brand hover:text-white dark:text-brand dark:hover:text-white cursor-pointer"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-brand/25 bg-brand/10 text-brand-dark transition-all hover:bg-brand hover:text-white dark:text-brand dark:hover:text-white cursor-pointer"
           >
             <ChevronUp size={15} strokeWidth={2.25} />
           </button>
           <Link
             href={hireMe.href}
-            className="inline-flex min-h-9 items-center rounded-full bg-brand px-3 py-2 text-[10px] font-semibold text-white transition-colors hover:bg-brand-dark sm:text-[11px]"
+            className="inline-flex min-h-11 items-center rounded-full bg-brand px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-brand-dark sm:text-sm"
           >
             {hireMe.label}
           </Link>

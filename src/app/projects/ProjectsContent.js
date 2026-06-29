@@ -5,13 +5,11 @@ import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   ArrowUpRight,
-  ChevronLeft,
-  ChevronRight,
   ExternalLink,
   FolderKanban,
 } from "lucide-react";
-import { GridIcon, ListIcon } from "../components/ViewToggleIcons";
 import PageLoadingState from "../components/PageLoadingState";
+import ContentToolbar from "../components/ContentToolbar";
 
 function ProjectImage({ project, variant = "grid" }) {
   if (variant === "grid") {
@@ -232,65 +230,20 @@ export default function ProjectsContent() {
           </p>
         </div>
 
-        <div className="mb-6 flex items-center gap-2 sm:gap-3">
-          <p className="min-w-0 flex-1 truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
-            {totalPages > 1
+        <ContentToolbar
+          statusText={
+            totalPages > 1
               ? `Page ${currentPage} of ${totalPages} · ${projects.length} projects`
-              : `${projects.length} projects`}
-          </p>
-
-          {totalPages > 1 && (
-            <nav
-              aria-label={labels.paginationAriaLabel}
-              className="flex shrink-0 items-center justify-center gap-1 sm:gap-1.5"
-            >
-              <button
-                onClick={() => goToPage(currentPage - 1)}
-                disabled={currentPage === 1}
-                aria-label={labels.previousPageAriaLabel}
-                className="p-2 rounded-lg border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand hover:text-white cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-slate-600 dark:disabled:hover:text-slate-300 transition-colors"
-              >
-                <ChevronLeft size={18} />
-              </button>
-
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => goToPage(page)}
-                  aria-label={`${labels.pageAriaLabel} ${page}`}
-                  aria-current={page === currentPage ? "page" : undefined}
-                  className={`inline-flex min-w-[36px] h-9 items-center justify-center px-2 rounded-lg text-sm font-medium cursor-pointer transition-colors ${
-                    page === currentPage
-                      ? "bg-brand text-white shadow-md shadow-brand/25"
-                      : "border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand-light/60 dark:hover:bg-brand/10 hover:text-brand-dark dark:hover:text-brand"
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
-
-              <button
-                onClick={() => goToPage(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                aria-label={labels.nextPageAriaLabel}
-                className="p-2 rounded-lg border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand hover:text-white cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-slate-600 dark:disabled:hover:text-slate-300 transition-colors"
-              >
-                <ChevronRight size={18} />
-              </button>
-            </nav>
-          )}
-
-          <div className={`flex shrink-0 gap-1.5 sm:gap-2 ${totalPages > 1 ? "flex-1 justify-end" : ""}`}>
-            <button onClick={() => setView("grid")} className={viewBtnClass("grid")}>
-              <GridIcon />
-              {labels.grid}
-            </button>
-            <button onClick={() => setView("list")} className={viewBtnClass("list")}>
-              <ListIcon />
-              {labels.list}
-            </button>
-          </div>
-        </div>
+              : `${projects.length} projects`
+          }
+          totalPages={totalPages}
+          currentPage={currentPage}
+          goToPage={goToPage}
+          labels={labels}
+          view={view}
+          setView={setView}
+          viewBtnClass={viewBtnClass}
+        />
 
         {view === "grid" && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">

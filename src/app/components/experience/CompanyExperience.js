@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
+import { FileText } from "lucide-react";
 import {
   EmploymentTypeDisplay,
   ExperienceRangeDisplay,
 } from "./ExperienceDurationDisplay";
+import ExperienceLetterModal from "./ExperienceLetterModal";
 import { MapPreview } from "./MapPreview";
 import { useMapPopup } from "./useMapPopup";
 import styles from "./experienceShared.module.css";
@@ -49,6 +52,8 @@ function JobDescription({ description }) {
 
 export default function CompanyExperience({ company, skillsLabel }) {
   const { showPopup, linkHandlers, popupHandlers, close } = useMapPopup();
+  const [showExperienceLetter, setShowExperienceLetter] = useState(false);
+  const { experienceLetter } = company;
 
   return (
     <div className={styles.timelineCard}>
@@ -100,6 +105,18 @@ export default function CompanyExperience({ company, skillsLabel }) {
             </span>
           </div>
         </div>
+
+        {experienceLetter && (
+          <button
+            type="button"
+            className={styles.experienceLetterBtn}
+            onClick={() => setShowExperienceLetter(true)}
+            aria-label={`View ${experienceLetter.label}`}
+          >
+            <FileText size={16} strokeWidth={2.1} aria-hidden />
+            <span>{experienceLetter.label}</span>
+          </button>
+        )}
       </div>
 
       {company.positions.map((position) => {
@@ -145,6 +162,17 @@ export default function CompanyExperience({ company, skillsLabel }) {
           </div>
         );
       })}
+
+      {experienceLetter && (
+        <ExperienceLetterModal
+          open={showExperienceLetter}
+          onClose={() => setShowExperienceLetter(false)}
+          image={experienceLetter.image}
+          imageAlt={experienceLetter.imageAlt}
+          title={experienceLetter.modalTitle || experienceLetter.label}
+          imageScale={experienceLetter.imageScale}
+        />
+      )}
     </div>
   );
 }

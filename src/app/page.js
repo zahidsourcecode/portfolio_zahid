@@ -243,8 +243,8 @@ export default function Home() {
 
       <div className="relative max-w-5xl mx-auto px-3 sm:px-6">
         <div className="bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-xl shadow-brand/10 border border-brand/20 dark:border-brand/15 overflow-hidden">
-          <div className="flex flex-col lg:flex-row">
-            <div className="lg:w-[42%] bg-gradient-to-br from-brand/25 via-brand-light/60 to-white dark:from-brand/20 dark:via-slate-800 dark:to-slate-900 p-5 sm:p-8 lg:p-10 flex flex-col items-center justify-center text-center">
+          <div className="flex flex-col md:flex-row">
+            <div className="md:w-[42%] lg:w-[42%] bg-gradient-to-br from-brand/25 via-brand-light/60 to-white dark:from-brand/20 dark:via-slate-800 dark:to-slate-900 p-5 sm:p-8 lg:p-10 flex flex-col items-center justify-center text-center">
               <div className="relative mb-3 sm:mb-4 w-full max-w-[240px] sm:max-w-[280px] lg:max-w-[300px] cursor-pointer mx-auto">
                 <div
                   aria-hidden
@@ -347,7 +347,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="lg:w-[58%] p-5 sm:p-8 lg:p-10 flex flex-col justify-center min-w-0">
+            <div className="md:w-[58%] lg:w-[58%] p-5 sm:p-8 lg:p-10 flex flex-col justify-center min-w-0">
               <div className="mb-4 sm:mb-6 rounded-r-xl border-l-[3px] border-brand bg-gradient-to-r from-brand/[0.08] via-brand/[0.03] to-transparent py-3 sm:py-4 pl-3 sm:pl-5 pr-2">
                 <div className="group origin-left cursor-pointer transition-transform duration-300 ease-out hover:scale-[1.04]">
                   <h1 className="font-[family-name:var(--font-playfair)] text-[1.75rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold leading-tight">
@@ -452,7 +452,7 @@ export default function Home() {
                   </span>
 
                   <span
-                    className={`relative max-w-full break-words text-xs sm:text-sm font-bold leading-snug text-slate-800 dark:text-white ${
+                    className={`relative max-w-full break-words [overflow-wrap:anywhere] text-xs sm:text-sm font-bold leading-snug text-slate-800 dark:text-white ${
                       mono ? "font-mono tracking-tight" : ""
                     } ${isLoading ? "animate-pulse text-brand-dark/70 dark:text-brand/70" : ""}`}
                   >

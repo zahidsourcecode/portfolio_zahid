@@ -103,8 +103,8 @@ export default function Contact() {
           </p>
         </header>
 
-        <div className="grid gap-6 lg:grid-cols-5 lg:items-stretch lg:gap-8">
-          <aside className="flex lg:col-span-2">
+        <div className="grid gap-6 md:grid-cols-5 md:items-stretch md:gap-8">
+          <aside className="flex md:col-span-2">
             <div className="flex w-full flex-1 flex-col rounded-2xl border border-brand/20 bg-white p-5 shadow-md shadow-brand/10 dark:border-brand/15 dark:bg-slate-900 sm:p-6">
               <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
                 {sidebar.title}
@@ -154,7 +154,7 @@ export default function Contact() {
             </div>
           </aside>
 
-          <section className="flex lg:col-span-3">
+          <section className="flex md:col-span-3">
             <div className="flex w-full flex-1 flex-col overflow-hidden rounded-2xl border border-brand/20 bg-white shadow-lg shadow-brand/10 dark:border-brand/15 dark:bg-slate-900">
               <div className="border-b border-brand/10 bg-gradient-to-r from-brand/10 via-brand-light/30 to-transparent px-5 py-4 dark:from-brand/10 dark:via-slate-800/80 dark:to-transparent sm:px-6">
                 <h2 className="font-semibold text-slate-900 dark:text-white">

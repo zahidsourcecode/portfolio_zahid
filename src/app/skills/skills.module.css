@@ -181,6 +181,13 @@
   gap: 1rem;
 }
 
+@media (min-width: 640px) and (max-width: 767px) {
+  .pillars {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
 @media (min-width: 768px) {
   .pillars {
     grid-template-columns: repeat(3, 1fr);
@@ -382,6 +389,13 @@
   font-weight: 600;
   color: var(--brand-dark);
   white-space: nowrap;
+}
+
+@media (max-width: 639px) {
+  .pillarTags li {
+    white-space: normal;
+    text-align: center;
+  }
 }
 
 :global(.dark) .pillarTags li {

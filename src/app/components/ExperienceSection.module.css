@@ -523,6 +523,33 @@
   }
 }
 
+@media (min-width: 640px) and (max-width: 900px) {
+  .headerContent {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  .careerStatsWrap {
+    align-items: stretch;
+  }
+}
+
+@media (min-width: 901px) {
+  .headerContent {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px 26px;
+  }
+
+  .careerStatsWrap {
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+}
+
 @media (min-width: 1024px) {
   .cardWrapper {
     padding: 40px 36px 40px;

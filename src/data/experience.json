@@ -33,6 +33,13 @@
         "mapTitle": "Ixora Location Map",
         "mapEmbedSrc": "https://www.google.com/maps?q=House+M5+Section+14+Jahangir+Tower+7th+Floor+Mirpur+Dhaka&output=embed"
       },
+      "experienceLetter": {
+        "label": "Appointment Letter",
+        "image": "/experience-letters/ixora-experience-letter.png",
+        "imageAlt": "iXora Solution Ltd appointment letter for Zahid Hasan",
+        "modalTitle": "Appointment Letter — iXora Solution Ltd.",
+        "imageScale": 0.85
+      },
       "positions": [
         {
           "title": "Technical Team Lead",
@@ -156,6 +163,13 @@
         "mapTitle": "Next IT Location Map",
         "mapEmbedSrc": "https://www.google.com/maps?q=NEXT+IT+Limited&output=embed"
       },
+      "experienceLetter": {
+        "label": "Experience Letter",
+        "image": "/experience-letters/nextit-experience-letter.png",
+        "imageAlt": "Next IT Ltd experience letter for Zahid Hasan",
+        "modalTitle": "Experience Letter — Next IT Ltd",
+        "imageScale": 0.75
+      },
       "positions": [
         {
           "title": "Senior Software Engineer",
@@ -232,6 +246,13 @@
         "url": "https://www.google.com/maps/place/%E0%A6%AF%E0%A6%B6%E0%A7%8B%E0%A6%B0+%E0%A6%B8%E0%A6%AB%E0%A6%9F%E0%A6%93%E0%A7%9F%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B0+%E0%A6%9F%E0%A7%87%E0%A6%95%E0%A6%A8%E0%A7%8B%E0%A6%B2%E0%A6%9C%E0%A6%BF+%E0%A6%AA%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%95,+%E0%A6%AF%E0%A6%B6%E0%A7%8B%E0%A6%B0/@23.1560007,89.2219103,21z/data=!4m10!1m2!2m1!1ssheikh+hasina+it+park+jessore!3m6!1s0x39ff1045c66e238d:0x397efd1d68956163!8m2!3d23.1560007!4d89.222208!15sCh1zaGVpa2ggaGFzaW5hIGl0IHBhcmsgamVzc29yZVofIh1zaGVpa2ggaGFzaW5hIGl0IHBhcmsgamVzc29yZZIBEHNvZnR3YXJlX2NvbXBhbnmaASNDaFpEU1VoTk1HOW5TMFZKUTBGblNVTlNlWEpFTjFOQkVBRaoBbwoNL2cvMTFncjFzY3Q3NxABKhkiFXNoZWlraCBoYXNpbmEgaXQgcGFyaygAMh4QASIaEUw-NxWgfJwYjRKGhxdcNmtz3aJKBEvKYhAyIRACIh1zaGVpa2ggaGFzaW5hIGl0IHBhcmsgamVzc29yZeABAPoBBQiIARBH!16s%2Fg%2F11fz9wvvh8?entry=ttu&g_ep=EgoyMDI1MDcwNy4wIKXMDSoASAFQAw%3D%3D",
         "mapTitle": "Onair Location Map",
         "mapEmbedSrc": "https://www.google.com/maps?q=Jashore+Software+Technology+Park,+Jashore&output=embed"
+      },
+      "experienceLetter": {
+        "label": "Experience Letter",
+        "image": "/experience-letters/onair-experience-letter.png",
+        "imageAlt": "Onair Intl Ltd experience letter for Zahid Hasan",
+        "modalTitle": "Experience Letter — Onair Intl Ltd",
+        "imageScale": 0.85
       },
       "positions": [
         {

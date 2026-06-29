@@ -426,10 +426,24 @@
 
 @media (max-width: 639px) {
   .headerRow {
-    flex-direction: row;
-    align-items: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
     gap: 12px;
     padding: 12px;
+  }
+
+  .headerInfo {
+    flex: 1 1 calc(100% - 56px);
+    min-width: 0;
+  }
+
+  .experienceLetterBtn {
+    flex: 1 1 100%;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0.25rem;
+    justify-content: center;
+    font-size: 0.68rem;
   }
 
   .companyLogo {
@@ -572,6 +586,27 @@
     height: min(280px, 52vh);
     z-index: 200;
   }
+
+  .letterModal {
+    padding: 0.75rem;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    align-items: flex-end;
+  }
+
+  .letterModalDialog {
+    width: 100%;
+    max-height: 88vh;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .letterModalTitle {
+    font-size: 0.82rem;
+  }
+
+  .letterModalActions {
+    margin-left: auto;
+  }
 }
 
 @media (max-width: 480px) {
@@ -711,4 +746,253 @@
 
 :global(.dark) .imageRow {
   border-top-color: rgba(94, 190, 213, 0.12);
+}
+
+.experienceLetterBtn {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  align-self: center;
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(94, 190, 213, 0.35);
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.experienceLetterBtn:hover {
+  border-color: #5ebed5;
+  color: #3a9db8;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(94, 190, 213, 0.2);
+  transform: translateY(-1px);
+}
+
+.experienceLetterBtn svg {
+  color: #5ebed5;
+}
+
+:global(.dark) .experienceLetterBtn {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(94, 190, 213, 0.25);
+  color: #e2e8f0;
+}
+
+:global(.dark) .experienceLetterBtn:hover {
+  background: rgba(30, 41, 59, 0.95);
+  color: #5ebed5;
+}
+
+.letterModal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  background: rgb(0 0 0 / 72%);
+  backdrop-filter: blur(4px);
+}
+
+.letterModalDialog {
+  display: flex;
+  width: min(96vw, 36rem);
+  max-height: 92vh;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(94, 190, 213, 0.25);
+  background: #ffffff;
+  box-shadow:
+    0 24px 48px -20px rgba(94, 190, 213, 0.35),
+    0 12px 32px -16px rgba(0, 0, 0, 0.35);
+}
+
+:global(.dark) .letterModalDialog {
+  background: #0f172a;
+  border-color: rgba(94, 190, 213, 0.2);
+}
+
+.letterModalHeader {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(94, 190, 213, 0.2);
+  background: linear-gradient(
+    90deg,
+    rgba(184, 232, 242, 0.55) 0%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+  padding: 0.75rem 1rem;
+}
+
+.letterModalActions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.letterZoomBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #334155;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.letterZoomBtn:hover:not(:disabled) {
+  background: #ffffff;
+  color: #0f172a;
+  transform: scale(1.05);
+}
+
+.letterZoomBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.letterZoomLabel {
+  min-width: 2.75rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #475569;
+  text-align: center;
+}
+
+:global(.dark) .letterZoomBtn {
+  background: rgba(30, 41, 59, 0.95);
+  color: #e2e8f0;
+}
+
+:global(.dark) .letterZoomBtn:hover:not(:disabled) {
+  background: #334155;
+  color: #ffffff;
+}
+
+:global(.dark) .letterZoomLabel {
+  color: #94a3b8;
+}
+
+:global(.dark) .letterModalHeader {
+  background: linear-gradient(
+    90deg,
+    rgba(94, 190, 213, 0.12) 0%,
+    rgba(15, 23, 42, 0.98) 100%
+  );
+  border-bottom-color: rgba(94, 190, 213, 0.15);
+}
+
+.letterModalTitle {
+  margin: 0;
+  min-width: 0;
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0f4c5c;
+}
+
+:global(.dark) .letterModalTitle {
+  color: #5ebed5;
+}
+
+.letterModalClose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #334155;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.letterModalClose:hover {
+  background: #ffffff;
+  color: #0f172a;
+  transform: scale(1.05);
+}
+
+:global(.dark) .letterModalClose {
+  background: rgba(30, 41, 59, 0.95);
+  color: #e2e8f0;
+}
+
+:global(.dark) .letterModalClose:hover {
+  background: #334155;
+  color: #ffffff;
+}
+
+.letterModalBody {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0.75rem;
+  background: #f8fafc;
+  -webkit-overflow-scrolling: touch;
+}
+
+:global(.dark) .letterModalBody {
+  background: #0b1220;
+}
+
+.letterModalImageSizer {
+  margin: 0 auto;
+  transition: width 0.15s ease;
+}
+
+.letterModalImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  background: #ffffff;
+}
+
+:global(.dark) .letterModalImage {
+  background: #ffffff;
 }

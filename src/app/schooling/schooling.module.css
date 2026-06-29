@@ -892,6 +892,7 @@
   align-items: flex-end;
   justify-content: center;
   padding: 0;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   background: rgb(0 0 0 / 70%);
   backdrop-filter: blur(4px);
   transition: opacity 0.3s ease;
@@ -974,6 +975,10 @@
 
 .certModalTitle {
   margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--brand-dark);
