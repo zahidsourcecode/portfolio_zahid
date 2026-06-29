@@ -44,8 +44,9 @@
         "year": "2016 (December)",
         "cgpa": "3.50",
         "cgpaMax": "4.00",
-        "certificate": "/certificates/pstu.pdf",
-        "certificateLabel": "University certificate"
+        "certificate": "/certificates/pstu.png",
+        "certificateLabel": "University certificate",
+        "imageScale": 0.85
       },
       {
         "id": "hsc",
@@ -56,8 +57,9 @@
         "year": "2012",
         "cgpa": "5.00",
         "cgpaMax": "5.00",
-        "certificate": "/certificates/hsc.pdf",
-        "certificateLabel": "HSC certificate"
+        "certificate": "/certificates/hsc.png",
+        "certificateLabel": "HSC certificate",
+        "imageScale": 0.85
       },
       {
         "id": "ssc",
@@ -68,8 +70,9 @@
         "year": "2010",
         "cgpa": "5.00",
         "cgpaMax": "5.00",
-        "certificate": "/certificates/ssc.pdf",
-        "certificateLabel": "SSC certificate"
+        "certificate": "/certificates/ssc.png",
+        "certificateLabel": "SSC certificate",
+        "imageScale": 0.85
       }
     ]
   },

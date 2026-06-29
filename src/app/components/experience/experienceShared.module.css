@@ -908,6 +908,37 @@
   color: #94a3b8;
 }
 
+.letterDownloadBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.75rem;
+  border-radius: 999px;
+  background: var(--brand);
+  padding: 0.45rem 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 4px 12px -6px rgb(94 190 213 / 55%);
+  transition: background-color 0.2s ease;
+}
+
+.letterDownloadBtn:hover {
+  background: var(--brand-dark);
+}
+
+:global(.dark) .letterDownloadBtn {
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .letterDownloadBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
 :global(.dark) .letterModalHeader {
   background: linear-gradient(
     90deg,

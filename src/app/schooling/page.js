@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Award, Download, ExternalLink, Eye, GraduationCap, X } from "lucide-react";
 import PageAutoScroll from "../components/PageAutoScroll";
 import PageLoadingState from "../components/PageLoadingState";
+import ExperienceLetterModal from "../components/experience/ExperienceLetterModal";
 import expStyles from "../components/experience/experienceShared.module.css";
 import styles from "./schooling.module.css";
 
@@ -78,11 +79,14 @@ export default function SchoolingPage() {
     };
   }, []);
 
-  const openCertificate = ({ certificate, certificateLabel, degree }) => {
+  const openCertificate = ({ certificate, certificateLabel, degree, imageScale }) => {
+    const extension = certificate.split(".").pop()?.toLowerCase() || "pdf";
     setActiveCertificate({
       src: certificate,
       title: certificateLabel,
-      downloadName: `${degree.replace(/[^a-zA-Z0-9]+/g, "_")}_certificate.pdf`,
+      downloadName: `${degree.replace(/[^a-zA-Z0-9]+/g, "_")}_certificate.${extension}`,
+      isPdf: extension === "pdf",
+      imageScale,
     });
   };
 
@@ -218,6 +222,7 @@ export default function SchoolingPage() {
                   cgpaMax,
                   certificate,
                   certificateLabel,
+                  imageScale,
                 }) => (
                   <article key={id} className={styles.card}>
                     <div className={styles.cardTop} aria-hidden />
@@ -243,7 +248,12 @@ export default function SchoolingPage() {
                         <CertificateViewButton
                           label={certificateLabel}
                           onClick={() =>
-                            openCertificate({ certificate, certificateLabel, degree })
+                            openCertificate({
+                              certificate,
+                              certificateLabel,
+                              degree,
+                              imageScale,
+                            })
                           }
                         />
                       </div>
@@ -278,6 +288,7 @@ export default function SchoolingPage() {
                       cgpaMax,
                       certificate,
                       certificateLabel,
+                      imageScale,
                     }) => (
                       <tr key={id}>
                         <td className={styles.tableDegree}>{degree}</td>
@@ -293,7 +304,12 @@ export default function SchoolingPage() {
                           <CertificateViewButton
                             label={certificateLabel}
                             onClick={() =>
-                              openCertificate({ certificate, certificateLabel, degree })
+                              openCertificate({
+                              certificate,
+                              certificateLabel,
+                              degree,
+                              imageScale,
+                            })
                             }
                           />
                         </td>
@@ -325,9 +341,20 @@ export default function SchoolingPage() {
         </article>
       </div>
 
+      <ExperienceLetterModal
+        open={Boolean(activeCertificate && !activeCertificate.isPdf)}
+        onClose={() => setActiveCertificate(null)}
+        image={activeCertificate?.src}
+        imageAlt={activeCertificate?.title}
+        title={activeCertificate?.title}
+        imageScale={activeCertificate?.imageScale}
+        downloadHref={activeCertificate?.src}
+        downloadName={activeCertificate?.downloadName}
+      />
+
       <div
         className={`${styles.certModal} ${
-          activeCertificate ? styles.certModalOpen : styles.certModalClosed
+          activeCertificate?.isPdf ? styles.certModalOpen : styles.certModalClosed
         }`}
         onClick={() => setActiveCertificate(null)}
       >
@@ -335,7 +362,7 @@ export default function SchoolingPage() {
           <div className={styles.certModalHeader}>
             <h2 className={styles.certModalTitle}>{activeCertificate?.title}</h2>
             <div className={styles.certModalActions}>
-              {activeCertificate && (
+              {activeCertificate?.isPdf && (
                 <a
                   href={activeCertificate.src}
                   download={activeCertificate.downloadName}
@@ -356,7 +383,7 @@ export default function SchoolingPage() {
             </div>
           </div>
 
-          {activeCertificate && (
+          {activeCertificate?.isPdf && (
             <div className={styles.certViewerBody}>
               <iframe
                 src={`${activeCertificate.src}#toolbar=1&navpanes=0&zoom=page-width`}

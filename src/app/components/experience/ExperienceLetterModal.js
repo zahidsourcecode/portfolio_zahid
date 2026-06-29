@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { X, ZoomIn, ZoomOut } from "lucide-react";
+import { Download, X, ZoomIn, ZoomOut } from "lucide-react";
 import styles from "./experienceShared.module.css";
 
 const MIN_ZOOM = 0.75;
@@ -21,6 +21,8 @@ export default function ExperienceLetterModal({
   imageAlt,
   title,
   imageScale = 1,
+  downloadHref,
+  downloadName,
 }) {
   const [mounted, setMounted] = useState(false);
   const [zoom, setZoom] = useState(() => toZoomValue(imageScale));
@@ -103,6 +105,17 @@ export default function ExperienceLetterModal({
             >
               <ZoomIn size={16} strokeWidth={2.25} />
             </button>
+            {downloadHref && downloadName && (
+              <a
+                href={downloadHref}
+                download={downloadName}
+                className={styles.letterDownloadBtn}
+                onClick={(event) => event.stopPropagation()}
+              >
+                <Download size={14} strokeWidth={2.25} aria-hidden />
+                Download
+              </a>
+            )}
             <button
               type="button"
               className={styles.letterModalClose}
