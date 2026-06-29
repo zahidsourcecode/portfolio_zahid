@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Award, Download, ExternalLink, Eye, GraduationCap, X } from "lucide-react";
 import PageAutoScroll from "../components/PageAutoScroll";
+import PageLoadingState from "../components/PageLoadingState";
 import expStyles from "../components/experience/experienceShared.module.css";
 import styles from "./schooling.module.css";
 
@@ -91,10 +92,7 @@ export default function SchoolingPage() {
         <PageAutoScroll />
         <div className={styles.inner}>
           <article className={styles.sheet}>
-            <div className={styles.statePanel} role="status" aria-live="polite">
-              <GraduationCap size={28} className={styles.stateIcon} aria-hidden />
-              <p className={styles.stateText}>Loading schooling data…</p>
-            </div>
+            <PageLoadingState icon="graduationCap" message="Loading schooling data…" />
           </article>
         </div>
       </main>

@@ -1,0 +1,209 @@
+{
+  "pageState": {
+    "loadingText": "Loading skills data…",
+    "errorText": "Skills data is unavailable.",
+    "retryLabel": "Try again"
+  },
+  "hero": {
+    "title": "I Believe",
+    "summary": "No one is born with technology skills. Technology was created by people of this world, and since I am also one of the people living in this world, I can learn it too. There is no magic involved. All it takes is time, consistent practice, dedication, patience, perseverance, and hard working."
+  },
+  "pillarsSection": {
+    "ariaLabel": "Role overview",
+    "heading": "How I work",
+    "subheading": "Full-stack delivery, technical leadership, and client engagement",
+    "pillars": [
+      {
+        "id": "full-stack",
+        "label": "Core practice",
+        "title": "Full-stack development",
+        "text": "Hands-on across frontend, backend, and SQL — React/Next.js, .NET/Node APIs, and database design in production environments.",
+        "highlights": ["React & Next.js", ".NET & Node", "SQL & data"],
+        "icon": "layers",
+        "accentClass": "pillarAccent1"
+      },
+      {
+        "id": "leadership",
+        "label": "Leadership",
+        "title": "Technical team lead",
+        "text": "Mentors engineers, shapes architecture, runs code review, and drives delivery while staying close to the codebase.",
+        "highlights": ["Mentoring", "Architecture", "Code review"],
+        "icon": "users",
+        "accentClass": "pillarAccent2"
+      },
+      {
+        "id": "client-facing",
+        "label": "Client-facing",
+        "title": "Customer & stakeholder handling",
+        "text": "Works directly with clients and stakeholders — requirements, scope, progress updates, and reliable follow-through across time zones.",
+        "highlights": ["Requirements", "Progress updates", "Stakeholders"],
+        "icon": "messageSquare",
+        "accentClass": "pillarAccent3"
+      }
+    ]
+  },
+  "technicalSkills": {
+    "sectionTitle": "Technical Skills",
+    "tableCaption": "Technical skills grouped by competence area",
+    "headers": {
+      "category": "",
+      "skills": "Skills & technologies"
+    },
+    "profile": [
+      {
+        "category": "Frontend",
+        "skills": [
+          "React.js",
+          "Next.js",
+          "TypeScript",
+          "JavaScript",
+          "HTML5",
+          "CSS3",
+          "Bootstrap",
+          "Tailwind CSS",
+          "jQuery",
+          "Angular",
+          "AngularJS",
+          "PrimeNG",
+          "RxJS",
+          "MEAN",
+          "MERN"
+        ]
+      },
+      {
+        "category": "Backend & APIs",
+        "skills": [
+          "Node.js",
+          "Express.js",
+          "Python",
+          "Django",
+          "C#",
+          "LINQ",
+          "ASP.NET MVC",
+          "Web API",
+          "REST APIs",
+          "Entity Framework",
+          "EF Core",
+          "ADO.NET",
+          "Ajax",
+          "Microservices",
+          "RabbitMQ"
+        ]
+      },
+      {
+        "category": "Database",
+        "skills": [
+          "MS SQL Server",
+          "PostgreSQL",
+          "SQLite",
+          "MongoDB",
+          "T-SQL",
+          "DDL",
+          "DML",
+          "DCL",
+          "Datatypes",
+          "Constraints",
+          "Triggers",
+          "Indexes",
+          "Filters",
+          "Sorting",
+          "Functions",
+          "Joins",
+          "Transactions",
+          "CTE",
+          "Temp tables",
+          "Views",
+          "SQL Job",
+          "Query optimisation",
+          "RDLC",
+          "Crystal Reports",
+          "SSRS"
+        ]
+      },
+      {
+        "category": "Cloud ",
+        "skills": [
+          "Figma",
+          "Azure",
+          "Azure DevOps",
+          "Azure App Service",
+          "Azure SQL",
+          "Azure Functions",
+          "Azure Key Vault",
+          "Azure Storage",
+          "Entra ID",
+          "Docker",
+          "CI/CD",
+          "Git",
+          "GitHub",
+          "Jira",
+          "VS Code",
+          "Postman",
+          "Swagger"
+        ]
+      },
+      {
+        "category": "Principles",
+        "skills": [
+          "OOP",
+          "SOLID",
+          "Design patterns",
+          "Gang of Four",
+          "DDD",
+          "ACID",
+          "Data structures",
+          "Algorithms",
+          "Unit testing",
+          "Agile",
+          "Scrum"
+        ]
+      },
+      {
+        "category": "Leadership",
+        "skills": [
+          "Technical leadership",
+          "Team mentoring",
+          "Code review",
+          "Code smell",
+          "Architecture",
+          "Customer communication"
+        ]
+      },
+      {
+        "category": "AI-Acceleration",
+        "skills": ["ChatGPT", "Claude", "Cursor", "Gemini", "AI-assisted development"]
+      }
+    ]
+  },
+  "strengths": {
+    "sectionTitle": "Professional strengths",
+    "tableCaption": "Key professional attributes",
+    "headers": {
+      "number": "No.",
+      "strength": "Professional strength"
+    },
+    "items": [
+      "Clear concept and strong grounding in OOP, data structures & algorithms, and design patterns; delivers maintainable software with clear structure and consistent standards.",
+      "Worked in complex business domains with full-stack capability across frontend, backend, and SQL development; able to find and resolve problems in complex SQL queries.",
+      "Able to work under delivery pressure and meet deadlines within a defined time frame while maintaining quality.",
+      "Good team player, willing to accept responsibility, and able to adapt in changing environments; comfortable in remote, cross-border teams with async communication, balancing hands-on development with mentoring and technical direction.",
+      "Quick learner with the ability to grasp new technology & concepts and an effective working method in short time; enthusiastic, self-motivated, confident, patient, positive, optimistic, and friendly as a person."
+    ]
+  },
+  "footer": {
+    "text": "Full career history and project context are available on the experience page.",
+    "links": [
+      {
+        "href": "/experience",
+        "label": "Experience",
+        "variant": "primary",
+        "showArrow": true
+      },
+      {
+        "href": "/contact",
+        "label": "Contact",
+        "variant": "secondary"
+      }
+    ]
+  }
+}

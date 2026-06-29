@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
@@ -10,10 +10,8 @@ import {
   ExternalLink,
   FolderKanban,
 } from "lucide-react";
-import { projects } from "../data/projects";
 import { GridIcon, ListIcon } from "../components/ViewToggleIcons";
-
-const PROJECTS_PER_PAGE = 4;
+import PageLoadingState from "../components/PageLoadingState";
 
 function ProjectImage({ project, variant = "grid" }) {
   if (variant === "grid") {
@@ -72,13 +70,13 @@ function ProjectTitle({ project }) {
   );
 }
 
-function DetailsButton({ id }) {
+function DetailsButton({ id, label }) {
   return (
     <Link
       href={`/details/${id}`}
       className="inline-flex items-center gap-1.5 w-fit px-4 py-2 rounded-lg bg-brand text-white text-sm font-semibold hover:bg-brand-dark shadow-sm shadow-brand/20 hover:shadow-brand/35 transition-colors group shrink-0"
     >
-      View details
+      {label}
       <ArrowUpRight
         size={15}
         className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
@@ -87,7 +85,7 @@ function DetailsButton({ id }) {
   );
 }
 
-function LiveDemoButton({ demoUrl }) {
+function LiveDemoButton({ demoUrl, label }) {
   if (!demoUrl) return null;
 
   return (
@@ -97,7 +95,7 @@ function LiveDemoButton({ demoUrl }) {
       rel="noopener noreferrer"
       className="inline-flex items-center gap-1.5 w-fit px-4 py-2 rounded-lg border border-brand/35 bg-white/90 text-sm font-semibold text-brand-dark shadow-sm transition-colors hover:border-brand hover:bg-brand-light/50 group shrink-0 dark:bg-slate-800/90 dark:text-brand dark:hover:bg-brand/10"
     >
-      Live demo
+      {label}
       <ExternalLink
         size={15}
         className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
@@ -106,15 +104,15 @@ function LiveDemoButton({ demoUrl }) {
   );
 }
 
-function ProjectActions({ id, demoUrl, stacked = false }) {
+function ProjectActions({ id, demoUrl, labels, stacked = false }) {
   return (
     <div
       className={`flex flex-wrap items-center gap-2 ${
         stacked ? "w-full flex-col sm:w-auto sm:flex-row [&_a]:w-full sm:[&_a]:w-fit" : ""
       }`}
     >
-      <DetailsButton id={id} />
-      <LiveDemoButton demoUrl={demoUrl} />
+      <DetailsButton id={id} label={labels.viewDetails} />
+      <LiveDemoButton demoUrl={demoUrl} label={labels.liveDemo} />
     </div>
   );
 }
@@ -123,17 +121,58 @@ export default function ProjectsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [view, setView] = useState("grid");
+  const [projectsData, setProjectsData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadProjectsData() {
+      try {
+        const response = await fetch("/api/projects");
+
+        if (!response.ok) {
+          throw new Error("Failed to load projects data");
+        }
+
+        const data = await response.json();
+
+        if (!cancelled) {
+          setProjectsData(data);
+          setError(null);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : "Failed to load projects data");
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadProjectsData();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const projects = projectsData?.projects ?? [];
+  const projectsPerPage = projectsData?.settings?.projectsPerPage ?? 4;
+
+  const totalPages = Math.ceil(projects.length / projectsPerPage);
   const rawPage = parseInt(searchParams.get("page") || "1", 10);
   const currentPage = Number.isNaN(rawPage)
     ? 1
-    : Math.min(Math.max(rawPage, 1), totalPages);
+    : Math.min(Math.max(rawPage, 1), Math.max(totalPages, 1));
 
   const paginatedProjects = useMemo(() => {
-    const start = (currentPage - 1) * PROJECTS_PER_PAGE;
-    return projects.slice(start, start + PROJECTS_PER_PAGE);
-  }, [currentPage]);
+    const start = (currentPage - 1) * projectsPerPage;
+    return projects.slice(start, start + projectsPerPage);
+  }, [currentPage, projects, projectsPerPage]);
 
   const goToPage = (page) => {
     if (page < 1 || page > totalPages) return;
@@ -147,19 +186,49 @@ export default function ProjectsContent() {
         : "bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-200"
     }`;
 
+  if (loading) {
+    return (
+      <main className="page-gradient min-w-0 overflow-x-hidden px-3 py-6 pb-10 pt-16 sm:px-6 sm:pt-20">
+        <div className="mx-auto max-w-5xl min-w-0">
+          <PageLoadingState icon="folderKanban" message="Loading projects data…" />
+        </div>
+      </main>
+    );
+  }
+
+  if (error || !projectsData) {
+    return (
+      <main className="page-gradient min-w-0 overflow-x-hidden px-3 py-6 pb-10 pt-16 sm:px-6 sm:pt-20">
+        <div className="mx-auto flex max-w-5xl min-w-0 flex-col items-center gap-3 text-center">
+          <p className="text-slate-500 dark:text-slate-400" role="alert">
+            {error || projectsData?.pageState?.errorText || "Projects data is unavailable."}
+          </p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
+          >
+            {projectsData?.pageState?.retryLabel || "Try again"}
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  const { header, labels } = projectsData;
+
   return (
-        <main className="page-gradient min-w-0 overflow-x-hidden px-3 py-6 pb-10 pt-16 sm:px-6 sm:pt-20">
-          <div className="mx-auto max-w-5xl min-w-0">
+    <main className="page-gradient min-w-0 overflow-x-hidden px-3 py-6 pb-10 pt-16 sm:px-6 sm:pt-20">
+      <div className="mx-auto max-w-5xl min-w-0">
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-2">
             <FolderKanban size={22} className="text-brand" />
             <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">
-              Projects
+              {header.title}
             </h1>
           </div>
           <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl">
-            A collection of web applications and demos built with React, Next.js, Node.js,
-            MongoDB, and modern full-stack tools.
+            {header.description}
           </p>
         </div>
 
@@ -172,13 +241,13 @@ export default function ProjectsContent() {
 
           {totalPages > 1 && (
             <nav
-              aria-label="Projects pagination"
+              aria-label={labels.paginationAriaLabel}
               className="flex shrink-0 items-center justify-center gap-1 sm:gap-1.5"
             >
               <button
                 onClick={() => goToPage(currentPage - 1)}
                 disabled={currentPage === 1}
-                aria-label="Previous page"
+                aria-label={labels.previousPageAriaLabel}
                 className="p-2 rounded-lg border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand hover:text-white cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-slate-600 dark:disabled:hover:text-slate-300 transition-colors"
               >
                 <ChevronLeft size={18} />
@@ -188,7 +257,7 @@ export default function ProjectsContent() {
                 <button
                   key={page}
                   onClick={() => goToPage(page)}
-                  aria-label={`Page ${page}`}
+                  aria-label={`${labels.pageAriaLabel} ${page}`}
                   aria-current={page === currentPage ? "page" : undefined}
                   className={`inline-flex min-w-[36px] h-9 items-center justify-center px-2 rounded-lg text-sm font-medium cursor-pointer transition-colors ${
                     page === currentPage
@@ -203,7 +272,7 @@ export default function ProjectsContent() {
               <button
                 onClick={() => goToPage(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                aria-label="Next page"
+                aria-label={labels.nextPageAriaLabel}
                 className="p-2 rounded-lg border border-brand/20 dark:border-brand/15 text-slate-600 dark:text-slate-300 hover:bg-brand hover:text-white cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-slate-600 dark:disabled:hover:text-slate-300 transition-colors"
               >
                 <ChevronRight size={18} />
@@ -214,11 +283,11 @@ export default function ProjectsContent() {
           <div className={`flex shrink-0 gap-1.5 sm:gap-2 ${totalPages > 1 ? "flex-1 justify-end" : ""}`}>
             <button onClick={() => setView("grid")} className={viewBtnClass("grid")}>
               <GridIcon />
-              Grid
+              {labels.grid}
             </button>
             <button onClick={() => setView("list")} className={viewBtnClass("list")}>
               <ListIcon />
-              List
+              {labels.list}
             </button>
           </div>
         </div>
@@ -243,7 +312,11 @@ export default function ProjectsContent() {
                     {project.description}
                   </p>
 
-                  <ProjectActions id={project.id} demoUrl={project.iframeSrc} />
+                  <ProjectActions
+                    id={project.id}
+                    demoUrl={project.iframeSrc}
+                    labels={labels}
+                  />
                 </div>
               </article>
             ))}
@@ -268,7 +341,12 @@ export default function ProjectsContent() {
                 </div>
 
                 <div className="w-full shrink-0 self-stretch sm:w-auto sm:self-center">
-                  <ProjectActions id={project.id} demoUrl={project.iframeSrc} stacked />
+                  <ProjectActions
+                    id={project.id}
+                    demoUrl={project.iframeSrc}
+                    labels={labels}
+                    stacked
+                  />
                 </div>
               </article>
             ))}

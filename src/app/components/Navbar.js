@@ -6,25 +6,17 @@ import { usePathname } from "next/navigation";
 import { Menu, X, Settings, Sun, Moon, Upload } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import UploadCvModal from "./UploadCvModal";
+import { useNavigation } from "../hooks/useNavigation";
 import {
   AUTO_SCROLL_PATHS,
   handleAutoScrollLinkClick,
   markAutoScrollFromMenu,
 } from "../utils/pageAutoScroll";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/experience", label: "Experience" },
-  { href: "/skills", label: "Skills" },
-  { href: "/projects", label: "Projects" },
-  { href: "/blog", label: "Blog" },
-  { href: "/schooling", label: "Schooling" },
-  { href: "/contact-info", label: "Contact" },
-];
-
 export default function Navbar() {
   const pathname = usePathname();
   const { isDark, toggleTheme } = useTheme();
+  const { navigationData, loading, error } = useNavigation();
   const [isOpen, setIsOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showUploadCv, setShowUploadCv] = useState(false);
@@ -60,35 +52,73 @@ export default function Navbar() {
     handleAutoScrollLinkClick(pathname, href);
   };
 
+  if (loading && !navigationData) {
+    return (
+      <nav className="w-full fixed top-0 left-0 z-50 pt-[env(safe-area-inset-top,0px)] transition-all duration-300">
+        <div className="absolute inset-0 bg-white/80 dark:bg-slate-900/85 backdrop-blur-xl border-b border-brand/20 dark:border-brand/15 shadow-[0_4px_24px_-4px_rgba(94,190,213,0.25)]" />
+        <div className="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-center">
+            <p className="text-sm text-slate-500 dark:text-slate-400" role="status" aria-live="polite">
+              Loading navigation…
+            </p>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+
+  if (error || !navigationData) {
+    return (
+      <nav className="w-full fixed top-0 left-0 z-50 pt-[env(safe-area-inset-top,0px)] transition-all duration-300">
+        <div className="absolute inset-0 bg-white/80 dark:bg-slate-900/85 backdrop-blur-xl border-b border-brand/20 dark:border-brand/15 shadow-[0_4px_24px_-4px_rgba(94,190,213,0.25)]" />
+        <div className="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-center gap-3">
+            <p className="text-sm text-slate-500 dark:text-slate-400" role="alert">
+              {error || "Navigation data is unavailable."}
+            </p>
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="rounded-full border border-brand/30 px-3 py-1 text-xs font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
+            >
+              Try again
+            </button>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+
+  const { brand, navbar } = navigationData;
+  const { navLinks, settings, mobileMenu } = navbar;
+
   return (
     <nav className="w-full fixed top-0 left-0 z-50 pt-[env(safe-area-inset-top,0px)] transition-all duration-300">
       <div className="absolute inset-0 bg-white/80 dark:bg-slate-900/85 backdrop-blur-xl border-b border-brand/20 dark:border-brand/15 shadow-[0_4px_24px_-4px_rgba(94,190,213,0.25)]" />
 
       <div className="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-3">
-          {/* Brand */}
-          <Link href="/" className="flex items-center gap-2.5 min-w-0 group shrink-0 cursor-pointer">
+          <Link href={brand.homeHref} className="flex items-center gap-2.5 min-w-0 group shrink-0 cursor-pointer">
             <img
-              src="/logo.png"
-              alt="Zahid Hasan"
+              src={brand.logo}
+              alt={brand.logoAlt}
               className="w-10 h-10 sm:w-12 sm:h-12 object-contain transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-[1.28] group-active:scale-[1.12]"
             />
             <div className="flex flex-col leading-tight min-w-0 origin-left transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-105">
               <span className="text-base sm:text-lg font-bold truncate">
                 <span className="text-slate-800 transition-colors duration-300 group-hover:text-brand dark:text-white dark:group-hover:text-brand">
-                  Zahid{" "}
+                  {brand.firstName}{" "}
                 </span>
                 <span className="text-brand-dark transition-colors duration-300 group-hover:text-brand-darker dark:text-brand dark:group-hover:text-brand-muted">
-                  Hasan
+                  {brand.lastName}
                 </span>
               </span>
               <span className="hidden sm:block text-xs font-medium text-slate-500 transition-colors duration-300 group-hover:text-brand-dark dark:text-brand/80 dark:group-hover:text-brand truncate">
-                Technical Team Lead
+                {brand.title}
               </span>
             </div>
           </Link>
 
-          {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-1 bg-brand-light/50 dark:bg-slate-800/60 rounded-full px-1.5 py-1 border border-brand/15 dark:border-brand/10">
             {navLinks.map(({ href, label }) => (
               <Link
@@ -102,12 +132,11 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right actions */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <div className="relative" ref={settingsRef}>
               <button
                 onClick={() => setShowSettings(!showSettings)}
-                aria-label="Settings"
+                aria-label={settings.ariaLabel}
                 className={`p-2.5 rounded-full transition-all duration-200 cursor-pointer ${
                   showSettings
                     ? "bg-brand text-white shadow-md shadow-brand/30"
@@ -124,7 +153,7 @@ export default function Navbar() {
                 <div className="absolute right-0 top-12 w-64 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-brand/20 dark:border-brand/15 rounded-2xl shadow-xl shadow-brand/10 py-3 z-50 overflow-hidden">
                   <div className="px-4 pb-2 border-b border-brand/15 dark:border-brand/10">
                     <p className="text-xs font-semibold text-brand-dark dark:text-brand uppercase tracking-widest">
-                      Settings
+                      {settings.title}
                     </p>
                   </div>
 
@@ -137,8 +166,12 @@ export default function Navbar() {
                           <Sun size={16} className="text-amber-500" />
                         )}
                         <div>
-                          <p className="text-sm font-medium text-slate-800 dark:text-slate-100">Theme</p>
-                          <p className="text-xs text-slate-400">{isDark ? "Dark mode" : "Light mode"}</p>
+                          <p className="text-sm font-medium text-slate-800 dark:text-slate-100">
+                            {settings.theme.label}
+                          </p>
+                          <p className="text-xs text-slate-400">
+                            {isDark ? settings.theme.darkMode : settings.theme.lightMode}
+                          </p>
                         </div>
                       </div>
                       <button
@@ -166,7 +199,7 @@ export default function Navbar() {
                       className="w-full flex items-center gap-2 py-2 text-sm text-slate-700 dark:text-slate-200 hover:text-brand-dark dark:hover:text-brand transition-colors cursor-pointer"
                     >
                       <Upload size={14} className="text-brand" />
-                      Upload CV
+                      {settings.uploadCv}
                     </button>
                   </div>
                 </div>
@@ -175,7 +208,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle Menu"
+              aria-label={mobileMenu.toggleAriaLabel}
               className={`lg:hidden p-2.5 rounded-full transition-all duration-200 ${
                 isOpen
                   ? "bg-brand text-white"
@@ -187,7 +220,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile menu */}
         <div
           className={`lg:hidden overflow-hidden transition-all duration-300 ease-out ${
             isOpen ? "max-h-96 opacity-100 pb-4" : "max-h-0 opacity-0"

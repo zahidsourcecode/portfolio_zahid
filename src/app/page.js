@@ -13,11 +13,19 @@ import {
   Laptop,
   Network,
 } from "lucide-react";
-import { allExperienceRoles } from "./data/experienceDates";
+import PageLoadingState from "./components/PageLoadingState";
+import experience from "../data/experience.json";
 import { getCareerDurationParts } from "./utils/experienceDuration";
 
-const VIMEO_VIDEO_ID = "1182190333";
-const VIMEO_EMBED = `https://player.vimeo.com/video/${VIMEO_VIDEO_ID}?autoplay=1&title=0&byline=0&portrait=0`;
+const allExperienceRoles = experience.companies.flatMap((company) => company.roles);
+
+const VISIT_ICONS = {
+  clock: Clock,
+  mapPin: MapPin,
+  network: Network,
+  appWindow: AppWindow,
+  laptop: Laptop,
+};
 
 function getBrowserName() {
   if (typeof navigator === "undefined") return "Unknown";
@@ -60,47 +68,49 @@ function getTimezoneLabel() {
   }
 }
 
-const visitSummaryCards = [
-  { key: "timezone", label: "Time Zone", icon: Clock },
-  { key: "region", label: "Region", icon: MapPin },
-  { key: "ip", label: "IP Address", icon: Network, mono: true },
-  { key: "browser", label: "Browser", icon: AppWindow },
-  { key: "os", label: "OS", icon: Laptop },
-];
+function getSocialIconClass(label) {
+  if (label === "GitHub") return "h-6 w-6 sm:h-7 sm:w-7";
+  if (label === "LeetCode") return "h-6 w-6 sm:h-8 sm:w-8";
+  if (label === "LinkedIn") return "h-8 w-8 sm:h-10 sm:w-10";
+  return "h-7 w-7 sm:h-9 sm:w-9";
+}
 
-const socialLinks = [
-  {
-    href: "https://linkedin.com/in/zahidcseedu",
-    label: "LinkedIn",
-    icon: "/linkedin-icon.png",
-    iconDark: "/linkedin-icon-dark.png",
-  },
-  {
-    href: "https://github.com/zahidsourcecode",
-    label: "GitHub",
-    icon: "/github-icon.png",
-    iconDark: "/github-icon-dark.png",
-  },
-  {
-    href: "https://leetcode.com/u/zahidcseedu/",
-    label: "LeetCode",
-    icon: "/leetcode-icon.png",
-  },
-];
+function BioParagraph({ segments, experienceLabel }) {
+  return (
+    <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed mb-5 sm:mb-6 text-left sm:text-justify">
+      {segments.map((segment, index) => {
+        if (segment.type === "experience") {
+          return (
+            <span
+              key={`bio-${index}`}
+              className="font-semibold text-slate-900 dark:text-white"
+            >
+              {experienceLabel}
+            </span>
+          );
+        }
 
-const mapLink = {
-  href: "https://www.google.com/maps/place/BTI+Chorus/@23.768061,90.4201549,17z/data=!3m1!4b1!4m6!3m5!1s0x3755c7005f87ef3f:0x601cd5d9a9d4ccd3!8m2!3d23.7680562!4d90.4250258!16s%2Fg%2F11ldxmv1cp?entry=ttu",
-  label: "Map",
-  icon: "/map-icon.png",
-};
+        if (segment.type === "emphasis") {
+          return (
+            <span
+              key={`bio-${index}`}
+              className="font-semibold text-slate-900 dark:text-white"
+            >
+              {segment.content}
+            </span>
+          );
+        }
 
-const cvLink = {
-  href: "/CV.pdf",
-  label: "CV",
-  icon: "/cv-icon.png",
-};
+        return <span key={`bio-${index}`}>{segment.content}</span>;
+      })}
+    </p>
+  );
+}
 
 export default function Home() {
+  const [homeData, setHomeData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
   const [showCv, setShowCv] = useState(false);
   const [experienceLabel, setExperienceLabel] = useState("9+ years");
@@ -113,6 +123,41 @@ export default function Home() {
   });
 
   useEffect(() => {
+    let cancelled = false;
+
+    async function loadHomeData() {
+      try {
+        const response = await fetch("/api/home");
+
+        if (!response.ok) {
+          throw new Error("Failed to load home data");
+        }
+
+        const data = await response.json();
+
+        if (!cancelled) {
+          setHomeData(data);
+          setError(null);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : "Failed to load home data");
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadHomeData();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
     const { years, months } = getCareerDurationParts(allExperienceRoles);
     if (years > 0) {
       setExperienceLabel(months > 0 ? `${years}+ years` : `${years} years`);
@@ -120,12 +165,17 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    setVisitSummary((prev) => ({
-      ...prev,
+    if (!homeData) return;
+
+    const loadingText = homeData.visitSummary.loadingText;
+
+    setVisitSummary({
       browser: getBrowserName(),
       os: getOSName(),
       timezone: getTimezoneLabel(),
-    }));
+      region: loadingText,
+      ip: loadingText,
+    });
 
     fetch("/api/visitor-info")
       .then((res) => res.json())
@@ -143,7 +193,36 @@ export default function Home() {
           ip: "Unavailable",
         }));
       });
-  }, []);
+  }, [homeData]);
+
+  if (loading) {
+    return (
+      <main className="page-gradient flex min-h-[50vh] items-center justify-center overflow-x-hidden pt-16 sm:pt-20 pb-8 sm:pb-12">
+        <PageLoadingState icon="home" message="Loading home data…" />
+      </main>
+    );
+  }
+
+  if (error || !homeData) {
+    return (
+      <main className="page-gradient flex min-h-[50vh] flex-col items-center justify-center gap-3 overflow-x-hidden px-4 pt-16 sm:pt-20 pb-8 sm:pb-12">
+        <p className="text-sm text-slate-500 dark:text-slate-400" role="alert">
+          {error || homeData?.pageState?.errorText || "Home data is unavailable."}
+        </p>
+        <button
+          type="button"
+          onClick={() => window.location.reload()}
+          className="rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
+        >
+          {homeData?.pageState?.retryLabel || "Try again"}
+        </button>
+      </main>
+    );
+  }
+
+  const { profile, bioSegments, socialLinks, video, mapLink, cv, ctaLinks, visitSummary: visitConfig } =
+    homeData;
+  const vimeoEmbed = `https://player.vimeo.com/video/${video.vimeoVideoId}?autoplay=1&title=0&byline=0&portrait=0`;
 
   return (
     <main className="page-gradient pt-16 sm:pt-20 pb-8 sm:pb-12 relative overflow-x-hidden">
@@ -165,7 +244,6 @@ export default function Home() {
       <div className="relative max-w-5xl mx-auto px-3 sm:px-6">
         <div className="bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-xl shadow-brand/10 border border-brand/20 dark:border-brand/15 overflow-hidden">
           <div className="flex flex-col lg:flex-row">
-            {/* Photo panel */}
             <div className="lg:w-[42%] bg-gradient-to-br from-brand/25 via-brand-light/60 to-white dark:from-brand/20 dark:via-slate-800 dark:to-slate-900 p-5 sm:p-8 lg:p-10 flex flex-col items-center justify-center text-center">
               <div className="relative mb-3 sm:mb-4 w-full max-w-[240px] sm:max-w-[280px] lg:max-w-[300px] cursor-pointer mx-auto">
                 <div
@@ -173,8 +251,8 @@ export default function Home() {
                   className="absolute inset-0 scale-90 bg-brand/35 blur-2xl opacity-80"
                 />
                 <img
-                  src="/profile-photo.png"
-                  alt="Zahid Hasan"
+                  src={profile.photo.src}
+                  alt={profile.photo.alt}
                   className="relative w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(94,190,213,0.35)] hover:scale-[1.12] transition-transform duration-300 ease-out"
                 />
               </div>
@@ -189,166 +267,151 @@ export default function Home() {
                   className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[70%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/25 blur-2xl dark:block"
                 />
                 <div className="relative flex w-full flex-wrap items-center justify-center gap-1 px-2 py-2 sm:flex-nowrap sm:gap-1.5 sm:px-3 sm:py-2.5">
-                {socialLinks.map(({ href, label, icon, iconDark }) => {
-                  const iconClass =
-                    label === "GitHub"
-                      ? "h-6 w-6 sm:h-7 sm:w-7"
-                      : label === "LeetCode"
-                        ? "h-6 w-6 sm:h-8 sm:w-8"
-                        : label === "LinkedIn"
-                          ? "h-8 w-8 sm:h-10 sm:w-10"
-                          : "h-7 w-7 sm:h-9 sm:w-9";
+                  {socialLinks.map(({ href, label, icon, iconDark }) => {
+                    const iconClass = getSocialIconClass(label);
 
-                  return (
-                  <a
-                    key={label}
-                    href={href}
-                    target={
-                      href.startsWith("http") || href.endsWith(".pdf")
-                        ? "_blank"
-                        : undefined
-                    }
-                    rel="noreferrer"
-                    aria-label={label}
+                    return (
+                      <a
+                        key={label}
+                        href={href}
+                        target={
+                          href.startsWith("http") || href.endsWith(".pdf")
+                            ? "_blank"
+                            : undefined
+                        }
+                        rel="noreferrer"
+                        aria-label={label}
+                        className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
+                      >
+                        {iconDark ? (
+                          <>
+                            <img
+                              src={icon}
+                              alt={label}
+                              className={`object-contain ${iconClass} dark:hidden`}
+                            />
+                            <img
+                              src={iconDark}
+                              alt={label}
+                              className={`hidden object-contain ${iconClass} dark:block`}
+                            />
+                          </>
+                        ) : (
+                          <img
+                            src={icon}
+                            alt={label}
+                            className={`object-contain ${iconClass}`}
+                          />
+                        )}
+                      </a>
+                    );
+                  })}
+                  <button
+                    type="button"
+                    onClick={() => setShowVideo(true)}
+                    aria-label={video.playAriaLabel}
                     className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
                   >
-                    {iconDark ? (
-                      <>
-                        <img
-                          src={icon}
-                          alt={label}
-                          className={`object-contain ${iconClass} dark:hidden`}
-                        />
-                        <img
-                          src={iconDark}
-                          alt={label}
-                          className={`hidden object-contain ${iconClass} dark:block`}
-                        />
-                      </>
-                    ) : (
-                      <img
-                        src={icon}
-                        alt={label}
-                        className={`object-contain ${iconClass}`}
-                      />
-                    )}
+                    <img
+                      src={video.icon}
+                      alt={video.playAriaLabel}
+                      className="h-[22px] w-[28px] object-contain sm:h-[26px] sm:w-[34px]"
+                    />
+                  </button>
+                  <a
+                    href={mapLink.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={mapLink.label}
+                    className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
+                  >
+                    <img
+                      src={mapLink.icon}
+                      alt={mapLink.label}
+                      className="h-6 w-6 object-contain sm:h-8 sm:w-8"
+                    />
                   </a>
-                  );
-                })}
-                <button
-                  type="button"
-                  onClick={() => setShowVideo(true)}
-                  aria-label="Play intro video"
-                  className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
-                >
-                  <img
-                    src="/youtube-icon.png"
-                    alt="Play video"
-                    className="h-[22px] w-[28px] object-contain sm:h-[26px] sm:w-[34px]"
-                  />
-                </button>
-                <a
-                  href={mapLink.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={mapLink.label}
-                  className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
-                >
-                  <img
-                    src={mapLink.icon}
-                    alt={mapLink.label}
-                    className="h-6 w-6 object-contain sm:h-8 sm:w-8"
-                  />
-                </a>
-                <button
-                  type="button"
-                  onClick={() => setShowCv(true)}
-                  aria-label={cvLink.label}
-                  className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
-                >
-                  <img
-                    src={cvLink.icon}
-                    alt={cvLink.label}
-                    className="h-6 w-6 object-contain sm:h-7 sm:w-7"
-                  />
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowCv(true)}
+                    aria-label={cv.label}
+                    className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
+                  >
+                    <img
+                      src={cv.icon}
+                      alt={cv.label}
+                      className="h-6 w-6 object-contain sm:h-7 sm:w-7"
+                    />
+                  </button>
                 </div>
               </div>
             </div>
 
-            {/* Content panel */}
             <div className="lg:w-[58%] p-5 sm:p-8 lg:p-10 flex flex-col justify-center min-w-0">
               <div className="mb-4 sm:mb-6 rounded-r-xl border-l-[3px] border-brand bg-gradient-to-r from-brand/[0.08] via-brand/[0.03] to-transparent py-3 sm:py-4 pl-3 sm:pl-5 pr-2">
                 <div className="group origin-left cursor-pointer transition-transform duration-300 ease-out hover:scale-[1.04]">
                   <h1 className="font-[family-name:var(--font-playfair)] text-[1.75rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold leading-tight">
                     <span className="text-slate-900 transition-colors duration-300 group-hover:text-brand dark:text-white dark:group-hover:text-brand">
-                      Zahid{" "}
+                      {profile.firstName}{" "}
                     </span>
                     <span className="text-brand transition-colors duration-300 group-hover:text-brand-dark dark:text-brand dark:group-hover:text-brand-muted">
-                      Hasan
+                      {profile.lastName}
                     </span>
                   </h1>
                   <p className="mt-1.5 sm:mt-2 text-sm sm:text-base font-medium tracking-wide text-slate-600 dark:text-slate-300">
-                    Technical Team Lead
+                    {profile.title}
                   </p>
                 </div>
 
                 <div className="mt-3 sm:mt-4 space-y-1.5">
                   <a
-                    href="https://ixorasolution.com/"
+                    href={profile.company.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block w-fit max-w-full text-sm sm:text-[15px] font-semibold text-slate-800 dark:text-slate-100 cursor-pointer hover:text-brand-dark dark:hover:text-brand transition-colors"
                   >
-                    iXora Solution Ltd.
+                    {profile.company.name}
                   </a>
                   <a
-                    href="https://www.google.com/maps?sca_esv=92bb7c0feee8c152&output=search&q=ixora+solution+ltd&source=lnms&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpaEWjvZ2Py1XXV8d8KvlI3hg2cLua8k0b5ikl_6e-_EuFsRepks8dSDV0mJOe83aH0OYOSls-EzJRP8WlNq9aowBRY3HUMDUtp90-eVxbtg3_2AnurBz6HRXwTAqWfD_uzOpKxfF5ktNmQ9WUH0R514Bz-VtTSqQGgluOvtuFeiQEG9KLPI4RICQ-t-xX850A5SPhJA&entry=mc&ved=1t:200715&ictx=111"
+                    href={profile.location.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-start sm:items-center gap-2 w-fit max-w-full text-xs sm:text-sm text-slate-500 dark:text-slate-400 cursor-pointer hover:text-brand-dark dark:hover:text-brand transition-colors text-left"
                   >
                     <MapPin size={14} strokeWidth={2.25} className="text-brand shrink-0 mt-0.5 sm:mt-0" />
-                    <span>Mirpur-14, Dhaka-1206</span>
+                    <span>{profile.location.text}</span>
                   </a>
                 </div>
               </div>
 
-              <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed mb-5 sm:mb-6 text-left sm:text-justify">
-                Technical Team Lead with expertise in AI-assisted software development
-                using <span className="font-semibold text-slate-900 dark:text-white">Claude</span>,{" "}
-                <span className="font-semibold text-slate-900 dark:text-white">Cursor</span>, and
-                ChatGPT. Over{" "}
-                <span className="font-semibold text-slate-900 dark:text-white">{experienceLabel}</span> of
-                experience building{" "}
-                <span className="font-semibold text-slate-900 dark:text-white">ERP</span>, Accounting,
-                POS, and E-commerce solutions. Skilled in Angular, React.js, Next.js,
-                Express.js, <span className="font-semibold text-slate-900 dark:text-white">.NET</span>, Azure, PostgreSQL,{" "}
-                <span className="font-semibold text-slate-900 dark:text-white">MS SQL</span>, and
-                RESTful APIs. Strong background in Agile, OOP, and software design
-                patterns.
-              </p>
+              <BioParagraph segments={bioSegments} experienceLabel={experienceLabel} />
 
               <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-3 mb-5 sm:mb-7">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-full bg-brand hover:bg-brand-dark text-white text-sm font-semibold shadow-md shadow-brand/30 hover:shadow-brand/50 transition-all"
-                >
-                  Work with me
-                  <ArrowRight size={16} />
-                </Link>
-                <Link
-                  href="/projects"
-                  className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-full border border-brand/30 text-brand-dark dark:text-brand text-sm font-semibold hover:bg-brand/10 transition-all"
-                >
-                  View projects
-                </Link>
+                {ctaLinks.map(({ href, label, variant, showArrow }) =>
+                  variant === "primary" ? (
+                    <Link
+                      key={href}
+                      href={href}
+                      className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-full bg-brand hover:bg-brand-dark text-white text-sm font-semibold shadow-md shadow-brand/30 hover:shadow-brand/50 transition-all"
+                    >
+                      {label}
+                      {showArrow && <ArrowRight size={16} />}
+                    </Link>
+                  ) : (
+                    <Link
+                      key={href}
+                      href={href}
+                      className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-full border border-brand/30 text-brand-dark dark:text-brand text-sm font-semibold hover:bg-brand/10 transition-all"
+                    >
+                      {label}
+                    </Link>
+                  )
+                )}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Your visit summary */}
         <section className="mt-6 sm:mt-8 rounded-2xl sm:rounded-3xl border border-brand/20 bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl shadow-xl shadow-brand/10 overflow-hidden">
           <div className="flex items-center justify-center gap-2 sm:gap-3 border-b border-brand/15 bg-gradient-to-r from-brand/15 via-brand/5 to-brand/15 px-4 py-3 sm:px-6 sm:py-3.5">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand text-white shadow-md shadow-brand/30">
@@ -356,14 +419,15 @@ export default function Home() {
             </span>
             <div className="text-center">
               <h2 className="text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-100">
-                Your visit summary
+                {visitConfig.title}
               </h2>
             </div>
           </div>
 
           <div className="grid grid-cols-1 min-[380px]:grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4 p-3 sm:p-5">
-            {visitSummaryCards.map(({ key, label, icon: Icon, mono }) => {
-              const isLoading = visitSummary[key] === "Detecting…";
+            {visitConfig.cards.map(({ key, label, icon, mono }) => {
+              const Icon = VISIT_ICONS[icon];
+              const isLoading = visitSummary[key] === visitConfig.loadingText;
 
               return (
                 <div
@@ -380,7 +444,7 @@ export default function Home() {
                   />
 
                   <span className="relative flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand to-brand-dark text-white shadow-md shadow-brand/35 ring-4 ring-brand/10 transition-transform duration-300 group-hover:scale-110">
-                    <Icon className="h-[18px] w-[18px] sm:h-5 sm:w-5" strokeWidth={2.1} />
+                    {Icon && <Icon className="h-[18px] w-[18px] sm:h-5 sm:w-5" strokeWidth={2.1} />}
                   </span>
 
                   <span className="font-semibold uppercase text-[10px] sm:text-[11px] tracking-[0.14em] text-brand-dark/75 dark:text-brand/80">
@@ -400,15 +464,17 @@ export default function Home() {
           </div>
 
           <p className="border-t border-brand/10 px-4 py-3 text-center text-[11px] text-slate-500 dark:text-slate-400 sm:px-6 sm:text-xs">
-            Browser and OS are read locally. IP and region are approximate.{" "}
-            <Link href="/privacy" className="font-medium text-brand-dark hover:text-brand dark:text-brand">
-              Privacy policy
+            {visitConfig.footerNote}{" "}
+            <Link
+              href={visitConfig.privacyLink.href}
+              className="font-medium text-brand-dark hover:text-brand dark:text-brand"
+            >
+              {visitConfig.privacyLink.label}
             </Link>
           </p>
         </section>
       </div>
 
-      {/* Video modal */}
       <div
         className={`fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-0 sm:p-4 transition-opacity duration-300 ${
           showVideo ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -421,13 +487,13 @@ export default function Home() {
         >
           <div className="flex items-center justify-between gap-2 border-b border-brand/20 bg-gradient-to-r from-brand/20 via-brand/10 to-transparent px-3 py-2.5 sm:px-5 sm:py-3">
             <h2 className="text-sm sm:text-base font-semibold text-brand-dark dark:text-brand">
-              Intro Video
+              {video.modalTitle}
             </h2>
             <button
               type="button"
               onClick={() => setShowVideo(false)}
               className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-full bg-brand/15 p-2 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
-              aria-label="Close video"
+              aria-label={video.closeAriaLabel}
             >
               <X size={18} />
             </button>
@@ -436,18 +502,17 @@ export default function Home() {
           {showVideo && (
             <div className="relative w-full aspect-video bg-black">
               <iframe
-                src={VIMEO_EMBED}
+                src={vimeoEmbed}
                 className="absolute inset-0 h-full w-full border-0"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                 allowFullScreen
-                title="Intro video"
+                title={video.iframeTitle}
               />
             </div>
           )}
         </div>
       </div>
 
-      {/* CV modal */}
       <div
         className={`fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-0 sm:p-4 transition-opacity duration-300 ${
           showCv ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -460,22 +525,22 @@ export default function Home() {
         >
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-brand/20 bg-gradient-to-r from-brand/20 via-brand/10 to-transparent px-3 py-2.5 sm:px-5 sm:py-3">
             <h2 className="text-sm sm:text-base font-semibold text-brand-dark dark:text-brand">
-              My CV
+              {cv.modalTitle}
             </h2>
             <div className="flex items-center gap-1.5 sm:gap-2">
               <a
-                href={cvLink.href}
-                download="Zahid_Hasan_CV.pdf"
+                href={cv.href}
+                download={cv.downloadName}
                 className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-brand px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-white shadow-md shadow-brand/30 transition hover:bg-brand-dark hover:shadow-brand/50"
               >
                 <Download size={14} className="sm:w-4 sm:h-4" />
-                Download
+                {cv.downloadLabel}
               </a>
               <button
                 type="button"
                 onClick={() => setShowCv(false)}
                 className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-full bg-brand/15 p-2 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
-                aria-label="Close CV viewer"
+                aria-label={cv.closeAriaLabel}
               >
                 <X size={18} />
               </button>
@@ -484,9 +549,9 @@ export default function Home() {
 
           {showCv && (
             <iframe
-              src={`${cvLink.href}#toolbar=1&navpanes=0`}
+              src={`${cv.href}#toolbar=1&navpanes=0`}
               className="h-[75vh] sm:h-[70vh] w-full border-0 bg-white"
-              title="CV preview"
+              title={cv.iframeTitle}
             />
           )}
         </div>

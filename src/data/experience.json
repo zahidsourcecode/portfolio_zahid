@@ -1,0 +1,303 @@
+{
+  "pageState": {
+    "loadingText": "Loading experience data…",
+    "errorText": "Experience data is unavailable.",
+    "retryLabel": "Try again"
+  },
+  "header": {
+    "titleBefore": "My ",
+    "titleAccent": "Career",
+    "lead": "Junior to team lead · ERP, web & AI-assisted development",
+    "description": "Over nine years I have built ERP, accounting, POS, and e-commerce solutions with .NET, Angular, React, and Node.js. Today I lead teams, mentor developers, and use AI-assisted tools to deliver reliable software at scale.",
+    "statsCaption": "Total experience"
+  },
+  "labels": {
+    "skills": "Skills:"
+  },
+  "companies": [
+    {
+      "id": "ixora",
+      "name": "iXora Solution Ltd.",
+      "logo": "/ixora-logo.png",
+      "logoAlt": "Ixora Logo",
+      "linkUrl": "https://ixorasolution.com/",
+      "linkAriaLabel": "iXora Solution Ltd.",
+      "employmentType": "Full-time",
+      "roles": [
+        { "start": "1 Jan 2026", "end": "Present" },
+        { "start": "Nov 2021", "end": "Dec 2025" }
+      ],
+      "location": {
+        "text": "7th Floor, House: M5, Jahangir Tower, Mirpur: 14, Dhaka · Hybrid",
+        "url": "https://www.google.com/maps?sca_esv=6d2e1bcb61b00bbd&output=search&q=ixora+solution&source=lnms&fbs=AIIjpHxU7SXXniUZfeShr2fp4giZ1Y6MJ25_tmWITc7uy4KIetxLMeWi1u_d0OMRvkClUbalBeyXa8ssyRd_VUj5FQB2aTtVSqS-8espAxkq1fZ3U9sIRL69zKeuDirhjMa-1E_d5o-j4SRKpcxWLkUePm2sYa7NcDbS4r7P9cWLlu6mtGTKoxS2uSejvODUwNxfsq0WBtF4Pw8Ysv53cPXg4POw7-yVTA&entry=mc&ved=1t:200715&ictx=111",
+        "mapTitle": "Ixora Location Map",
+        "mapEmbedSrc": "https://www.google.com/maps?q=House+M5+Section+14+Jahangir+Tower+7th+Floor+Mirpur+Dhaka&output=embed"
+      },
+      "positions": [
+        {
+          "title": "Technical Team Lead",
+          "roleIndex": 0,
+          "dotVariant": "white",
+          "description": {
+            "type": "bullets",
+            "items": [
+              "Promoted to lead the technical team, guiding architecture decisions and delivery.",
+              "Mentor developers and coordinate tasks across ongoing ERP and web projects.",
+              "Use AI tools such as ChatGPT, Claude, Cursor, and Gemini to speed up development and improve code quality."
+            ]
+          },
+          "skills": [
+            "Technical Leadership",
+            "Team Mentoring",
+            "ChatGPT",
+            "Claude",
+            "Cursor",
+            "Gemini",
+            "AI-Assisted Development",
+            "Code Review",
+            "Architecture",
+            "Agile"
+          ],
+          "images": [
+            {
+              "src": "/ixora-team-lead-awards.png",
+              "alt": "TT Champion — single and double at iXora",
+              "label": "TT Champion (Single & Double)"
+            },
+            {
+              "src": "/ixora-promotion-gift.png",
+              "alt": "Receiving promotion gift at iXora",
+              "label": "Promotion gift"
+            },
+            {
+              "src": "/ixora-team-lead-office.png",
+              "alt": "Iftar party at iXora office",
+              "label": "Iftar party"
+            }
+          ]
+        },
+        {
+          "title": "Senior Software Engineer",
+          "roleIndex": 1,
+          "dotVariant": "default",
+          "description": {
+            "type": "bullets",
+            "items": [
+              "As Lead Engineer, built ERP solutions serving 5,000+ users.",
+              "Optimized SQL queries to improve load performance",
+              "Collaborate with juniors and directly handle client requirements",
+              "Flexible working time and friendly working environment",
+              "Recreational facilities like as table tennis, annual family tours"
+            ]
+          },
+          "skills": [
+            "Data Structures",
+            "Algorithms",
+            "OOP",
+            "SOLID",
+            "Design Pattern",
+            "Jira",
+            "Azure",
+            "ASP.NET MVC",
+            "jQuery",
+            "Angular",
+            "React.js",
+            "Next.JS",
+            "TypeScript",
+            "PrimeNG",
+            "REST APIs",
+            "Entity Framework",
+            "EF Core",
+            "Web API",
+            "Express.js",
+            "Node.js",
+            "Project Management",
+            "MS SQL",
+            "PostgreSQL",
+            "MongoDB",
+            "Google Maps",
+            "OSM"
+          ],
+          "images": [
+            {
+              "src": "/tt-champion.jpg",
+              "alt": "Table Tennis Champion",
+              "label": "Table tennis champion"
+            },
+            {
+              "src": "/new-office.jpg",
+              "alt": "New Office",
+              "label": "Office inauguration"
+            },
+            {
+              "src": "/ixora-birthday-wish.png",
+              "alt": "Birthday wish celebration at iXora",
+              "label": "BirthDay wish"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nextit",
+      "name": "Next IT Ltd",
+      "logo": "/nextit-logo.png",
+      "logoAlt": "Next IT Logo",
+      "linkUrl": "https://nextitltd.com/",
+      "linkAriaLabel": "Next IT Ltd",
+      "employmentType": "Full-time",
+      "roles": [
+        { "start": "Jan 2021", "end": "Oct 2021" },
+        { "start": "Jul 2018", "end": "Dec 2020" }
+      ],
+      "location": {
+        "text": "Apartment- A2 & A3, House- 03, Rd 13, Gulshan, Dhaka · On-site",
+        "url": "https://www.google.com/maps/place/NEXT+IT+Limited/@23.7788417,90.4107744,17z/data=!3m1!4b1!4m6!3m5!1s0x3755c70d6fa35e53:0xc59bb05242b3b0ea!8m2!3d23.7788417!4d90.4133493!16s%2Fg%2F1q5blm4cg?entry=ttu&g_ep=EgoyMDI1MDcwNy4wIKXMDSoASAFQAw%3D%3D",
+        "mapTitle": "Next IT Location Map",
+        "mapEmbedSrc": "https://www.google.com/maps?q=NEXT+IT+Limited&output=embed"
+      },
+      "positions": [
+        {
+          "title": "Senior Software Engineer",
+          "roleIndex": 0,
+          "dotVariant": "default",
+          "description": {
+            "type": "text",
+            "content": "It was my first exposure to a large-scale ERP system and a complex business domain. I closely followed the full Software Development Life Cycle (SDLC) and participated in well-defined QA processes. The collaborative and supportive nature of my colleagues played a key role in my development, and I'm truly grateful for the experience."
+          },
+          "skills": [
+            "SOLID",
+            "DDD",
+            "OOP",
+            "Agile",
+            "N-Tire",
+            "HTTP Status Code",
+            "Angular",
+            "TypeScript",
+            "PrimeNG",
+            "ASP.NET MVC",
+            "Crystal Reports",
+            "TFS"
+          ],
+          "images": [
+            {
+              "src": "/nextit-team.jpeg",
+              "alt": "Next IT Award",
+              "label": "Next IT Award"
+            }
+          ]
+        },
+        {
+          "title": "Software Engineer",
+          "roleIndex": 1,
+          "dotVariant": "default",
+          "skills": [
+            "AngularJS",
+            "Software Development Life Cycle",
+            "Jira",
+            "GitHub",
+            "ASP.NET MVC",
+            "Web API",
+            "SQL Server"
+          ],
+          "images": [
+            {
+              "src": "/office-space.jpeg",
+              "alt": "Next IT office space",
+              "label": "Office Space"
+            },
+            {
+              "src": "/nextit-office-space.png",
+              "alt": "Next IT team at the office",
+              "label": "Office Team"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "onair",
+      "name": "Onair Intl Ltd",
+      "logo": "/onair-logo.png",
+      "logoAlt": "Onair Logo",
+      "linkUrl": "https://www.linkedin.com/company/onair-intl-ltd/",
+      "linkAriaLabel": "Onair Intl Ltd LinkedIn",
+      "employmentType": "Full-time",
+      "roles": [
+        { "start": "Aug 2017", "end": "Jun 2018" },
+        { "start": "6 Mar 2017", "end": "Aug 2017" }
+      ],
+      "location": {
+        "text": "Jessore, Khulna, Bangladesh · On-site",
+        "url": "https://www.google.com/maps/place/%E0%A6%AF%E0%A6%B6%E0%A7%8B%E0%A6%B0+%E0%A6%B8%E0%A6%AB%E0%A6%9F%E0%A6%93%E0%A7%9F%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B0+%E0%A6%9F%E0%A7%87%E0%A6%95%E0%A6%A8%E0%A7%8B%E0%A6%B2%E0%A6%9C%E0%A6%BF+%E0%A6%AA%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%95,+%E0%A6%AF%E0%A6%B6%E0%A7%8B%E0%A6%B0/@23.1560007,89.2219103,21z/data=!4m10!1m2!2m1!1ssheikh+hasina+it+park+jessore!3m6!1s0x39ff1045c66e238d:0x397efd1d68956163!8m2!3d23.1560007!4d89.222208!15sCh1zaGVpa2ggaGFzaW5hIGl0IHBhcmsgamVzc29yZVofIh1zaGVpa2ggaGFzaW5hIGl0IHBhcmsgamVzc29yZZIBEHNvZnR3YXJlX2NvbXBhbnmaASNDaFpEU1VoTk1HOW5TMFZKUTBGblNVTlNlWEpFTjFOQkVBRaoBbwoNL2cvMTFncjFzY3Q3NxABKhkiFXNoZWlraCBoYXNpbmEgaXQgcGFyaygAMh4QASIaEUw-NxWgfJwYjRKGhxdcNmtz3aJKBEvKYhAyIRACIh1zaGVpa2ggaGFzaW5hIGl0IHBhcmsgamVzc29yZeABAPoBBQiIARBH!16s%2Fg%2F11fz9wvvh8?entry=ttu&g_ep=EgoyMDI1MDcwNy4wIKXMDSoASAFQAw%3D%3D",
+        "mapTitle": "Onair Location Map",
+        "mapEmbedSrc": "https://www.google.com/maps?q=Jashore+Software+Technology+Park,+Jashore&output=embed"
+      },
+      "positions": [
+        {
+          "title": "Software Engineer",
+          "roleIndex": 0,
+          "dotVariant": "default",
+          "description": {
+            "type": "text",
+            "content": "I was fortunate to be promoted to Software Engineer during my time there, which was a testament to my growth and dedication. I worked deeply across various projects, gaining hands-on experience and building a solid foundation for my software development career."
+          },
+          "skills": [
+            "Data Structures",
+            "Algorithms",
+            "Object-Oriented Programming",
+            "Angular",
+            "TypeScript",
+            "ASP.NET MVC",
+            "Web API",
+            "Express.Js",
+            "Entity Framework",
+            "MongoDB",
+            "T-SQL"
+          ],
+          "images": [
+            {
+              "src": "/it-park.png",
+              "alt": "Jashore Software Technology Park",
+              "label": "Jashore IT Park, Jashore"
+            },
+            {
+              "src": "/onair-office-desk.png",
+              "alt": "Office desk at Jashore IT Park",
+              "label": "Office Desk"
+            }
+          ]
+        },
+        {
+          "title": "Junior Software Engineer",
+          "roleIndex": 1,
+          "dotVariant": "default",
+          "description": {
+            "type": "text",
+            "content": "My first professional workplace, where I experienced the transition from student life to professional life and helped me grow both technically and personally."
+          },
+          "skills": [
+            "HTML",
+            "CSS",
+            "Bootstrap",
+            "JavaScript",
+            "ASP.NET",
+            "AngularJS",
+            "REST APIs",
+            "WebAPI",
+            "ADO.NET",
+            "SQL",
+            "Git"
+          ],
+          "images": [
+            {
+              "src": "/onair-building.jpg",
+              "alt": "Onair Intl Ltd",
+              "label": "Onair Intl Ltd"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

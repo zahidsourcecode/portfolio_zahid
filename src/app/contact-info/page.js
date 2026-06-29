@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -10,53 +11,85 @@ import {
   Phone,
   UserRound,
 } from "lucide-react";
+import PageLoadingState from "../components/PageLoadingState";
 
-const contactItems = [
-  {
-    icon: "/call-icon.png",
-    label: "Phone",
-    value: "+880 1704 038252",
-    href: "tel:+8801704038252",
-    external: false,
-  },
-  {
-    icon: "/mail-icon.png",
-    label: "Email",
-    value: "zahidcseedu@yahoo.com",
-    href: "mailto:zahidcseedu@yahoo.com",
-    external: false,
-  },
-  {
-    icon: "/linkedin-icon.png",
-    label: "LinkedIn",
-    value: "linkedin.com/in/zahidcseedu",
-    href: "https://linkedin.com/in/zahidcseedu",
-    external: true,
-  },
-  {
-    icon: "/book-icon.png",
-    label: "Blog",
-    value: "ixorasolution.com/author/zh",
-    href: "https://ixorasolution.com/author/zh/",
-    external: true,
-  },
-  {
-    icon: "/globe-icon.png",
-    label: "Portfolio",
-    value: "zahid-career.vercel.app",
-    href: "https://zahid-career.vercel.app/",
-    external: true,
-  },
-  {
-    icon: "/location-icon.png",
-    label: "Address",
-    value: "Block-A, Aftabnagar, Rampura, Dhaka, Bangladesh",
-    href: "https://www.google.com/maps/place/BTI+Chorus/@23.768061,90.4201549,17z/data=!3m1!4b1!4m6!3m5!1s0x3755c7005f87ef3f:0x601cd5d9a9d4ccd3!8m2!3d23.7680562!4d90.4250258!16s%2Fg%2F11ldxmv1cp?entry=ttu",
-    external: true,
-  },
-];
+const QUICK_LINK_ICONS = {
+  mail: Mail,
+  globe: Globe,
+  phone: Phone,
+  bookOpen: BookOpen,
+  mapPin: MapPin,
+};
 
 export default function ContactInfo() {
+  const [contactInfoData, setContactInfoData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadContactInfoData() {
+      try {
+        const response = await fetch("/api/contact-info");
+
+        if (!response.ok) {
+          throw new Error("Failed to load contact card data");
+        }
+
+        const data = await response.json();
+
+        if (!cancelled) {
+          setContactInfoData(data);
+          setError(null);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : "Failed to load contact card data");
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadContactInfoData();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (loading) {
+    return (
+      <main className="page-gradient relative flex min-w-0 flex-col items-center overflow-x-hidden px-3 pb-10 pt-16 sm:px-4 sm:pb-12 sm:pt-20">
+        <PageLoadingState icon="userRound" message="Loading contact card…" />
+      </main>
+    );
+  }
+
+  if (error || !contactInfoData) {
+    return (
+      <main className="page-gradient relative flex min-w-0 flex-col items-center overflow-x-hidden px-3 pb-10 pt-16 sm:px-4 sm:pb-12 sm:pt-20">
+        <div className="flex flex-col items-center gap-3 text-center">
+          <p className="text-slate-500 dark:text-slate-400" role="alert">
+            {error || contactInfoData?.pageState?.errorText || "Contact card data is unavailable."}
+          </p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
+          >
+            {contactInfoData?.pageState?.retryLabel || "Try again"}
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  const { header, profile, contactItems, footer } = contactInfoData;
+
   return (
     <main className="page-gradient relative flex min-w-0 flex-col items-center overflow-x-hidden px-3 pb-10 pt-16 sm:px-4 sm:pb-12 sm:pt-20">
       <div
@@ -76,7 +109,6 @@ export default function ContactInfo() {
 
       <div className="relative w-full max-w-lg">
         <article className="overflow-hidden rounded-3xl border border-brand/20 bg-white shadow-xl shadow-brand/15 dark:border-brand/15 dark:bg-slate-900">
-          {/* Header */}
           <div className="relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand to-brand-muted px-5 pb-8 pt-6 sm:px-7 sm:pb-[8.75rem] sm:pt-7">
             <svg
               className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.12]"
@@ -101,26 +133,25 @@ export default function ContactInfo() {
             <div className="relative flex items-start justify-between gap-3">
               <div>
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-white/80">
-                  Contact
+                  {header.eyebrow}
                 </p>
                 <h1 className="mt-1 font-[family-name:var(--font-playfair)] text-2xl font-bold tracking-tight text-white drop-shadow-sm sm:text-[1.65rem]">
-                  Contact Info
+                  {header.title}
                 </h1>
               </div>
               <span className="hidden rounded-full border border-white/25 bg-white/15 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-white/90 sm:inline-block">
-                EU-ready
+                {header.badge}
               </span>
             </div>
           </div>
 
-          {/* Profile */}
           <div className="relative bg-white px-5 sm:px-7 dark:bg-slate-900">
             <div className="border-b border-brand/10 pb-5 pt-4 dark:border-brand/10 sm:pt-5">
               <div className="flex flex-col items-center gap-4 text-center sm:block sm:text-left">
                 <div className="group relative -mt-10 h-36 w-28 shrink-0 cursor-pointer overflow-hidden rounded-xl border-4 border-white bg-white shadow-lg ring-2 ring-brand/15 transition-shadow duration-300 hover:shadow-xl hover:shadow-brand/25 sm:absolute sm:-top-[6.5rem] sm:right-5 sm:mt-0 sm:h-48 sm:w-36">
                   <img
-                    src="/contact-profile.png"
-                    alt="Zahid Hasan"
+                    src={profile.image}
+                    alt={profile.imageAlt}
                     className="h-full w-full bg-white object-cover object-[center_12%] transition-transform duration-300 ease-out group-hover:scale-105"
                   />
                 </div>
@@ -128,22 +159,21 @@ export default function ContactInfo() {
                 <div className="group/name w-full sm:w-fit sm:pr-[10.5rem]">
                   <p className="font-[family-name:var(--font-playfair)] text-xl font-bold leading-tight sm:text-[1.35rem]">
                     <span className="text-slate-900 transition-colors duration-300 group-hover/name:text-brand dark:text-white dark:group-hover/name:text-brand">
-                      Zahid{" "}
+                      {profile.firstName}{" "}
                     </span>
                     <span className="text-brand transition-colors duration-300 group-hover/name:text-brand-dark dark:text-brand dark:group-hover/name:text-brand-muted">
-                      Hasan
+                      {profile.lastName}
                     </span>
                   </p>
                   <p className="mt-1 flex items-center justify-center gap-1.5 text-sm font-medium text-slate-500 sm:justify-start dark:text-slate-400">
                     <UserRound size={14} className="shrink-0 text-brand" strokeWidth={2.2} />
-                    Technical Team Lead
+                    {profile.title}
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Contact list */}
           <ul className="divide-y divide-brand/10 dark:divide-brand/10">
             {contactItems.map(({ label, icon, value, href, external }) => (
               <li key={label}>
@@ -169,40 +199,36 @@ export default function ContactInfo() {
             ))}
           </ul>
 
-          {/* Footer CTA */}
           <div className="border-t border-brand/10 bg-gradient-to-b from-brand-light/20 to-transparent px-5 py-6 dark:from-brand/5 sm:px-7">
             <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-              Want to reach out directly? Send a message and I&apos;ll get back to
-              you within{" "}
+              {footer.messageBefore}{" "}
               <strong className="font-semibold text-slate-800 dark:text-slate-200">
-                1–2 business days
+                {footer.responseTime}
               </strong>
-              .
+              {footer.messageAfter}
             </p>
             <Link
-              href="/contact"
+              href={footer.cta.href}
               className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-md shadow-brand/25 transition-all hover:bg-brand-dark hover:shadow-lg hover:shadow-brand/30 sm:w-auto"
             >
-              Send me a message
+              {footer.cta.label}
               <ArrowRight size={16} />
             </Link>
 
             <div className="mt-5 flex flex-wrap gap-2">
-              <QuickLink href="mailto:zahidcseedu@yahoo.com" icon={Mail} label="Email" />
-              <QuickLink
-                href="https://linkedin.com/in/zahidcseedu"
-                icon={Globe}
-                label="LinkedIn"
-                external
-              />
-              <QuickLink href="tel:+8801704038252" icon={Phone} label="Call" />
-              <QuickLink href="/blog" icon={BookOpen} label="Blog" />
-              <QuickLink
-                href="https://www.google.com/maps/place/BTI+Chorus/@23.768061,90.4201549,17z"
-                icon={MapPin}
-                label="Map"
-                external
-              />
+              {footer.quickLinks.map(({ icon, label, href, external }) => {
+                const Icon = QUICK_LINK_ICONS[icon] || Mail;
+
+                return (
+                  <QuickLink
+                    key={label}
+                    href={href}
+                    icon={Icon}
+                    label={label}
+                    external={external}
+                  />
+                );
+              })}
             </div>
           </div>
         </article>

@@ -1,11 +1,83 @@
-import Ixora from "../components/experience/ixora";
-import NextIT from "../components/experience/nextit";
-import Onair from "../components/experience/onair";
-import { CareerDurationStats } from "../components/experience/ExperienceDurationDisplay";
-import { allExperienceRoles } from "../data/experienceDates";
+"use client";
+
+import { useEffect, useState } from "react";
+import CompanyExperience from "./experience/CompanyExperience";
+import { CareerDurationStats } from "./experience/ExperienceDurationDisplay";
+import PageLoadingState from "./PageLoadingState";
 import styles from "./ExperienceSection.module.css";
 
 export default function ExperienceSection() {
+  const [experienceData, setExperienceData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadExperienceData() {
+      try {
+        const response = await fetch("/api/experience");
+
+        if (!response.ok) {
+          throw new Error("Failed to load experience data");
+        }
+
+        const data = await response.json();
+
+        if (!cancelled) {
+          setExperienceData(data);
+          setError(null);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(
+            err instanceof Error ? err.message : "Failed to load experience data"
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadExperienceData();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (loading) {
+    return (
+      <div className={styles.cardWrapper}>
+        <PageLoadingState icon="briefcase" message="Loading experience data…" />
+      </div>
+    );
+  }
+
+  if (error || !experienceData) {
+    return (
+      <div className={styles.cardWrapper}>
+        <div className={styles.statePanel} role="alert">
+          <p className={styles.stateText}>
+            {error || experienceData?.pageState?.errorText || "Experience data is unavailable."}
+          </p>
+          <button
+            type="button"
+            className={styles.retryBtn}
+            onClick={() => window.location.reload()}
+          >
+            {experienceData?.pageState?.retryLabel || "Try again"}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const { header, labels, companies } = experienceData;
+  const allRoles = companies.flatMap((company) => company.roles);
+
   return (
     <div className={styles.cardWrapper}>
       <div className={styles.cardHeader} data-page-section>
@@ -14,32 +86,29 @@ export default function ExperienceSection() {
           <div className={styles.headerContent}>
             <div className={styles.headerIntro}>
               <h2 className={styles.careerTitle}>
-                My <span className={styles.careerAccent}>Career</span>
+                {header.titleBefore}
+                <span className={styles.careerAccent}>{header.titleAccent}</span>
               </h2>
-              <p className={styles.careerLead}>
-                Junior to team lead · ERP, web & AI-assisted development
-              </p>
-              <p className={styles.careerDescription}>
-                Over nine years I have built ERP, accounting, POS, and e-commerce solutions
-                with .NET, Angular, React, and Node.js. Today I lead teams, mentor
-                developers, and use AI-assisted tools to deliver reliable software at scale.
-              </p>
+              <p className={styles.careerLead}>{header.lead}</p>
+              <p className={styles.careerDescription}>{header.description}</p>
             </div>
             <div className={styles.careerStatsWrap}>
               <div className={styles.statsCaptionWrap}>
                 <span className={styles.statsCaptionAccent} aria-hidden="true" />
-                <span className={styles.statsCaption}>Total experience</span>
+                <span className={styles.statsCaption}>{header.statsCaption}</span>
               </div>
-              <CareerDurationStats roles={allExperienceRoles} styles={styles} />
+              <CareerDurationStats roles={allRoles} styles={styles} />
             </div>
           </div>
         </div>
       </div>
-      <Ixora />
-      <div className={styles.sectionDivider} />
-      <NextIT />
-      <div className={styles.sectionDivider} />
-      <Onair />
+
+      {companies.map((company, index) => (
+        <div key={company.id}>
+          {index > 0 && <div className={styles.sectionDivider} />}
+          <CompanyExperience company={company} skillsLabel={labels.skills} />
+        </div>
+      ))}
     </div>
   );
 }

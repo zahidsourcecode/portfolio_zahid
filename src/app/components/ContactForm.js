@@ -9,11 +9,8 @@ const inputClassName =
 const labelClassName =
   "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400";
 
-const CONTACT_TO_EMAIL = "zahidcseedu@yahoo.com";
-const FORM_SUBMIT_URL = `https://formsubmit.co/ajax/${encodeURIComponent(CONTACT_TO_EMAIL)}`;
-
-export default function ContactForm() {
-  const [form, setForm] = useState({
+export default function ContactForm({ form }) {
+  const [formState, setFormState] = useState({
     name: "",
     email: "",
     subject: "",
@@ -22,8 +19,10 @@ export default function ContactForm() {
   const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const formSubmitUrl = `https://formsubmit.co/ajax/${encodeURIComponent(form.toEmail)}`;
+
   const updateField = (field) => (e) => {
-    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+    setFormState((prev) => ({ ...prev, [field]: e.target.value }));
     if (status === "error") {
       setStatus("idle");
       setErrorMessage("");
@@ -33,20 +32,20 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const name = form.name.trim();
-    const email = form.email.trim();
-    const subject = form.subject.trim();
-    const message = form.message.trim();
+    const name = formState.name.trim();
+    const email = formState.email.trim();
+    const subject = formState.subject.trim();
+    const message = formState.message.trim();
 
     if (!name || !email || !subject || !message) {
       setStatus("error");
-      setErrorMessage("Please fill in all fields.");
+      setErrorMessage(form.messages.requiredFields);
       return;
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus("error");
-      setErrorMessage("Please enter a valid email address.");
+      setErrorMessage(form.messages.invalidEmail);
       return;
     }
 
@@ -54,7 +53,7 @@ export default function ContactForm() {
     setErrorMessage("");
 
     try {
-      const res = await fetch(FORM_SUBMIT_URL, {
+      const res = await fetch(formSubmitUrl, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -66,7 +65,7 @@ export default function ContactForm() {
           _replyto: email,
           subject,
           message,
-          _subject: `Portfolio contact: ${subject}`,
+          _subject: `${form.emailSubjectPrefix}${subject}`,
           _template: "table",
           _captcha: "false",
         }),
@@ -76,22 +75,20 @@ export default function ContactForm() {
       try {
         data = await res.json();
       } catch {
-        throw new Error("Unexpected response from email service.");
+        throw new Error(form.messages.unexpectedResponse);
       }
 
       if (!res.ok || data.success === "false") {
         const msg =
-          typeof data.message === "string"
-            ? data.message
-            : "Something went wrong. Please try again.";
+          typeof data.message === "string" ? data.message : form.messages.genericError;
         throw new Error(msg);
       }
 
       setStatus("success");
-      setForm({ name: "", email: "", subject: "", message: "" });
+      setFormState({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
       setStatus("error");
-      setErrorMessage(err.message || "Failed to send message. Please try again.");
+      setErrorMessage(err.message || form.messages.sendFailed);
     }
   };
 
@@ -100,15 +97,15 @@ export default function ContactForm() {
       <div className="grid shrink-0 gap-4 sm:grid-cols-2">
         <div className="sm:col-span-1">
           <label htmlFor="contact-name" className={labelClassName}>
-            Full name
+            {form.labels.name}
           </label>
           <input
             id="contact-name"
             type="text"
             name="name"
-            value={form.name}
+            value={formState.name}
             onChange={updateField("name")}
-            placeholder="Your name"
+            placeholder={form.placeholders.name}
             autoComplete="name"
             className={inputClassName}
             disabled={status === "sending"}
@@ -117,15 +114,15 @@ export default function ContactForm() {
 
         <div className="sm:col-span-1">
           <label htmlFor="contact-email" className={labelClassName}>
-            Email
+            {form.labels.email}
           </label>
           <input
             id="contact-email"
             type="email"
             name="email"
-            value={form.email}
+            value={formState.email}
             onChange={updateField("email")}
-            placeholder="you@example.com"
+            placeholder={form.placeholders.email}
             autoComplete="email"
             className={inputClassName}
             disabled={status === "sending"}
@@ -134,15 +131,15 @@ export default function ContactForm() {
 
         <div className="sm:col-span-2">
           <label htmlFor="contact-subject" className={labelClassName}>
-            Subject
+            {form.labels.subject}
           </label>
           <input
             id="contact-subject"
             type="text"
             name="subject"
-            value={form.subject}
+            value={formState.subject}
             onChange={updateField("subject")}
-            placeholder="What is this about?"
+            placeholder={form.placeholders.subject}
             className={inputClassName}
             disabled={status === "sending"}
           />
@@ -151,14 +148,14 @@ export default function ContactForm() {
 
       <div className="mt-4 flex min-h-[140px] flex-1 flex-col">
         <label htmlFor="contact-message" className={labelClassName}>
-          Message
+          {form.labels.message}
         </label>
         <textarea
           id="contact-message"
           name="message"
-          value={form.message}
+          value={formState.message}
           onChange={updateField("message")}
-          placeholder="Write your message here..."
+          placeholder={form.placeholders.message}
           className={`${inputClassName} min-h-[140px] flex-1 resize-none`}
           disabled={status === "sending"}
         />
@@ -175,7 +172,7 @@ export default function ContactForm() {
         {status === "success" && (
           <div className="mb-4 flex items-start gap-2 rounded-xl border border-brand/30 bg-brand-light/50 px-3 py-2.5 text-sm font-medium text-brand-dark dark:border-brand/25 dark:bg-brand/10 dark:text-brand">
             <CheckCircle2 size={16} className="mt-0.5 shrink-0" />
-            Message sent successfully. I&apos;ll get back to you soon.
+            {form.messages.success}
           </div>
         )}
 
@@ -187,11 +184,11 @@ export default function ContactForm() {
           {status === "sending" ? (
             <>
               <Loader2 size={16} className="animate-spin" />
-              Sending...
+              {form.submit.sending}
             </>
           ) : (
             <>
-              Send message
+              {form.submit.idle}
               <Send size={16} />
             </>
           )}

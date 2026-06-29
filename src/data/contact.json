@@ -1,0 +1,89 @@
+{
+  "pageState": {
+    "loadingText": "Loading contact data…",
+    "errorText": "Contact data is unavailable.",
+    "retryLabel": "Try again"
+  },
+  "header": {
+    "eyebrow": "Contact",
+    "title": "Get in touch",
+    "description": "Open to technical team lead and full-stack roles. Send a message below or reach out directly — I usually reply within 1–2 business days."
+  },
+  "sidebar": {
+    "title": "Other ways to reach me",
+    "description": "Direct links if you prefer not to use the form.",
+    "contactCardLink": {
+      "href": "/contact-info",
+      "label": "View contact card"
+    }
+  },
+  "formSection": {
+    "title": "Send a message",
+    "description": "Fill in the form and I'll get back to you."
+  },
+  "form": {
+    "toEmail": "zahidcseedu@yahoo.com",
+    "labels": {
+      "name": "Full name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message"
+    },
+    "placeholders": {
+      "name": "Your name",
+      "email": "you@example.com",
+      "subject": "What is this about?",
+      "message": "Write your message here..."
+    },
+    "submit": {
+      "idle": "Send message",
+      "sending": "Sending..."
+    },
+    "messages": {
+      "requiredFields": "Please fill in all fields.",
+      "invalidEmail": "Please enter a valid email address.",
+      "unexpectedResponse": "Unexpected response from email service.",
+      "genericError": "Something went wrong. Please try again.",
+      "sendFailed": "Failed to send message. Please try again.",
+      "success": "Message sent successfully. I'll get back to you soon."
+    },
+    "emailSubjectPrefix": "Portfolio contact: "
+  },
+  "quickContact": [
+    {
+      "icon": "mail",
+      "label": "Email",
+      "value": "zahidcseedu@yahoo.com",
+      "href": "mailto:zahidcseedu@yahoo.com",
+      "external": false
+    },
+    {
+      "icon": "phone",
+      "label": "Phone",
+      "value": "+880 1704 038252",
+      "href": "tel:+8801704038252",
+      "external": false
+    },
+    {
+      "icon": "globe",
+      "label": "Website",
+      "value": "zahid-career.vercel.app",
+      "href": "https://zahid-career.vercel.app/",
+      "external": true
+    },
+    {
+      "icon": "linkedin",
+      "label": "LinkedIn",
+      "value": "linkedin.com/in/zahidcseedu",
+      "href": "https://linkedin.com/in/zahidcseedu",
+      "external": true
+    },
+    {
+      "icon": "mapPin",
+      "label": "Location",
+      "value": "Dhaka, Bangladesh · Remote EU",
+      "href": "https://www.google.com/maps/place/BTI+Chorus/@23.768061,90.4201549,17z",
+      "external": true
+    }
+  ]
+}

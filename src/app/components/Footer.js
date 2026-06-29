@@ -3,25 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronUp } from "lucide-react";
+import { useNavigation } from "../hooks/useNavigation";
 import {
   AUTO_SCROLL_PATHS,
   handleAutoScrollLinkClick,
   markAutoScrollFromMenu,
 } from "../utils/pageAutoScroll";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/experience", label: "Experience" },
-  { href: "/skills", label: "Skills" },
-  { href: "/projects", label: "Projects" },
-  { href: "/blog", label: "Blog" },
-  { href: "/schooling", label: "Schooling" },
-  { href: "/contact-info", label: "Contact" },
-  { href: "/privacy", label: "Privacy" },
-];
-
 export default function Footer() {
   const pathname = usePathname();
+  const { navigationData, loading, error } = useNavigation();
   const year = new Date().getFullYear();
 
   const isActive = (href) =>
@@ -33,6 +24,40 @@ export default function Footer() {
 
   const copyrightClassName =
     "shrink-0 rounded-full border border-brand/25 bg-gradient-to-r from-brand/15 via-brand-light/60 to-brand/10 px-2.5 py-1 shadow-sm shadow-brand/10 dark:from-brand/10 dark:via-slate-800/80 dark:to-brand/5";
+
+  if (loading && !navigationData) {
+    return (
+      <footer className="relative shrink-0 border-t border-brand/20 bg-gradient-to-r from-brand-light/30 via-white to-brand-light/20 backdrop-blur-md pb-[env(safe-area-inset-bottom,0px)] dark:border-brand/10 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
+        <div className="relative mx-auto flex max-w-6xl items-center justify-center px-3 py-4 sm:px-6">
+          <p className="text-xs text-slate-500 dark:text-slate-400" role="status" aria-live="polite">
+            Loading navigation…
+          </p>
+        </div>
+      </footer>
+    );
+  }
+
+  if (error || !navigationData) {
+    return (
+      <footer className="relative shrink-0 border-t border-brand/20 bg-gradient-to-r from-brand-light/30 via-white to-brand-light/20 backdrop-blur-md pb-[env(safe-area-inset-bottom,0px)] dark:border-brand/10 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
+        <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-2 px-3 py-4 sm:px-6">
+          <p className="text-xs text-slate-500 dark:text-slate-400" role="alert">
+            {error || "Navigation data is unavailable."}
+          </p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="rounded-full border border-brand/30 px-3 py-1 text-xs font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
+          >
+            Try again
+          </button>
+        </div>
+      </footer>
+    );
+  }
+
+  const { footer } = navigationData;
+  const { navLinks, copyright, hireMe, nextJs } = footer;
 
   return (
     <footer className="relative shrink-0 border-t border-brand/20 bg-gradient-to-r from-brand-light/30 via-white to-brand-light/20 backdrop-blur-md pb-[env(safe-area-inset-bottom,0px)] dark:border-brand/10 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
@@ -47,15 +72,21 @@ export default function Footer() {
           <span className="font-semibold text-brand-dark dark:text-brand">© {year}</span>
           <span aria-hidden className="text-brand/35">·</span>
           <span>
-            <span className="font-semibold text-slate-800 dark:text-slate-100">Zahid </span>
-            <span className="font-semibold text-brand-dark dark:text-brand">Hasan</span>
+            <span className="font-semibold text-slate-800 dark:text-slate-100">
+              {copyright.firstName}{" "}
+            </span>
+            <span className="font-semibold text-brand-dark dark:text-brand">
+              {copyright.lastName}
+            </span>
           </span>
           <span aria-hidden className="text-brand/35">·</span>
-          <span className="font-medium text-slate-600 dark:text-slate-300">All rights reserved.</span>
+          <span className="font-medium text-slate-600 dark:text-slate-300">
+            {copyright.rightsText}
+          </span>
         </p>
 
         <nav
-          aria-label="Footer navigation"
+          aria-label={footer.navAriaLabel}
           className="flex flex-wrap items-center justify-center gap-0.5 lg:flex-1"
         >
           {navLinks.map(({ href, label }) => (
@@ -82,32 +113,32 @@ export default function Footer() {
           <button
             type="button"
             onClick={scrollToTop}
-            aria-label="Scroll to top"
+            aria-label={footer.scrollToTopAriaLabel}
             className="flex h-9 w-9 items-center justify-center rounded-full border border-brand/25 bg-brand/10 text-brand-dark transition-all hover:bg-brand hover:text-white dark:text-brand dark:hover:text-white cursor-pointer"
           >
             <ChevronUp size={15} strokeWidth={2.25} />
           </button>
           <Link
-            href="/contact"
+            href={hireMe.href}
             className="inline-flex min-h-9 items-center rounded-full bg-brand px-3 py-2 text-[10px] font-semibold text-white transition-colors hover:bg-brand-dark sm:text-[11px]"
           >
-            Hire me
+            {hireMe.label}
           </Link>
           <a
-            href="https://nextjs.org"
+            href={nextJs.href}
             target="_blank"
             rel="noreferrer"
-            aria-label="Built with Next.js"
+            aria-label={nextJs.ariaLabel}
             className="shrink-0 opacity-90 transition-opacity hover:opacity-100"
           >
             <img
-              src="/nextjs-logo.png"
-              alt="Next.js"
+              src={nextJs.logoLight}
+              alt={nextJs.alt}
               className="h-5 w-auto object-contain sm:h-[22px] dark:hidden"
             />
             <img
-              src="/nextjs-logo-white.png"
-              alt="Next.js"
+              src={nextJs.logoDark}
+              alt={nextJs.alt}
               className="hidden h-5 w-auto object-contain sm:h-[22px] dark:block"
             />
           </a>

@@ -1,0 +1,73 @@
+{
+  "pageState": {
+    "loadingText": "Loading blog data…",
+    "errorText": "Blog data is unavailable.",
+    "retryLabel": "Try again"
+  },
+  "header": {
+    "title": "Blog",
+    "description": "Technical articles on React, .NET, SQL, cloud deployment, and software engineering — published on",
+    "publisher": {
+      "name": "iXora Solution",
+      "url": "https://ixorasolution.com/"
+    }
+  },
+  "settings": {
+    "postsPerPage": 3
+  },
+  "labels": {
+    "readArticle": "Read article",
+    "grid": "Grid",
+    "list": "List",
+    "paginationAriaLabel": "Blog pagination",
+    "previousPageAriaLabel": "Previous page",
+    "nextPageAriaLabel": "Next page",
+    "pageAriaLabel": "Page"
+  },
+  "authorProfile": {
+    "url": "https://ixorasolution.com/author/zh/",
+    "label": "View my Blog Profile"
+  },
+  "posts": [
+    {
+      "id": "cloud-deployment-net",
+      "title": "Cloud Deployment .NET Apps with SQL Free",
+      "date": "August 10, 2025",
+      "categories": ["General", "Process"],
+      "excerpt": "A step-by-step guide to hosting .NET apps with a cloud SQL database for free — no credit card required. Covers SmarterASP.net, Render, Railway, and more.",
+      "url": "https://ixorasolution.com/blog/cloud-deployment-net-apps-with-sql-free/",
+      "image": "https://ixorasolution.com/wp-content/uploads/Cloud-Deployement.jpg",
+      "bg": "bg-sky-100 dark:bg-sky-950/40"
+    },
+    {
+      "id": "zustand-state-management",
+      "title": "Dive into Zustand for Effortless State Management",
+      "date": "December 4, 2023",
+      "categories": ["General"],
+      "excerpt": "Why Zustand is a lightweight alternative to Redux for React — simpler API, less boilerplate, hooks-based state, and when to choose it for your project.",
+      "url": "https://ixorasolution.com/blog/dive-into-zustand-for-effortless-state-management/",
+      "image": "https://ixorasolution.com/wp-content/uploads/Picture6-1.png",
+      "bg": "bg-teal-100 dark:bg-teal-950/40"
+    },
+    {
+      "id": "optimized-sql",
+      "title": "Optimized SQL Query Writing",
+      "date": "August 31, 2023",
+      "categories": ["Programming", "Technology"],
+      "excerpt": "Practical SQL optimization tips: avoid SELECT *, reduce cursors, use indexes wisely, prefer JOINs over IN, and break down large queries for better performance.",
+      "url": "https://ixorasolution.com/blog/optimized-sql-query-writing/",
+      "image": "https://ixorasolution.com/wp-content/uploads/SQL-2.gif",
+      "bg": "bg-indigo-100 dark:bg-indigo-950/40"
+    },
+    {
+      "id": "separation-of-concerns-react",
+      "title": "Separation of Concerns in React",
+      "date": "December 27, 2022",
+      "categories": ["General", "Programming", "Technology"],
+      "excerpt": "How to decouple logic from UI in React using custom hooks, smart/dumb components, and modular CSS — with guidelines for naming and testing.",
+      "url": "https://ixorasolution.com/blog/separation-of-concerns-in-react/",
+      "image": "https://ixorasolution.com/wp-content/uploads/Separation-of-Concerns-in-React.jpg",
+      "bg": "bg-violet-100 dark:bg-violet-950/40"
+    }
+  ]
+}

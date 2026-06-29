@@ -1,0 +1,110 @@
+{
+  "profile": {
+    "firstName": "Zahid",
+    "lastName": "Hasan",
+    "title": "Technical Team Lead",
+    "photo": {
+      "src": "/profile-photo.png",
+      "alt": "Zahid Hasan"
+    },
+    "company": {
+      "name": "iXora Solution Ltd.",
+      "url": "https://ixorasolution.com/"
+    },
+    "location": {
+      "text": "Mirpur-14, Dhaka-1206",
+      "url": "https://www.google.com/maps?sca_esv=92bb7c0feee8c152&output=search&q=ixora+solution+ltd&source=lnms&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpaEWjvZ2Py1XXV8d8KvlI3hg2cLua8k0b5ikl_6e-_EuFsRepks8dSDV0mJOe83aH0OYOSls-EzJRP8WlNq9aowBRY3HUMDUtp90-eVxbtg3_2AnurBz6HRXwTAqWfD_uzOpKxfF5ktNmQ9WUH0R514Bz-VtTSqQGgluOvtuFeiQEG9KLPI4RICQ-t-xX850A5SPhJA&entry=mc&ved=1t:200715&ictx=111"
+    }
+  },
+  "bioSegments": [
+    { "type": "text", "content": "Technical Team Lead with expertise in AI-assisted software development using " },
+    { "type": "emphasis", "content": "Claude" },
+    { "type": "text", "content": ", " },
+    { "type": "emphasis", "content": "Cursor" },
+    { "type": "text", "content": ", and ChatGPT. Over " },
+    { "type": "experience" },
+    { "type": "text", "content": " of experience building " },
+    { "type": "emphasis", "content": "ERP" },
+    { "type": "text", "content": ", Accounting, POS, and E-commerce solutions. Skilled in Angular, React.js, Next.js, Express.js, " },
+    { "type": "emphasis", "content": ".NET" },
+    { "type": "text", "content": ", Azure, PostgreSQL, " },
+    { "type": "emphasis", "content": "MS SQL" },
+    { "type": "text", "content": ", and RESTful APIs. Strong background in Agile, OOP, and software design patterns." }
+  ],
+  "socialLinks": [
+    {
+      "href": "https://linkedin.com/in/zahidcseedu",
+      "label": "LinkedIn",
+      "icon": "/linkedin-icon.png",
+      "iconDark": "/linkedin-icon-dark.png"
+    },
+    {
+      "href": "https://github.com/zahidsourcecode",
+      "label": "GitHub",
+      "icon": "/github-icon.png",
+      "iconDark": "/github-icon-dark.png"
+    },
+    {
+      "href": "https://leetcode.com/u/zahidcseedu/",
+      "label": "LeetCode",
+      "icon": "/leetcode-icon.png"
+    }
+  ],
+  "video": {
+    "vimeoVideoId": "1182190333",
+    "icon": "/youtube-icon.png",
+    "playAriaLabel": "Play intro video",
+    "modalTitle": "Intro Video",
+    "closeAriaLabel": "Close video",
+    "iframeTitle": "Intro video"
+  },
+  "mapLink": {
+    "href": "https://www.google.com/maps/place/BTI+Chorus/@23.768061,90.4201549,17z/data=!3m1!4b1!4m6!3m5!1s0x3755c7005f87ef3f:0x601cd5d9a9d4ccd3!8m2!3d23.7680562!4d90.4250258!16s%2Fg%2F11ldxmv1cp?entry=ttu",
+    "label": "Map",
+    "icon": "/map-icon.png"
+  },
+  "cv": {
+    "href": "/CV.pdf",
+    "label": "CV",
+    "icon": "/cv-icon.png",
+    "modalTitle": "My CV",
+    "downloadLabel": "Download",
+    "downloadName": "Zahid_Hasan_CV.pdf",
+    "closeAriaLabel": "Close CV viewer",
+    "iframeTitle": "CV preview"
+  },
+  "ctaLinks": [
+    {
+      "href": "/contact",
+      "label": "Work with me",
+      "variant": "primary",
+      "showArrow": true
+    },
+    {
+      "href": "/projects",
+      "label": "View projects",
+      "variant": "secondary"
+    }
+  ],
+  "visitSummary": {
+    "title": "Your visit summary",
+    "loadingText": "Detecting…",
+    "footerNote": "Browser and OS are read locally. IP and region are approximate.",
+    "privacyLink": {
+      "href": "/privacy",
+      "label": "Privacy policy"
+    },
+    "cards": [
+      { "key": "timezone", "label": "Time Zone", "icon": "clock" },
+      { "key": "region", "label": "Region", "icon": "mapPin" },
+      { "key": "ip", "label": "IP Address", "icon": "network", "mono": true },
+      { "key": "browser", "label": "Browser", "icon": "appWindow" },
+      { "key": "os", "label": "OS", "icon": "laptop" }
+    ]
+  },
+  "pageState": {
+    "loadingText": "Loading home data…",
+    "errorText": "Home data is unavailable.",
+    "retryLabel": "Try again"
+  }
+}

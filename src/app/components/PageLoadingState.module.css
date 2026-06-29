@@ -1,0 +1,24 @@
+.pageLoadingPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  min-height: 16rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.pageLoadingIcon {
+  color: var(--brand);
+}
+
+.pageLoadingText {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+:global(.dark) .pageLoadingText {
+  color: #94a3b8;
+}

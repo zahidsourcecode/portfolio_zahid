@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-import { projects } from "../../data/projects";
+import projectsData from "../../../data/projects.json";
+
+const projects = projectsData.projects;
 
 export default function ProjectDetails({ params }) {
   const project = projects.find((p) => p.id === params.id);
