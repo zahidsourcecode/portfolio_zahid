@@ -5,6 +5,7 @@ import {
   formatEmploymentType,
   formatExperienceRange,
   getCareerDurationParts,
+  getCareerStartLabel,
 } from "../../utils/experienceDuration";
 
 function useLiveDurationText(calculate, deps) {
@@ -64,6 +65,7 @@ export function EmploymentTypeDisplay({ roles, employmentType = "Full-time" }) {
 
 export function CareerDurationStats({ roles, styles }) {
   const [parts, setParts] = useState(null);
+  const startLabel = getCareerStartLabel(roles);
 
   useEffect(() => {
     const update = () => {
@@ -102,6 +104,8 @@ export function CareerDurationStats({ roles, styles }) {
 
   return (
     <div className={styles.statsPanel} suppressHydrationWarning>
+      <p className={styles.careerStartDate}>Started {startLabel}</p>
+
       <div className={styles.statsPrimaryRow}>
         {primaryUnits.map(({ value, label }) => (
           <StatUnit

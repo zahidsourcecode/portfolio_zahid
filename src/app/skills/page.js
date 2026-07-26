@@ -61,36 +61,26 @@ export default function SkillsPage() {
 
   if (loading) {
     return (
-      <main className={`page-gradient min-w-0 overflow-x-hidden ${styles.page}`}>
-        <PageAutoScroll />
-        <div className={styles.inner}>
-          <article className={styles.sheet}>
-            <PageLoadingState icon="layers" message="Loading skills data…" />
-          </article>
-        </div>
+      <main className="page-gradient flex min-h-screen min-w-0 items-center justify-center overflow-x-hidden px-3 py-6 pb-4 pt-16 sm:px-6 sm:pt-20">
+        <PageLoadingState icon="layers" message="Loading skills data…" />
       </main>
     );
   }
 
   if (error || !skillsData) {
     return (
-      <main className={`page-gradient min-w-0 overflow-x-hidden ${styles.page}`}>
-        <PageAutoScroll />
-        <div className={styles.inner}>
-          <article className={styles.sheet}>
-            <div className={styles.statePanel} role="alert">
-              <p className={styles.stateText}>
-                {error || skillsData?.pageState?.errorText || "Skills data is unavailable."}
-              </p>
-              <button
-                type="button"
-                className={styles.retryBtn}
-                onClick={() => window.location.reload()}
-              >
-                {skillsData?.pageState?.retryLabel || "Try again"}
-              </button>
-            </div>
-          </article>
+      <main className="page-gradient flex min-h-screen min-w-0 items-center justify-center overflow-x-hidden px-3 py-6 pb-4 pt-16 sm:px-6 sm:pt-20">
+        <div className={styles.statePanel} role="alert">
+          <p className={styles.stateText}>
+            {error || skillsData?.pageState?.errorText || "Skills data is unavailable."}
+          </p>
+          <button
+            type="button"
+            className={styles.retryBtn}
+            onClick={() => window.location.reload()}
+          >
+            {skillsData?.pageState?.retryLabel || "Try again"}
+          </button>
         </div>
       </main>
     );
@@ -99,7 +89,7 @@ export default function SkillsPage() {
   const { hero, pillarsSection, technicalSkills, strengths, footer } = skillsData;
 
   return (
-    <main className={`page-gradient min-w-0 overflow-x-hidden ${styles.page}`}>
+    <main className={`page-gradient !min-h-0 min-w-0 overflow-x-hidden ${styles.page}`}>
       <PageAutoScroll />
       <div className={styles.inner}>
         <article className={styles.sheet}>

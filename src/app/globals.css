@@ -37,12 +37,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground: #ededed;
-  }
-}
-
 html {
   overflow-x: hidden;
   overflow-y: auto;
@@ -60,13 +54,18 @@ body {
 }
 
 img,
-video,
+video {
+  max-width: 100%;
+}
+
 iframe {
   max-width: 100%;
 }
 
 .page-gradient {
   min-height: 100vh;
+  min-width: 0;
+  width: 100%;
   background: linear-gradient(to bottom right, var(--page-from), var(--page-to));
   color: var(--foreground);
   transition: background 0.3s ease, color 0.3s ease;

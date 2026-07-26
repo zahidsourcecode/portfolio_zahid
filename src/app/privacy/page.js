@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="page-gradient min-w-0 overflow-x-hidden px-3 pb-10 pt-16 sm:px-6 sm:pt-20">
+    <main className="page-gradient !min-h-0 min-w-0 overflow-x-hidden px-3 pb-2 pt-16 sm:px-6 sm:pb-3 sm:pt-20">
       <article className="mx-auto max-w-3xl min-w-0 rounded-2xl border border-brand/20 bg-white/80 p-5 shadow-lg shadow-brand/10 backdrop-blur-md dark:bg-slate-900/80 sm:rounded-3xl sm:p-8">
         <h1 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">
           Privacy Policy

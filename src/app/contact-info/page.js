@@ -63,7 +63,7 @@ export default function ContactInfo() {
 
   if (loading) {
     return (
-      <main className="page-gradient relative flex min-w-0 flex-col items-center overflow-x-hidden px-3 pb-10 pt-16 sm:px-4 sm:pb-12 sm:pt-20">
+      <main className="page-gradient relative flex min-h-screen min-w-0 flex-col items-center justify-center overflow-x-hidden px-3 pb-4 pt-16 sm:px-4 sm:pb-4 sm:pt-20">
         <PageLoadingState icon="userRound" message="Loading contact card…" />
       </main>
     );
@@ -71,7 +71,7 @@ export default function ContactInfo() {
 
   if (error || !contactInfoData) {
     return (
-      <main className="page-gradient relative flex min-w-0 flex-col items-center overflow-x-hidden px-3 pb-10 pt-16 sm:px-4 sm:pb-12 sm:pt-20">
+      <main className="page-gradient relative flex min-h-screen min-w-0 flex-col items-center justify-center overflow-x-hidden px-3 pb-4 pt-16 sm:px-4 sm:pb-4 sm:pt-20">
         <div className="flex flex-col items-center gap-3 text-center">
           <p className="text-slate-500 dark:text-slate-400" role="alert">
             {error || contactInfoData?.pageState?.errorText || "Contact card data is unavailable."}
@@ -79,7 +79,7 @@ export default function ContactInfo() {
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-brand/30 px-4 py-2.5 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
           >
             {contactInfoData?.pageState?.retryLabel || "Try again"}
           </button>
@@ -91,7 +91,7 @@ export default function ContactInfo() {
   const { header, profile, contactItems, footer } = contactInfoData;
 
   return (
-    <main className="page-gradient relative flex min-w-0 flex-col items-center overflow-x-hidden px-3 pb-10 pt-16 sm:px-4 sm:pb-12 sm:pt-20">
+    <main className="page-gradient relative flex !min-h-0 min-w-0 flex-col items-center overflow-x-hidden px-3 pb-2 pt-16 sm:px-4 sm:pb-3 sm:pt-20">
       <div
         aria-hidden
         className="pointer-events-none absolute -top-20 right-0 h-64 w-64 rounded-full opacity-20 sm:h-80 sm:w-80"
@@ -109,7 +109,7 @@ export default function ContactInfo() {
 
       <div className="relative w-full max-w-lg">
         <article className="overflow-hidden rounded-3xl border border-brand/20 bg-white shadow-xl shadow-brand/15 dark:border-brand/15 dark:bg-slate-900">
-          <div className="relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand to-brand-muted px-5 pb-8 pt-6 sm:px-7 sm:pb-[8.75rem] sm:pt-7">
+          <div className="relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand to-brand-muted px-5 pb-6 pt-4 sm:px-7 sm:pb-[6.25rem] sm:pt-5">
             <svg
               className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.12]"
               xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +135,7 @@ export default function ContactInfo() {
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-white/80">
                   {header.eyebrow}
                 </p>
-                <h1 className="mt-1 font-[family-name:var(--font-playfair)] text-2xl font-bold tracking-tight text-white drop-shadow-sm sm:text-[1.65rem]">
+                <h1 className="mt-0.5 font-[family-name:var(--font-playfair)] text-2xl font-bold tracking-tight text-white drop-shadow-sm sm:text-[1.65rem]">
                   {header.title}
                 </h1>
               </div>
@@ -146,9 +146,9 @@ export default function ContactInfo() {
           </div>
 
           <div className="relative bg-white px-5 sm:px-7 dark:bg-slate-900">
-            <div className="border-b border-brand/10 pb-5 pt-4 dark:border-brand/10 sm:pt-5">
-              <div className="flex flex-col items-center gap-4 text-center sm:block sm:text-left">
-                <div className="group relative -mt-10 h-36 w-28 shrink-0 cursor-pointer overflow-hidden rounded-xl border-4 border-white bg-white shadow-lg ring-2 ring-brand/15 transition-shadow duration-300 hover:shadow-xl hover:shadow-brand/25 sm:absolute sm:-top-[6.5rem] sm:right-5 sm:mt-0 sm:h-48 sm:w-36">
+            <div className="border-b border-brand/10 pb-4 pt-3 dark:border-brand/10 sm:pt-4">
+              <div className="flex flex-col items-center gap-3 text-center sm:block sm:text-left">
+                <div className="group relative -mt-9 h-36 w-28 shrink-0 cursor-pointer overflow-hidden rounded-xl border-4 border-white bg-white shadow-lg ring-2 ring-brand/15 transition-shadow duration-300 hover:shadow-xl hover:shadow-brand/25 sm:absolute sm:-top-[5.35rem] sm:right-5 sm:mt-0 sm:h-44 sm:w-32">
                   <img
                     src={profile.image}
                     alt={profile.imageAlt}
@@ -156,7 +156,7 @@ export default function ContactInfo() {
                   />
                 </div>
 
-                <div className="group/name w-full sm:w-fit sm:pr-[10.5rem]">
+                <div className="group/name w-full sm:w-fit sm:pr-[9.5rem]">
                   <p className="font-[family-name:var(--font-playfair)] text-xl font-bold leading-tight sm:text-[1.35rem]">
                     <span className="text-slate-900 transition-colors duration-300 group-hover/name:text-brand dark:text-white dark:group-hover/name:text-brand">
                       {profile.firstName}{" "}
@@ -199,7 +199,7 @@ export default function ContactInfo() {
             ))}
           </ul>
 
-          <div className="border-t border-brand/10 bg-gradient-to-b from-brand-light/20 to-transparent px-5 py-6 dark:from-brand/5 sm:px-7">
+          <div className="border-t border-brand/10 bg-gradient-to-b from-brand-light/20 to-transparent px-5 py-5 dark:from-brand/5 sm:px-7">
             <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
               {footer.messageBefore}{" "}
               <strong className="font-semibold text-slate-800 dark:text-slate-200">
@@ -209,7 +209,7 @@ export default function ContactInfo() {
             </p>
             <Link
               href={footer.cta.href}
-              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-md shadow-brand/25 transition-all hover:bg-brand-dark hover:shadow-lg hover:shadow-brand/30 sm:w-auto"
+              className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-md shadow-brand/25 transition-all hover:bg-brand-dark hover:shadow-lg hover:shadow-brand/30 sm:w-auto"
             >
               {footer.cta.label}
               <ArrowRight size={16} />

@@ -110,10 +110,11 @@ export default function ExperienceLetterModal({
                 href={downloadHref}
                 download={downloadName}
                 className={styles.letterDownloadBtn}
+                aria-label="Download"
                 onClick={(event) => event.stopPropagation()}
               >
                 <Download size={14} strokeWidth={2.25} aria-hidden />
-                Download
+                <span>Download</span>
               </a>
             )}
             <button

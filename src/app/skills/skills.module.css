@@ -1,7 +1,8 @@
 .page {
   position: relative;
   min-width: 0;
-  padding: 4rem 0.75rem 2.5rem;
+  min-height: 0;
+  padding: 4rem 0.75rem 0.5rem;
 }
 
 .statePanel {
@@ -29,6 +30,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 2.75rem;
   padding: 0.55rem 1rem;
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--brand) 35%, #cbd5e1);
@@ -53,7 +55,7 @@
 
 @media (min-width: 640px) {
   .page {
-    padding: 5rem 1.5rem 3rem;
+    padding: 5rem 1.5rem 0.75rem;
   }
 }
 
@@ -82,13 +84,19 @@
 }
 
 .hero {
-  padding: 2rem 1.5rem 1.75rem;
+  padding: 1rem 1rem 0.85rem;
   border-bottom: 1px solid color-mix(in srgb, var(--brand) 12%, #e2e8f0);
+}
+
+@media (min-width: 480px) {
+  .hero {
+    padding: 1.35rem 1.5rem 1.1rem;
+  }
 }
 
 @media (min-width: 640px) {
   .hero {
-    padding: 2.5rem 2.5rem 2rem;
+    padding: 1.5rem 2.5rem 1.25rem;
   }
 }
 
@@ -105,7 +113,7 @@
 }
 
 .summary {
-  margin-top: 1rem;
+  margin-top: 0.65rem;
   width: 100%;
   max-width: none;
   font-size: 0.95rem;
@@ -119,7 +127,7 @@
 }
 
 .pillarsSection {
-  padding: 1.75rem 1.25rem 2rem;
+  padding: 1.1rem 1.25rem 1.75rem;
   border-bottom: 1px solid color-mix(in srgb, var(--brand) 12%, #e2e8f0);
   background: linear-gradient(
     180deg,
@@ -130,7 +138,7 @@
 
 @media (min-width: 640px) {
   .pillarsSection {
-    padding: 2rem 2rem 2.25rem;
+    padding: 1.25rem 2rem 2rem;
   }
 }
 
@@ -181,14 +189,13 @@
   gap: 1rem;
 }
 
-@media (min-width: 640px) and (max-width: 767px) {
+@media (min-width: 640px) {
   .pillars {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .pillars {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.15rem;
@@ -411,6 +418,20 @@
 @media (min-width: 640px) {
   .body {
     padding: 2rem 2.5rem 2.25rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .body {
+    padding: 1rem 0.85rem 1.15rem;
+  }
+
+  .pillarsSection {
+    padding: 0.9rem 0.85rem 1.35rem;
+  }
+
+  .footer {
+    padding: 1.1rem 1rem 1.25rem;
   }
 }
 
@@ -691,6 +712,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  min-height: 2.75rem;
   padding: 0.55rem 1rem;
   border-radius: 999px;
   font-size: 0.82rem;

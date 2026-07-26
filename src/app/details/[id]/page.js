@@ -11,11 +11,11 @@ export default function ProjectDetails({ params }) {
   if (!project) return notFound();
 
   return (
-    <main className="page-gradient mx-auto flex w-full min-w-0 max-w-7xl flex-col items-stretch overflow-x-hidden px-3 pb-10 pt-16 sm:px-6 sm:pb-12 sm:pt-20">
+    <main className="page-gradient mx-auto flex w-full min-w-0 max-w-7xl flex-col items-stretch overflow-x-hidden px-3 pb-2 pt-16 sm:px-6 sm:pb-3 sm:pt-20">
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <Link
           href="/projects"
-          className="inline-flex w-fit shrink-0 items-center rounded-lg bg-brand px-4 py-2.5 text-sm text-white transition hover:bg-brand-dark sm:text-base"
+          className="inline-flex w-fit shrink-0 items-center rounded-lg bg-brand px-4 py-2.5 text-sm text-white transition hover:bg-brand-dark min-h-11 sm:text-base"
         >
           ← Back to Projects
         </Link>
@@ -28,7 +28,7 @@ export default function ProjectDetails({ params }) {
               href={project.iframeSrc}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-fit items-center gap-1.5 rounded-lg border border-brand/30 bg-white/90 px-3 py-2 text-xs font-semibold text-brand-dark transition hover:border-brand hover:bg-brand-light/50 dark:bg-slate-800/90 dark:text-brand sm:text-sm"
+              className="inline-flex min-h-11 w-fit items-center gap-1.5 rounded-lg border border-brand/30 bg-white/90 px-3 py-2.5 text-xs font-semibold text-brand-dark transition hover:border-brand hover:bg-brand-light/50 dark:bg-slate-800/90 dark:text-brand sm:text-sm"
             >
               Open demo in new tab
               <ExternalLink size={14} />

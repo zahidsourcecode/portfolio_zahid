@@ -50,7 +50,7 @@ export default function ExperienceSection() {
 
   if (loading) {
     return (
-      <div className={styles.cardWrapper}>
+      <div className="flex min-h-[calc(100dvh-5.5rem)] w-full items-center justify-center py-8">
         <PageLoadingState icon="briefcase" message="Loading experience data…" />
       </div>
     );
@@ -58,7 +58,7 @@ export default function ExperienceSection() {
 
   if (error || !experienceData) {
     return (
-      <div className={styles.cardWrapper}>
+      <div className="flex min-h-[calc(100dvh-5.5rem)] w-full flex-col items-center justify-center gap-3 py-8 text-center">
         <div className={styles.statePanel} role="alert">
           <p className={styles.stateText}>
             {error || experienceData?.pageState?.errorText || "Experience data is unavailable."}
@@ -93,10 +93,6 @@ export default function ExperienceSection() {
               <p className={styles.careerDescription}>{header.description}</p>
             </div>
             <div className={styles.careerStatsWrap}>
-              <div className={styles.statsCaptionWrap}>
-                <span className={styles.statsCaptionAccent} aria-hidden="true" />
-                <span className={styles.statsCaption}>{header.statsCaption}</span>
-              </div>
               <CareerDurationStats roles={allRoles} styles={styles} />
             </div>
           </div>

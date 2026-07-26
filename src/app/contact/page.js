@@ -56,17 +56,15 @@ export default function Contact() {
 
   if (loading) {
     return (
-      <main className="page-gradient relative min-w-0 overflow-x-hidden px-3 pb-10 pt-16 sm:px-6 sm:pb-12 sm:pt-20">
-        <div className="relative mx-auto w-full max-w-5xl min-w-0">
-          <PageLoadingState icon="messageSquare" message="Loading contact data…" />
-        </div>
+      <main className="page-gradient relative flex min-h-screen min-w-0 items-center justify-center overflow-x-hidden px-3 pb-4 pt-16 sm:px-6 sm:pb-4 sm:pt-20">
+        <PageLoadingState icon="messageSquare" message="Loading contact data…" />
       </main>
     );
   }
 
   if (error || !contactData) {
     return (
-      <main className="page-gradient relative min-w-0 overflow-x-hidden px-3 pb-10 pt-16 sm:px-6 sm:pb-12 sm:pt-20">
+      <main className="page-gradient relative flex min-h-screen min-w-0 items-center justify-center overflow-x-hidden px-3 pb-4 pt-16 sm:px-6 sm:pb-4 sm:pt-20">
         <div className="relative mx-auto flex w-full max-w-5xl min-w-0 flex-col items-center gap-3 text-center">
           <p className="text-slate-500 dark:text-slate-400" role="alert">
             {error || contactData?.pageState?.errorText || "Contact data is unavailable."}
@@ -74,7 +72,7 @@ export default function Contact() {
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-brand/30 px-4 py-2.5 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
           >
             {contactData?.pageState?.retryLabel || "Try again"}
           </button>
@@ -86,7 +84,7 @@ export default function Contact() {
   const { header, sidebar, formSection, form, quickContact } = contactData;
 
   return (
-    <main className="page-gradient relative min-w-0 overflow-x-hidden px-3 pb-10 pt-16 sm:px-6 sm:pb-12 sm:pt-20">
+    <main className="page-gradient relative !min-h-0 min-w-0 overflow-x-hidden px-3 pb-2 pt-16 sm:px-6 sm:pb-3 sm:pt-20">
       <div className="relative mx-auto w-full max-w-5xl min-w-0">
         <header className="mb-8 sm:mb-10">
           <div className="mb-2 flex items-center gap-2">
@@ -123,7 +121,7 @@ export default function Contact() {
                         href={href}
                         target={external ? "_blank" : undefined}
                         rel={external ? "noreferrer" : undefined}
-                        className="group flex items-start gap-3"
+                        className="group flex min-h-11 items-center gap-3 py-1"
                       >
                         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-light/60 text-brand-dark dark:bg-brand/10 dark:text-brand">
                           <Icon size={17} strokeWidth={2.1} />
@@ -145,7 +143,7 @@ export default function Contact() {
               <div className="mt-auto border-t border-brand/10 pt-5 dark:border-brand/10">
                 <Link
                   href={sidebar.contactCardLink.href}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-dark transition-colors hover:text-brand-darker dark:text-brand"
+                  className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-brand-dark transition-colors hover:text-brand-darker dark:text-brand"
                 >
                   {sidebar.contactCardLink.label}
                   <ArrowRight size={14} />

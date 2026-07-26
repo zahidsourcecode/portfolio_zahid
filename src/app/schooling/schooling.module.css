@@ -1,7 +1,8 @@
-.page {
+﻿.page {
   position: relative;
   min-width: 0;
-  padding: 4rem 0.75rem 2.5rem;
+  min-height: 0;
+  padding: 4rem 0.75rem 0.5rem;
 }
 
 .statePanel {
@@ -13,10 +14,6 @@
   min-height: 16rem;
   padding: 2rem 1.5rem;
   text-align: center;
-}
-
-.stateIcon {
-  color: var(--brand);
 }
 
 .stateText {
@@ -33,6 +30,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 2.75rem;
   padding: 0.55rem 1rem;
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--brand) 35%, #cbd5e1);
@@ -57,7 +55,7 @@
 
 @media (min-width: 640px) {
   .page {
-    padding: 5rem 1.5rem 3rem;
+    padding: 5rem 1.5rem 0.75rem;
   }
 }
 
@@ -86,13 +84,19 @@
 }
 
 .hero {
-  padding: 2rem 1.5rem 1.75rem;
+  padding: 1.25rem 1rem 1.35rem;
   border-bottom: 1px solid color-mix(in srgb, var(--brand) 12%, #e2e8f0);
   background: linear-gradient(
     135deg,
     color-mix(in srgb, var(--brand-light) 40%, #ffffff) 0%,
     color-mix(in srgb, var(--brand-light) 10%, #ffffff) 100%
   );
+}
+
+@media (min-width: 480px) {
+  .hero {
+    padding: 2rem 1.5rem 1.75rem;
+  }
 }
 
 @media (min-width: 640px) {
@@ -318,6 +322,7 @@
   align-items: center;
   gap: 0.4rem;
   margin-top: 1.1rem;
+  min-height: 2.75rem;
   padding: 0.55rem 1rem;
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, #2563eb 35%, #cbd5e1);
@@ -639,8 +644,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.1rem;
-  height: 2.1rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--brand) 35%, #cbd5e1);
   background: color-mix(in srgb, var(--brand-light) 45%, #ffffff);
@@ -712,6 +717,7 @@
 
   .table {
     width: 100%;
+    min-width: 44rem;
     border-collapse: collapse;
     font-size: 0.88rem;
     line-height: 1.5;
@@ -806,6 +812,31 @@
   }
 }
 
+@media (max-width: 380px) {
+  .body {
+    padding: 1.1rem 0.85rem 1.25rem;
+  }
+
+  .card {
+    margin-left: 2.15rem;
+    padding: 0.95rem 0.85rem 0.9rem;
+  }
+
+  .card::before {
+    left: -1.6rem;
+    width: 10px;
+    height: 10px;
+  }
+
+  .timeline::before {
+    left: 0.7rem;
+  }
+
+  .footer {
+    padding: 1.1rem 1rem 1.25rem;
+  }
+}
+
 .footer {
   display: flex;
   flex-direction: column;
@@ -851,6 +882,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  min-height: 2.75rem;
   padding: 0.55rem 1rem;
   border-radius: 999px;
   font-size: 0.82rem;
@@ -884,215 +916,3 @@
   border-color: color-mix(in srgb, var(--brand) 40%, #334155);
 }
 
-.certModal {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 0;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-  background: rgb(0 0 0 / 70%);
-  backdrop-filter: blur(4px);
-  transition: opacity 0.3s ease;
-}
-
-@media (min-width: 640px) {
-  .certModal {
-    align-items: center;
-    padding: 1rem;
-    overflow: hidden;
-  }
-}
-
-.certModalOpen {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.certModalClosed {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.certModalDialog {
-  display: flex;
-  width: 100%;
-  max-height: 94vh;
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: 1rem 1rem 0 0;
-  border: 1px solid color-mix(in srgb, var(--brand) 25%, transparent);
-  background: #ffffff;
-  box-shadow:
-    0 24px 48px -20px rgb(94 190 213 / 35%),
-    0 12px 32px -16px rgb(0 0 0 / 35%);
-}
-
-@media (min-width: 640px) {
-  .certModalDialog {
-    width: min(96vw, 38rem);
-    max-height: 90vh;
-    border-radius: 1rem;
-  }
-}
-
-:global(.dark) .certModalDialog {
-  background: #0f172a;
-  border-color: color-mix(in srgb, var(--brand) 20%, #334155);
-}
-
-.certModalHeader {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--brand) 20%, #e2e8f0);
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--brand-light) 55%, #ffffff) 0%,
-    color-mix(in srgb, var(--brand-light) 15%, #ffffff) 100%
-  );
-  padding: 0.7rem 0.85rem;
-}
-
-@media (min-width: 640px) {
-  .certModalHeader {
-    padding: 0.8rem 1.25rem;
-  }
-}
-
-:global(.dark) .certModalHeader {
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--brand) 12%, #0f172a) 0%,
-    color-mix(in srgb, var(--brand) 4%, #0f172a) 100%
-  );
-  border-bottom-color: #334155;
-}
-
-.certModalTitle {
-  margin: 0;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--brand-dark);
-}
-
-@media (min-width: 640px) {
-  .certModalTitle {
-    font-size: 1rem;
-  }
-}
-
-:global(.dark) .certModalTitle {
-  color: var(--brand);
-}
-
-.certModalActions {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.certDownloadBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  border-radius: 999px;
-  background: var(--brand);
-  padding: 0.45rem 0.85rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #ffffff;
-  text-decoration: none;
-  box-shadow: 0 4px 12px -6px rgb(94 190 213 / 55%);
-  transition: background-color 0.2s ease;
-}
-
-@media (min-width: 640px) {
-  .certDownloadBtn {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-  }
-}
-
-.certDownloadBtn:hover {
-  background: var(--brand-dark);
-}
-
-.certCloseBtn {
-  display: inline-flex;
-  min-height: 2.5rem;
-  min-width: 2.5rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  border: none;
-  background: color-mix(in srgb, var(--brand) 15%, transparent);
-  color: var(--brand-dark);
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.certCloseBtn:hover {
-  background: var(--brand);
-  color: #ffffff;
-}
-
-:global(.dark) .certCloseBtn {
-  color: var(--brand);
-}
-
-.certViewerBody {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  min-height: 52vh;
-  max-height: calc(94vh - 3.5rem);
-  padding: 0.5rem;
-  background: #f1f5f9;
-}
-
-:global(.dark) .certViewerBody {
-  background: #0f172a;
-}
-
-.certViewerFrame {
-  display: block;
-  transform: none;
-  width: min(92vw, 36rem);
-  height: min(calc(88vh - 4.5rem), 48rem);
-  border: 0;
-  background: #ffffff;
-  box-shadow: 0 12px 32px -18px rgb(15 23 42 / 35%);
-}
-
-@media (min-width: 640px) {
-  .certModalDialog {
-    height: min(90vh, 52rem);
-  }
-
-  .certViewerBody {
-    flex: 1;
-    min-height: 0;
-    max-height: none;
-    overflow: auto;
-    padding: 0.75rem 1rem;
-  }
-
-  .certViewerFrame {
-    transform: none;
-    width: min(calc(100% - 0.5rem), 34rem);
-    height: min(calc(90vh - 5.5rem), 46rem);
-  }
-}

@@ -6,41 +6,67 @@
   },
   "header": {
     "title": "Projects",
-    "description": "A collection of web applications and demos built with React, Next.js, Node.js, MongoDB, and modern full-stack tools."
+    "description": "Built with a modern technology stack including JavaScript, TypeScript, React, Vue.js, Next.js, Angular, C#, Python, Node.js, Express, SQL databases, Stripe, bKash, Socket.IO, Vite, Bootstrap, and Tailwind CSS."
   },
   "settings": {
-    "projectsPerPage": 4
+    "projectsPerPage": 4,
+    "demoVideoUrl": "https://www.youtube.com/watch?v=MzEFeIRJ0eQ",
+    "demoVideoEmbedUrl": "https://www.youtube.com/embed/MzEFeIRJ0eQ",
+    "demoVideoModalTitle": "Project demo video"
   },
   "labels": {
-    "viewDetails": "View details",
+    "demoVideo": "Demo Video",
+    "github": "GitHub",
     "liveDemo": "Live demo",
     "grid": "Grid",
     "list": "List",
     "paginationAriaLabel": "Projects pagination",
     "previousPageAriaLabel": "Previous page",
     "nextPageAriaLabel": "Next page",
-    "pageAriaLabel": "Page"
+    "pageAriaLabel": "Page",
+    "closeVideoAriaLabel": "Close demo video",
+    "liveProjectsTab": "Live",
+    "cloudProjectsTab": "Cloud",
+    "upcomingProjectsTab": "Upcoming",
+    "mobileAppProjectsTab": "Mobile App",
+    "projectsTabAriaLabel": "Project category",
+    "comingSoonTitle": "Coming Soon...",
+    "comingSoonMessage": "This project is under planning and will be available soon.",
+    "comingSoonCloseLabel": "Close"
   },
   "projects": [
     {
-      "id": "todo",
-      "title": "To-Do List",
-      "role": "Task Manager App",
-      "tags": ["React", "Kanban", "Productivity"],
-      "image": "/task-manager-app.png",
-      "description": "A Kanban board for managing tasks.",
-      "bg": "bg-orange-100 dark:bg-orange-950/40",
-      "iframeSrc": "https://kanban-board-sigma-sepia.vercel.app/"
+      "id": "payment-gateway",
+      "title": "Payment Gateway",
+      "role": "Stripe & bKash Sandbox Demo",
+      "tags": ["Vue 3", "Stripe", "bKash", "Tailwind"],
+      "image": "/payment-gateway.png",
+      "description": "PayFlow mini-store checkout demo with Stripe test mode and bKash sandbox payment flows.",
+      "bg": "bg-indigo-100 dark:bg-indigo-950/40",
+      "iframeSrc": "https://payment-geteway-demo.vercel.app/",
+      "githubUrl": "https://github.com/zahidsourcecode/payment_geteway_demo"
     },
     {
-      "id": "movie",
-      "title": "Movie website",
-      "role": "Movie Search App",
-      "tags": ["React", "API", "Movies"],
-      "image": "/movie-search-app.png",
-      "description": "A simple movie website to search, view, and manage movies.",
-      "bg": "bg-green-100 dark:bg-green-950/40",
-      "iframeSrc": "https://movie-app-ashen-iota-35.vercel.app/"
+      "id": "dashboard-graphs",
+      "title": "Dashboard Graphs",
+      "role": "Analytics Dashboard Demo",
+      "tags": ["Vue 3", "ECharts", "Dashboard"],
+      "image": "/dashboard-graphs.png",
+      "description": "Interactive dashboard with bar, line, pie, donut, area, and stacked charts for exploring analytics data.",
+      "bg": "bg-cyan-100 dark:bg-cyan-950/40",
+      "iframeSrc": "https://dashboard-graph-woad.vercel.app/",
+      "githubUrl": "https://github.com/zahidsourcecode/dashboard_graph"
+    },
+    {
+      "id": "mongodb-playground",
+      "title": "MongoDB Playground",
+      "role": "MongoDB Query Simulator",
+      "tags": ["React", "TypeScript", "MongoDB", "Vite"],
+      "image": "/mongodb-playground.png",
+      "description": "Practice MongoDB queries in the browser — no install, no login — with sample collections and live results.",
+      "bg": "bg-emerald-100 dark:bg-emerald-950/40",
+      "iframeSrc": "https://mongodb-playground-beta.vercel.app/",
+      "githubUrl": "https://github.com/zahidsourcecode/mongodb_playground"
     },
     {
       "id": "eschool",
@@ -50,7 +76,30 @@
       "image": "/e-school-landing-page.png",
       "description": "A static educational landing page built using HTML, CSS, and Bootstrap.",
       "bg": "bg-blue-100 dark:bg-blue-950/40",
-      "iframeSrc": "https://tarannumtasfia.github.io/e-school/"
+      "iframeSrc": "https://tarannumtasfia.github.io/e-school/",
+      "githubUrl": "https://github.com/tarannumtasfia/e-school"
+    },
+    {
+      "id": "movie",
+      "title": "Movie website",
+      "role": "Movie Search App",
+      "tags": ["React", "API", "Movies"],
+      "image": "/movie-search-app.png",
+      "description": "A simple movie website to search, view, and manage movies.",
+      "bg": "bg-green-100 dark:bg-green-950/40",
+      "iframeSrc": "https://movie-app-ashen-iota-35.vercel.app/",
+      "githubUrl": "https://github.com/tarannumtasfia/movie_app"
+    },
+    {
+      "id": "todo",
+      "title": "To-Do List",
+      "role": "Task Manager App",
+      "tags": ["React", "Kanban", "Productivity"],
+      "image": "/task-manager-app.png",
+      "description": "A Kanban board for managing tasks.",
+      "bg": "bg-orange-100 dark:bg-orange-950/40",
+      "iframeSrc": "https://kanban-board-sigma-sepia.vercel.app/",
+      "githubUrl": "https://github.com/zahidsourcecode"
     },
     {
       "id": "crudapp",
@@ -60,7 +109,8 @@
       "image": "/user-management-system.png",
       "description": "A full-stack application to manage users. Features include registration, login, and CRUD operations using Postman.",
       "bg": "bg-purple-100 dark:bg-purple-950/40",
-      "iframeSrc": "https://crud-frontend-iota-one.vercel.app/"
+      "iframeSrc": "https://crud-frontend-iota-one.vercel.app/",
+      "githubUrl": "https://github.com/zahidsourcecode"
     },
     {
       "id": "courier",
@@ -70,7 +120,115 @@
       "image": "/courier-package-tracker.png",
       "description": "A real-time package tracking system with alerting and drill-down views for dispatchers.",
       "bg": "bg-yellow-100 dark:bg-yellow-950/40",
-      "iframeSrc": "https://courier-tracker-frontend-eosin.vercel.app/"
+      "iframeSrc": "https://courier-tracker-frontend-eosin.vercel.app/",
+      "githubUrl": "https://github.com/zahidsourcecode"
+    }
+  ],
+  "cloudProjects": [
+    {
+      "id": "online-ticket-booking",
+      "title": "Online Ticket Booking",
+      "role": "Online Ticket Booking Socket.IO",
+      "tags": ["Cloud", "Socket.IO", "Realtime"],
+      "description": "Real-time online ticket booking with live seat updates powered by Socket.IO.",
+      "bg": "bg-sky-100 dark:bg-sky-950/40"
+    }
+  ],
+  "mobileAppProjects": [
+    {
+      "id": "bmi-calculator",
+      "title": "BMI Calculator",
+      "role": "BMI Calculator",
+      "tags": ["Flutter", "Dart", "Mobile"],
+      "image": "/bmi-calculator.png",
+      "imageOrientation": "portrait",
+      "description": "Flutter BMI calculator with a result gauge, healthy-range tips, and local history.",
+      "bg": "bg-teal-100 dark:bg-teal-950/40",
+      "githubUrl": "https://github.com/zahidsourcecode/BMI_Calculator",
+      "demoVideoSrc": "/BMI_Calculator_Demo.mp4",
+      "demoVideoTitle": "BMI Calculator demo"
+    }
+  ],
+  "upcomingProjects": [
+    {
+      "id": "firebase-crud",
+      "title": "Firebase CRUD",
+      "role": "Firebase CRUD",
+      "tags": ["Planned", "Firebase", "CRUD"],
+      "description": "Full create, read, update, and delete flows with Firebase.",
+      "bg": "bg-amber-100 dark:bg-amber-950/40"
+    },
+    {
+      "id": "sso-login",
+      "title": "SSO Login",
+      "role": "SSO Login",
+      "tags": ["Planned", "Auth", "SSO"],
+      "description": "Single Sign-On authentication across apps and services.",
+      "bg": "bg-sky-100 dark:bg-sky-950/40"
+    },
+    {
+      "id": "social-login",
+      "title": "Social Media Login",
+      "role": "Social Media Login",
+      "tags": ["Planned", "OAuth", "Auth"],
+      "description": "Sign in with popular social providers such as Google and Facebook.",
+      "bg": "bg-rose-100 dark:bg-rose-950/40"
+    },
+    {
+      "id": "two-factor-auth",
+      "title": "2 Factor Authentication",
+      "role": "2 Factor Authentication",
+      "tags": ["Planned", "OTP", "Security"],
+      "description": "Two-factor authentication with OTP and email verification.",
+      "bg": "bg-violet-100 dark:bg-violet-950/40"
+    },
+    {
+      "id": "barcode-qr",
+      "title": "Barcode / QR Code",
+      "role": "Barcode / QR Code Generate",
+      "tags": ["Planned", "QR", "Barcode"],
+      "description": "Generate and scan barcodes and QR codes in web apps.",
+      "bg": "bg-lime-100 dark:bg-lime-950/40"
+    },
+    {
+      "id": "device-sensors",
+      "title": "Device Sensors",
+      "role": "Camera, Mic, Location & Sensors",
+      "tags": ["Planned", "Sensors", "Web APIs"],
+      "description": "Camera, microphone, location, speaker, and fingerprint sensor integrations.",
+      "bg": "bg-teal-100 dark:bg-teal-950/40"
+    },
+    {
+      "id": "maps",
+      "title": "Maps",
+      "role": "Google Maps & OpenStreetMap",
+      "tags": ["Planned", "Maps", "Geo"],
+      "description": "Interactive maps with Google Maps and OpenStreetMap.",
+      "bg": "bg-blue-100 dark:bg-blue-950/40"
+    },
+    {
+      "id": "reports",
+      "title": "Reporting Tools",
+      "role": "Reports & Analytics",
+      "tags": ["Planned", "jsPDF", "Power BI"],
+      "description": "Report workflows with jsPDF, Crystal Reports, and Power BI.",
+      "bg": "bg-fuchsia-100 dark:bg-fuchsia-950/40"
+    },
+    {
+      "id": "video-work",
+      "title": "Video Platform",
+      "role": "Video Streaming & Conferencing",
+      "tags": ["Planned", "Video", "Realtime"],
+      "description": "Video streaming, conferencing, calling, recording, and sharing.",
+      "bg": "bg-orange-100 dark:bg-orange-950/40"
+    },
+    {
+      "id": "push-notifications",
+      "title": "Push Notifications",
+      "role": "Mobile & Desktop Push",
+      "tags": ["Planned", "Push", "Notifications"],
+      "description": "Push notifications for mobile and desktop clients.",
+      "bg": "bg-cyan-100 dark:bg-cyan-950/40"
     }
   ]
 }

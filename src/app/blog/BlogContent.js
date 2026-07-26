@@ -59,12 +59,12 @@ function CategoryTags({ categories }) {
 
 function BlogTitle({ post }) {
   return (
-    <h2 className="mb-2 leading-snug">
+    <h2 className="mb-2 min-w-0 leading-snug">
       <a
         href={post.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block font-bold text-lg sm:text-xl text-slate-900 dark:text-slate-100 hover:text-brand-dark dark:hover:text-brand transition-all duration-200 hover:scale-105 origin-left"
+        className="inline-block max-w-full break-words font-bold text-lg sm:text-xl text-slate-900 dark:text-slate-100 hover:text-brand-dark dark:hover:text-brand transition-all duration-200 hover:scale-105 origin-left"
       >
         {post.title}
       </a>
@@ -78,7 +78,7 @@ function ReadButton({ url, label }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 w-fit px-4 py-2 rounded-lg bg-brand text-white text-sm font-semibold hover:bg-brand-dark shadow-sm shadow-brand/20 hover:shadow-brand/35 transition-colors group shrink-0"
+      className="inline-flex min-h-11 items-center gap-1.5 w-fit px-4 py-2.5 rounded-lg bg-brand text-white text-sm font-semibold hover:bg-brand-dark shadow-sm shadow-brand/20 hover:shadow-brand/35 transition-colors group shrink-0"
     >
       {label}
       <ArrowUpRight
@@ -152,7 +152,7 @@ export default function BlogContent() {
   };
 
   const viewBtnClass = (mode) =>
-    `flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-lg text-sm font-medium border border-brand cursor-pointer transition ${
+    `inline-flex min-h-11 items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-lg text-sm font-medium border border-brand cursor-pointer transition ${
       view === mode
         ? "bg-brand text-white"
         : "bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-200"
@@ -160,17 +160,15 @@ export default function BlogContent() {
 
   if (loading) {
     return (
-      <main className="page-gradient min-w-0 overflow-x-hidden px-3 py-6 pb-10 pt-16 sm:px-6 sm:pt-20">
-        <div className="mx-auto max-w-5xl min-w-0">
-          <PageLoadingState icon="bookOpen" message="Loading blog data…" />
-        </div>
+      <main className="page-gradient flex min-h-screen min-w-0 items-center justify-center overflow-x-hidden px-3 py-6 pb-4 pt-16 sm:px-6 sm:pt-20">
+        <PageLoadingState icon="bookOpen" message="Loading blog data…" />
       </main>
     );
   }
 
   if (error || !blogData) {
     return (
-      <main className="page-gradient min-w-0 overflow-x-hidden px-3 py-6 pb-10 pt-16 sm:px-6 sm:pt-20">
+      <main className="page-gradient flex min-h-screen min-w-0 items-center justify-center overflow-x-hidden px-3 py-6 pb-4 pt-16 sm:px-6 sm:pt-20">
         <div className="mx-auto flex max-w-5xl min-w-0 flex-col items-center gap-3 text-center">
           <p className="text-slate-500 dark:text-slate-400" role="alert">
             {error || blogData?.pageState?.errorText || "Blog data is unavailable."}
@@ -178,7 +176,7 @@ export default function BlogContent() {
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-brand/30 px-4 py-2.5 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
           >
             {blogData?.pageState?.retryLabel || "Try again"}
           </button>
@@ -190,7 +188,7 @@ export default function BlogContent() {
   const { header, labels, authorProfile } = blogData;
 
   return (
-    <main className="page-gradient min-w-0 overflow-x-hidden px-3 py-6 pb-10 pt-16 sm:px-6 sm:pt-20">
+    <main className="page-gradient !min-h-0 min-w-0 overflow-x-hidden px-3 py-6 pb-2 pt-16 sm:px-6 sm:pb-3 sm:pt-20">
       <div className="mx-auto max-w-5xl min-w-0">
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-2">
@@ -291,7 +289,7 @@ export default function BlogContent() {
             href={authorProfile.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-brand hover:bg-brand-dark shadow-md shadow-brand/25 hover:shadow-brand/40 transition-all"
+            className="inline-flex min-h-11 items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-brand hover:bg-brand-dark shadow-md shadow-brand/25 hover:shadow-brand/40 transition-all"
           >
             {authorProfile.label}
             <ExternalLink size={14} />

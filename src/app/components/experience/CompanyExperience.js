@@ -63,6 +63,7 @@ export default function CompanyExperience({ company, skillsLabel }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={company.linkAriaLabel}
+          className={styles.companyLogoLink}
         >
           <img src={company.logo} alt={company.logoAlt} className={styles.companyLogo} />
         </a>

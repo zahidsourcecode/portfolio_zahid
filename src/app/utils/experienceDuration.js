@@ -207,6 +207,11 @@ function toCareerEndDateTime(endStr, now = new Date()) {
   return new Date(parsed.year, parsed.month, day, 23, 59, 59, 999);
 }
 
+export function getCareerStartLabel(roles, now = new Date()) {
+  const { start } = getCompanyDateRange(roles);
+  return parseExperienceDate(start, now).label;
+}
+
 export function getCareerDurationParts(rolesOrStart, endStr = "Present", now = new Date()) {
   const range = typeof rolesOrStart === "string"
     ? { start: rolesOrStart, end: endStr }

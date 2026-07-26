@@ -29,24 +29,70 @@ const VISIT_ICONS = {
 
 function getBrowserName() {
   if (typeof navigator === "undefined") return "Unknown";
+
+  const brands = navigator.userAgentData?.brands;
+  if (Array.isArray(brands) && brands.length > 0) {
+    const preferred = ["Microsoft Edge", "Opera", "Google Chrome", "Chromium", "Firefox", "Safari"];
+    const matched = preferred.find((name) =>
+      brands.some((entry) => entry.brand === name)
+    );
+    if (matched === "Google Chrome" || matched === "Chromium") return "Chrome";
+    if (matched) return matched;
+  }
+
   const ua = navigator.userAgent;
-  if (ua.includes("Edg/")) return "Microsoft Edge";
-  if (ua.includes("OPR/") || ua.includes("Opera")) return "Opera";
-  if (ua.includes("Chrome/")) return "Chrome";
-  if (ua.includes("Firefox/")) return "Firefox";
-  if (ua.includes("Safari/")) return "Safari";
+
+  // Mobile-specific tokens first (iOS Chrome/Firefox/Edge spoof Safari otherwise)
+  if (/Edg(?:e|A|iOS)?\//.test(ua) || /EdgiOS\//.test(ua)) return "Microsoft Edge";
+  if (/OPR\/|Opera|OPiOS\//.test(ua)) return "Opera";
+  if (/SamsungBrowser\//.test(ua)) return "Samsung Internet";
+  if (/Firefox\/|FxiOS\//.test(ua)) return "Firefox";
+  if (/CriOS\//.test(ua) || (/Chrome\//.test(ua) && !/Edg/.test(ua))) return "Chrome";
+  if (/Safari\//.test(ua) && /Version\//.test(ua)) return "Safari";
+  if (/Safari\//.test(ua)) return "Safari";
   return "Unknown";
 }
 
 function getOSName() {
   if (typeof navigator === "undefined") return "Unknown";
+
   const ua = navigator.userAgent;
-  if (ua.includes("Windows NT 10.0")) return "Windows 10/11";
-  if (ua.includes("Windows")) return "Windows";
-  if (ua.includes("Mac OS X")) return "macOS";
-  if (ua.includes("Android")) return "Android";
-  if (ua.includes("iPhone") || ua.includes("iPad")) return "iOS";
-  if (ua.includes("Linux")) return "Linux";
+  const platform = navigator.platform || "";
+
+  // iPadOS 13+ often reports as MacIntel with touch
+  const isIPad =
+    /iPad/.test(ua) || (platform === "MacIntel" && (navigator.maxTouchPoints || 0) > 1);
+  const isIPhone = /iPhone|iPod/.test(ua);
+
+  if (isIPhone || isIPad) {
+    const match = ua.match(/OS (\d+)[._](\d+)/);
+    if (match) {
+      return `${isIPad ? "iPadOS" : "iOS"} ${match[1]}.${match[2]}`;
+    }
+    return isIPad ? "iPadOS" : "iOS";
+  }
+
+  if (/Android/.test(ua)) {
+    const match = ua.match(/Android (\d+(?:\.\d+)?)/);
+    return match ? `Android ${match[1]}` : "Android";
+  }
+
+  const hintPlatform = navigator.userAgentData?.platform;
+  if (hintPlatform) {
+    if (/Win/i.test(hintPlatform)) {
+      return /Windows NT 10\.0/.test(ua) ? "Windows 10/11" : "Windows";
+    }
+    if (/macOS|Mac/i.test(hintPlatform)) return "macOS";
+    if (/Android/i.test(hintPlatform)) return "Android";
+    if (/Linux/i.test(hintPlatform)) return "Linux";
+    if (/Chrome OS|ChromeOS/i.test(hintPlatform)) return "Chrome OS";
+  }
+
+  if (/Windows NT 10\.0/.test(ua)) return "Windows 10/11";
+  if (/Windows/.test(ua)) return "Windows";
+  if (/Mac OS X|Macintosh/.test(ua)) return "macOS";
+  if (/CrOS/.test(ua)) return "Chrome OS";
+  if (/Linux/.test(ua)) return "Linux";
   return "Unknown";
 }
 
@@ -69,15 +115,15 @@ function getTimezoneLabel() {
 }
 
 function getSocialIconClass(label) {
-  if (label === "GitHub") return "h-6 w-6 sm:h-7 sm:w-7";
-  if (label === "LeetCode") return "h-6 w-6 sm:h-8 sm:w-8";
-  if (label === "LinkedIn") return "h-8 w-8 sm:h-10 sm:w-10";
-  return "h-7 w-7 sm:h-9 sm:w-9";
+  if (label === "GitHub") return "h-5 w-5 sm:h-7 sm:w-7";
+  if (label === "LeetCode") return "h-5 w-5 sm:h-8 sm:w-8";
+  if (label === "LinkedIn") return "h-6 w-6 sm:h-10 sm:w-10";
+  return "h-5 w-5 sm:h-9 sm:w-9";
 }
 
 function BioParagraph({ segments, experienceLabel }) {
   return (
-    <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed mb-5 sm:mb-6 text-left sm:text-justify">
+    <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed mb-4 sm:mb-5 text-left sm:text-justify">
       {segments.map((segment, index) => {
         if (segment.type === "experience") {
           return (
@@ -197,7 +243,7 @@ export default function Home() {
 
   if (loading) {
     return (
-      <main className="page-gradient flex min-h-[50vh] items-center justify-center overflow-x-hidden pt-16 sm:pt-20 pb-8 sm:pb-12">
+      <main className="page-gradient flex min-h-screen items-center justify-center overflow-x-hidden pt-16 sm:pt-20 pb-4">
         <PageLoadingState icon="home" message="Loading home data…" />
       </main>
     );
@@ -205,14 +251,14 @@ export default function Home() {
 
   if (error || !homeData) {
     return (
-      <main className="page-gradient flex min-h-[50vh] flex-col items-center justify-center gap-3 overflow-x-hidden px-4 pt-16 sm:pt-20 pb-8 sm:pb-12">
+      <main className="page-gradient flex min-h-screen flex-col items-center justify-center gap-3 overflow-x-hidden px-4 pt-16 sm:pt-20 pb-4">
         <p className="text-sm text-slate-500 dark:text-slate-400" role="alert">
           {error || homeData?.pageState?.errorText || "Home data is unavailable."}
         </p>
         <button
           type="button"
           onClick={() => window.location.reload()}
-          className="rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
+          className="inline-flex min-h-11 items-center justify-center rounded-full border border-brand/30 px-4 py-2.5 text-sm font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
         >
           {homeData?.pageState?.retryLabel || "Try again"}
         </button>
@@ -225,7 +271,7 @@ export default function Home() {
   const vimeoEmbed = `https://player.vimeo.com/video/${video.vimeoVideoId}?autoplay=1&title=0&byline=0&portrait=0`;
 
   return (
-    <main className="page-gradient pt-16 sm:pt-20 pb-8 sm:pb-12 relative overflow-x-hidden">
+    <main className="page-gradient relative !min-h-0 min-w-0 overflow-x-hidden pt-16 sm:pt-20 pb-2 sm:pb-3">
       <div
         aria-hidden
         className="pointer-events-none absolute -top-20 -right-20 w-48 h-48 sm:w-72 sm:h-72 rounded-full opacity-25"
@@ -244,7 +290,7 @@ export default function Home() {
       <div className="relative max-w-5xl mx-auto px-3 sm:px-6">
         <div className="bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-xl shadow-brand/10 border border-brand/20 dark:border-brand/15 overflow-hidden">
           <div className="flex flex-col md:flex-row">
-            <div className="md:w-[42%] lg:w-[42%] bg-gradient-to-br from-brand/25 via-brand-light/60 to-white dark:from-brand/20 dark:via-slate-800 dark:to-slate-900 p-5 sm:p-8 lg:p-10 flex flex-col items-center justify-center text-center">
+            <div className="md:w-[42%] lg:w-[42%] bg-gradient-to-br from-brand/25 via-brand-light/60 to-white dark:from-brand/20 dark:via-slate-800 dark:to-slate-900 px-5 pt-5 pb-4 sm:px-8 sm:pt-8 sm:pb-5 lg:px-10 lg:pt-10 lg:pb-6 flex flex-col items-center justify-center text-center">
               <div className="relative mb-3 sm:mb-4 w-full max-w-[240px] sm:max-w-[280px] lg:max-w-[300px] cursor-pointer mx-auto">
                 <div
                   aria-hidden
@@ -257,7 +303,7 @@ export default function Home() {
                 />
               </div>
 
-              <div className="relative mx-auto w-full max-w-[360px] sm:max-w-[400px]">
+              <div className="relative mx-auto w-full max-w-full sm:max-w-[420px]">
                 <div
                   aria-hidden
                   className="pointer-events-none absolute inset-0 -inset-x-1 rounded-2xl border border-transparent bg-transparent sm:-inset-x-2 dark:border-brand/20 dark:bg-gradient-to-r dark:from-brand/10 dark:via-brand/15 dark:to-brand/10 dark:shadow-[0_0_28px_rgba(94,190,213,0.28),0_0_56px_rgba(94,190,213,0.12),inset_0_1px_0_rgba(94,190,213,0.18)]"
@@ -266,7 +312,7 @@ export default function Home() {
                   aria-hidden
                   className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[70%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/25 blur-2xl dark:block"
                 />
-                <div className="relative flex w-full flex-wrap items-center justify-center gap-1 px-2 py-2 sm:flex-nowrap sm:gap-1.5 sm:px-3 sm:py-2.5">
+                <div className="relative flex w-full min-w-0 flex-nowrap items-center justify-center gap-0.5 px-1 py-2 sm:gap-1.5 sm:px-3 sm:py-2.5">
                   {socialLinks.map(({ href, label, icon, iconDark }) => {
                     const iconClass = getSocialIconClass(label);
 
@@ -281,7 +327,7 @@ export default function Home() {
                         }
                         rel="noreferrer"
                         aria-label={label}
-                        className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
+                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg p-1.5 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:h-11 sm:w-11 sm:rounded-xl sm:p-2"
                       >
                         {iconDark ? (
                           <>
@@ -310,12 +356,12 @@ export default function Home() {
                     type="button"
                     onClick={() => setShowVideo(true)}
                     aria-label={video.playAriaLabel}
-                    className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
+                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg p-1.5 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:h-11 sm:w-11 sm:rounded-xl sm:p-2"
                   >
                     <img
                       src={video.icon}
                       alt={video.playAriaLabel}
-                      className="h-[22px] w-[28px] object-contain sm:h-[26px] sm:w-[34px]"
+                      className="h-5 w-6 object-contain sm:h-[26px] sm:w-[34px]"
                     />
                   </button>
                   <a
@@ -323,31 +369,31 @@ export default function Home() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={mapLink.label}
-                    className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
+                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg p-1.5 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:h-11 sm:w-11 sm:rounded-xl sm:p-2"
                   >
                     <img
                       src={mapLink.icon}
                       alt={mapLink.label}
-                      className="h-6 w-6 object-contain sm:h-8 sm:w-8"
+                      className="h-5 w-5 object-contain sm:h-8 sm:w-8"
                     />
                   </a>
                   <button
                     type="button"
                     onClick={() => setShowCv(true)}
                     aria-label={cv.label}
-                    className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg p-2 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:rounded-xl"
+                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg p-1.5 hover:bg-brand/15 hover:scale-110 transition-all duration-200 cursor-pointer sm:h-11 sm:w-11 sm:rounded-xl sm:p-2"
                   >
                     <img
                       src={cv.icon}
                       alt={cv.label}
-                      className="h-6 w-6 object-contain sm:h-7 sm:w-7"
+                      className="h-5 w-5 object-contain sm:h-7 sm:w-7"
                     />
                   </button>
                 </div>
               </div>
             </div>
 
-            <div className="md:w-[58%] lg:w-[58%] p-5 sm:p-8 lg:p-10 flex flex-col justify-center min-w-0">
+            <div className="md:w-[58%] lg:w-[58%] px-5 pt-5 pb-4 sm:px-8 sm:pt-8 sm:pb-5 lg:px-10 lg:pt-10 lg:pb-6 flex flex-col justify-center min-w-0">
               <div className="mb-4 sm:mb-6 rounded-r-xl border-l-[3px] border-brand bg-gradient-to-r from-brand/[0.08] via-brand/[0.03] to-transparent py-3 sm:py-4 pl-3 sm:pl-5 pr-2">
                 <div className="group origin-left cursor-pointer transition-transform duration-300 ease-out hover:scale-[1.04]">
                   <h1 className="font-[family-name:var(--font-playfair)] text-[1.75rem] sm:text-[2.1rem] lg:text-[2.65rem] font-semibold leading-tight">
@@ -386,13 +432,13 @@ export default function Home() {
 
               <BioParagraph segments={bioSegments} experienceLabel={experienceLabel} />
 
-              <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-3 mb-5 sm:mb-7">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-3">
                 {ctaLinks.map(({ href, label, variant, showArrow }) =>
                   variant === "primary" ? (
                     <Link
                       key={href}
                       href={href}
-                      className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-full bg-brand hover:bg-brand-dark text-white text-sm font-semibold shadow-md shadow-brand/30 hover:shadow-brand/50 transition-all"
+                      className="inline-flex min-h-11 items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-full bg-brand hover:bg-brand-dark text-white text-sm font-semibold shadow-md shadow-brand/30 hover:shadow-brand/50 transition-all"
                     >
                       {label}
                       {showArrow && <ArrowRight size={16} />}
@@ -401,7 +447,7 @@ export default function Home() {
                     <Link
                       key={href}
                       href={href}
-                      className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-full border border-brand/30 text-brand-dark dark:text-brand text-sm font-semibold hover:bg-brand/10 transition-all"
+                      className="inline-flex min-h-11 items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-full border border-brand/30 text-brand-dark dark:text-brand text-sm font-semibold hover:bg-brand/10 transition-all"
                     >
                       {label}
                     </Link>
@@ -412,7 +458,7 @@ export default function Home() {
           </div>
         </div>
 
-        <section className="mt-6 sm:mt-8 rounded-2xl sm:rounded-3xl border border-brand/20 bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl shadow-xl shadow-brand/10 overflow-hidden">
+        <section className="mt-2 sm:mt-2.5 rounded-2xl sm:rounded-3xl border border-brand/20 bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl shadow-xl shadow-brand/10 overflow-hidden">
           <div className="flex items-center justify-center gap-2 sm:gap-3 border-b border-brand/15 bg-gradient-to-r from-brand/15 via-brand/5 to-brand/15 px-4 py-3 sm:px-6 sm:py-3.5">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand text-white shadow-md shadow-brand/30">
               <Globe className="h-4 w-4" strokeWidth={2.25} />
@@ -492,7 +538,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => setShowVideo(false)}
-              className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-full bg-brand/15 p-2 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-brand/15 p-2 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
               aria-label={video.closeAriaLabel}
             >
               <X size={18} />
@@ -531,7 +577,7 @@ export default function Home() {
               <a
                 href={cv.href}
                 download={cv.downloadName}
-                className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-brand px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-white shadow-md shadow-brand/30 transition hover:bg-brand-dark hover:shadow-brand/50"
+                className="inline-flex min-h-11 items-center gap-1.5 sm:gap-2 rounded-full bg-brand px-3 py-2 sm:px-4 text-xs sm:text-sm font-semibold text-white shadow-md shadow-brand/30 transition hover:bg-brand-dark hover:shadow-brand/50"
               >
                 <Download size={14} className="sm:w-4 sm:h-4" />
                 {cv.downloadLabel}
@@ -539,7 +585,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setShowCv(false)}
-                className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-full bg-brand/15 p-2 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
+                className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-brand/15 p-2 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
                 aria-label={cv.closeAriaLabel}
               >
                 <X size={18} />

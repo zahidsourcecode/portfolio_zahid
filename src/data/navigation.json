@@ -32,6 +32,10 @@
       },
       "uploadCv": "Upload CV"
     },
+    "hireMe": {
+      "href": "/contact",
+      "label": "Hire me"
+    },
     "mobileMenu": {
       "toggleAriaLabel": "Toggle Menu"
     }
@@ -54,10 +58,6 @@
       "rightsText": "All rights reserved."
     },
     "scrollToTopAriaLabel": "Scroll to top",
-    "hireMe": {
-      "href": "/contact",
-      "label": "Hire me"
-    },
     "nextJs": {
       "href": "https://nextjs.org",
       "ariaLabel": "Built with Next.js",

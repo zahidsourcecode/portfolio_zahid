@@ -79,11 +79,11 @@ export default function UploadCvModal({ open, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-[110] flex items-end justify-center bg-black/60 backdrop-blur-sm p-3 sm:items-center sm:p-4"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-sm rounded-2xl border border-brand/25 bg-white shadow-2xl shadow-brand/20 dark:border-brand/20 dark:bg-slate-900"
+        className="relative max-h-[90dvh] w-full max-w-sm overflow-y-auto rounded-t-2xl border border-brand/25 bg-white shadow-2xl shadow-brand/20 sm:rounded-2xl dark:border-brand/20 dark:bg-slate-900"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-brand/20 bg-gradient-to-r from-brand/20 via-brand/10 to-transparent px-4 py-3 sm:px-5">
@@ -93,7 +93,7 @@ export default function UploadCvModal({ open, onClose }) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full bg-brand/15 p-1.5 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-brand/15 p-2 text-brand-dark transition hover:bg-brand hover:text-white dark:text-brand cursor-pointer"
             aria-label="Close"
           >
             <X size={18} />
@@ -126,7 +126,7 @@ export default function UploadCvModal({ open, onClose }) {
               )}
               <button
                 type="submit"
-                className="w-full rounded-full bg-brand px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand/30 transition hover:bg-brand-dark cursor-pointer"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-brand px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand/30 transition hover:bg-brand-dark cursor-pointer"
               >
                 Continue
               </button>
@@ -149,10 +149,12 @@ export default function UploadCvModal({ open, onClose }) {
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-brand/40 bg-brand/5 px-4 py-6 text-sm font-medium text-brand-dark transition hover:border-brand hover:bg-brand/10 dark:text-brand cursor-pointer"
+                className="flex min-h-11 w-full min-w-0 items-center justify-center gap-2 rounded-xl border border-dashed border-brand/40 bg-brand/5 px-4 py-6 text-sm font-medium text-brand-dark transition hover:border-brand hover:bg-brand/10 dark:text-brand cursor-pointer"
               >
-                <Upload size={18} />
-                {file ? file.name : "Choose PDF file"}
+                <Upload size={18} className="shrink-0" />
+                <span className="min-w-0 break-all text-left">
+                  {file ? file.name : "Choose PDF file"}
+                </span>
               </button>
               {uploadError && (
                 <div className="flex items-center gap-2 rounded-xl border border-amber-300/80 bg-amber-50 px-3 py-2 text-sm font-medium text-amber-800 dark:border-amber-500/40 dark:bg-amber-950/40 dark:text-amber-200">
@@ -168,7 +170,7 @@ export default function UploadCvModal({ open, onClose }) {
               <button
                 type="submit"
                 disabled={uploading || !file}
-                className="w-full rounded-full bg-brand px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand/30 transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-brand px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand/30 transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
               >
                 {uploading ? "Uploading..." : "Upload CV"}
               </button>

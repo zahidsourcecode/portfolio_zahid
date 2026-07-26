@@ -7,7 +7,6 @@ import { useNavigation } from "../hooks/useNavigation";
 import {
   AUTO_SCROLL_PATHS,
   handleAutoScrollLinkClick,
-  markAutoScrollFromMenu,
 } from "../utils/pageAutoScroll";
 
 export default function Footer() {
@@ -27,11 +26,22 @@ export default function Footer() {
 
   if (loading && !navigationData) {
     return (
-      <footer className="relative shrink-0 border-t border-brand/20 bg-gradient-to-r from-brand-light/30 via-white to-brand-light/20 backdrop-blur-md pb-[env(safe-area-inset-bottom,0px)] dark:border-brand/10 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
-        <div className="relative mx-auto flex max-w-6xl items-center justify-center px-3 py-4 sm:px-6">
-          <p className="text-xs text-slate-500 dark:text-slate-400" role="status" aria-live="polite">
-            Loading navigation…
-          </p>
+      <footer
+        className="relative shrink-0 border-t border-brand/20 bg-gradient-to-r from-brand-light/30 via-white to-brand-light/20 backdrop-blur-md pb-[env(safe-area-inset-bottom,0px)] dark:border-brand/10 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950"
+        aria-busy="true"
+        aria-label="Loading footer"
+      >
+        <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-3 px-3 py-3.5 sm:px-6">
+          <div className="h-7 w-40 animate-pulse rounded-full bg-slate-200/90 dark:bg-slate-700/80" />
+          <div className="hidden items-center gap-2 md:flex">
+            {Array.from({ length: 5 }, (_, index) => (
+              <div
+                key={index}
+                className="h-6 w-14 animate-pulse rounded-full bg-slate-200/80 dark:bg-slate-700/70"
+              />
+            ))}
+          </div>
+          <div className="h-8 w-24 animate-pulse rounded-full bg-slate-200/90 dark:bg-slate-700/80" />
         </div>
       </footer>
     );
@@ -47,7 +57,7 @@ export default function Footer() {
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="rounded-full border border-brand/30 px-3 py-1 text-xs font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-brand/30 px-3.5 py-2 text-xs font-semibold text-brand-dark transition hover:bg-brand/10 dark:text-brand"
           >
             Try again
           </button>
@@ -57,7 +67,7 @@ export default function Footer() {
   }
 
   const { footer } = navigationData;
-  const { navLinks, copyright, hireMe, nextJs } = footer;
+  const { navLinks, copyright, nextJs } = footer;
 
   return (
     <footer className="relative shrink-0 border-t border-brand/20 bg-gradient-to-r from-brand-light/30 via-white to-brand-light/20 backdrop-blur-md pb-[env(safe-area-inset-bottom,0px)] dark:border-brand/10 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
@@ -70,7 +80,9 @@ export default function Footer() {
           className={`${copyrightClassName} flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-center text-xs leading-snug sm:justify-start sm:leading-none`}
         >
           <span className="font-semibold text-brand-dark dark:text-brand">© {year}</span>
-          <span aria-hidden className="text-brand/35">·</span>
+          <span aria-hidden className="text-brand/35">
+            ·
+          </span>
           <span>
             <span className="font-semibold text-slate-800 dark:text-slate-100">
               {copyright.firstName}{" "}
@@ -79,7 +91,9 @@ export default function Footer() {
               {copyright.lastName}
             </span>
           </span>
-          <span aria-hidden className="text-brand/35">·</span>
+          <span aria-hidden className="text-brand/35">
+            ·
+          </span>
           <span className="font-medium text-slate-600 dark:text-slate-300">
             {copyright.rightsText}
           </span>
@@ -95,7 +109,6 @@ export default function Footer() {
               href={href}
               onClick={() => {
                 if (!AUTO_SCROLL_PATHS.includes(href)) return;
-                if (pathname !== href) markAutoScrollFromMenu();
                 handleAutoScrollLinkClick(pathname, href);
               }}
               className={`inline-flex min-h-11 items-center rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${
@@ -118,28 +131,26 @@ export default function Footer() {
           >
             <ChevronUp size={15} strokeWidth={2.25} />
           </button>
-          <Link
-            href={hireMe.href}
-            className="inline-flex min-h-11 items-center rounded-full bg-brand px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-brand-dark sm:text-sm"
-          >
-            {hireMe.label}
-          </Link>
           <a
             href={nextJs.href}
             target="_blank"
             rel="noreferrer"
             aria-label={nextJs.ariaLabel}
-            className="shrink-0 opacity-90 transition-opacity hover:opacity-100"
+            className="inline-flex h-11 min-w-[4.5rem] shrink-0 items-center justify-center opacity-90 transition-opacity hover:opacity-100"
           >
             <img
               src={nextJs.logoLight}
               alt={nextJs.alt}
-              className="h-5 w-auto object-contain sm:h-[22px] dark:hidden"
+              width={110}
+              height={28}
+              className="h-7 w-auto max-w-none object-contain dark:hidden"
             />
             <img
               src={nextJs.logoDark}
               alt={nextJs.alt}
-              className="hidden h-5 w-auto object-contain sm:h-[22px] dark:block"
+              width={110}
+              height={28}
+              className="hidden h-7 w-auto max-w-none object-contain dark:block"
             />
           </a>
         </div>

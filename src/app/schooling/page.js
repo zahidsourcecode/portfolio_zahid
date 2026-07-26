@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Award, Download, ExternalLink, Eye, GraduationCap, X } from "lucide-react";
+import { ArrowRight, Award, ExternalLink, Eye, GraduationCap } from "lucide-react";
 import PageAutoScroll from "../components/PageAutoScroll";
 import PageLoadingState from "../components/PageLoadingState";
 import ExperienceLetterModal from "../components/experience/ExperienceLetterModal";
@@ -80,46 +80,35 @@ export default function SchoolingPage() {
   }, []);
 
   const openCertificate = ({ certificate, certificateLabel, degree, imageScale }) => {
-    const extension = certificate.split(".").pop()?.toLowerCase() || "pdf";
+    const extension = certificate.split(".").pop()?.toLowerCase() || "png";
     setActiveCertificate({
       src: certificate,
       title: certificateLabel,
       downloadName: `${degree.replace(/[^a-zA-Z0-9]+/g, "_")}_certificate.${extension}`,
-      isPdf: extension === "pdf",
       imageScale,
     });
   };
 
   if (loading) {
     return (
-      <main className={`page-gradient min-w-0 overflow-x-hidden ${styles.page}`}>
-        <PageAutoScroll />
-        <div className={styles.inner}>
-          <article className={styles.sheet}>
-            <PageLoadingState icon="graduationCap" message="Loading schooling data…" />
-          </article>
-        </div>
+      <main className="page-gradient flex min-h-screen min-w-0 items-center justify-center overflow-x-hidden px-3 py-6 pb-4 pt-16 sm:px-6 sm:pt-20">
+        <PageLoadingState icon="graduationCap" message="Loading schooling data…" />
       </main>
     );
   }
 
   if (error || !schoolingData) {
     return (
-      <main className={`page-gradient min-w-0 overflow-x-hidden ${styles.page}`}>
-        <PageAutoScroll />
-        <div className={styles.inner}>
-          <article className={styles.sheet}>
-            <div className={styles.statePanel} role="alert">
-              <p className={styles.stateText}>{error || "Schooling data is unavailable."}</p>
-              <button
-                type="button"
-                className={styles.retryBtn}
-                onClick={() => window.location.reload()}
-              >
-                Try again
-              </button>
-            </div>
-          </article>
+      <main className="page-gradient flex min-h-screen min-w-0 items-center justify-center overflow-x-hidden px-3 py-6 pb-4 pt-16 sm:px-6 sm:pt-20">
+        <div className={styles.statePanel} role="alert">
+          <p className={styles.stateText}>{error || "Schooling data is unavailable."}</p>
+          <button
+            type="button"
+            className={styles.retryBtn}
+            onClick={() => window.location.reload()}
+          >
+            Try again
+          </button>
         </div>
       </main>
     );
@@ -130,7 +119,7 @@ export default function SchoolingPage() {
   const { education, tableHeaders } = academicBackground;
 
   return (
-    <main className={`page-gradient min-w-0 overflow-x-hidden ${styles.page}`}>
+    <main className={`page-gradient !min-h-0 min-w-0 overflow-x-hidden ${styles.page}`}>
       <PageAutoScroll />
       <div className={styles.inner}>
         <article className={styles.sheet}>
@@ -342,7 +331,7 @@ export default function SchoolingPage() {
       </div>
 
       <ExperienceLetterModal
-        open={Boolean(activeCertificate && !activeCertificate.isPdf)}
+        open={Boolean(activeCertificate)}
         onClose={() => setActiveCertificate(null)}
         image={activeCertificate?.src}
         imageAlt={activeCertificate?.title}
@@ -351,49 +340,6 @@ export default function SchoolingPage() {
         downloadHref={activeCertificate?.src}
         downloadName={activeCertificate?.downloadName}
       />
-
-      <div
-        className={`${styles.certModal} ${
-          activeCertificate?.isPdf ? styles.certModalOpen : styles.certModalClosed
-        }`}
-        onClick={() => setActiveCertificate(null)}
-      >
-        <div className={styles.certModalDialog} onClick={(e) => e.stopPropagation()}>
-          <div className={styles.certModalHeader}>
-            <h2 className={styles.certModalTitle}>{activeCertificate?.title}</h2>
-            <div className={styles.certModalActions}>
-              {activeCertificate?.isPdf && (
-                <a
-                  href={activeCertificate.src}
-                  download={activeCertificate.downloadName}
-                  className={styles.certDownloadBtn}
-                >
-                  <Download size={14} aria-hidden />
-                  Download
-                </a>
-              )}
-              <button
-                type="button"
-                onClick={() => setActiveCertificate(null)}
-                className={styles.certCloseBtn}
-                aria-label="Close certificate viewer"
-              >
-                <X size={18} />
-              </button>
-            </div>
-          </div>
-
-          {activeCertificate?.isPdf && (
-            <div className={styles.certViewerBody}>
-              <iframe
-                src={`${activeCertificate.src}#toolbar=1&navpanes=0&zoom=page-width`}
-                className={styles.certViewerFrame}
-                title={activeCertificate.title}
-              />
-            </div>
-          )}
-        </div>
-      </div>
     </main>
   );
 }
