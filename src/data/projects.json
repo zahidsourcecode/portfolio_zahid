@@ -69,6 +69,17 @@
       "githubUrl": "https://github.com/zahidsourcecode/mongodb_playground"
     },
     {
+      "id": "sso-social-login",
+      "title": "SSO and Social Media Login",
+      "role": "SSO and Social Media Login",
+      "tags": ["React", "Firebase Auth", "React Router", "Tailwind"],
+      "image": "/sso-social-login.png",
+      "description": "Secure single sign-on with Google, GitHub, Facebook, Microsoft, and email — powered by Firebase Auth.",
+      "bg": "bg-sky-100 dark:bg-sky-950/40",
+      "iframeSrc": "https://sso-social-media-login-demo.vercel.app/",
+      "githubUrl": "https://github.com/zahidsourcecode/social_media_login_demo"
+    },
+    {
       "id": "eschool",
       "title": "E-School Landing Page",
       "role": "E School Landing Page",
@@ -157,22 +168,6 @@
       "tags": ["Planned", "Firebase", "CRUD"],
       "description": "Full create, read, update, and delete flows with Firebase.",
       "bg": "bg-amber-100 dark:bg-amber-950/40"
-    },
-    {
-      "id": "sso-login",
-      "title": "SSO Login",
-      "role": "SSO Login",
-      "tags": ["Planned", "Auth", "SSO"],
-      "description": "Single Sign-On authentication across apps and services.",
-      "bg": "bg-sky-100 dark:bg-sky-950/40"
-    },
-    {
-      "id": "social-login",
-      "title": "Social Media Login",
-      "role": "Social Media Login",
-      "tags": ["Planned", "OAuth", "Auth"],
-      "description": "Sign in with popular social providers such as Google and Facebook.",
-      "bg": "bg-rose-100 dark:bg-rose-950/40"
     },
     {
       "id": "two-factor-auth",
