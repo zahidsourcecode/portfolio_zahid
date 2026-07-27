@@ -10,9 +10,6 @@
   --brand-muted: #b8e8f2;
   --page-from: #f0f9ff;
   --page-to: #e0e7ff;
-  --card-bg: #ffffff;
-  --card-border: #e5e7eb;
-  --muted-text: #4b5563;
 }
 
 .dark {
@@ -20,9 +17,6 @@
   --foreground: #e2e8f0;
   --page-from: #0f172a;
   --page-to: #020617;
-  --card-bg: #1e293b;
-  --card-border: #334155;
-  --muted-text: #94a3b8;
 }
 
 @theme inline {

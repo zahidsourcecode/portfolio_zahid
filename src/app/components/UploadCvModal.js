@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AlertTriangle, Upload, X } from "lucide-react";
-
-const CV_PIN = "2438";
+import { CV_PIN } from "../lib/cvPin";
 
 export default function UploadCvModal({ open, onClose }) {
   const [step, setStep] = useState("pin");

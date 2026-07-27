@@ -234,6 +234,7 @@ function LiveDemoButton({ demoUrl, label, comingSoon = false, onComingSoonClick 
 function ProjectActions({
   githubUrl,
   demoUrl,
+  demoLabel,
   demoVideoSrc,
   labels,
   comingSoon = false,
@@ -262,7 +263,7 @@ function ProjectActions({
       />
       <LiveDemoButton
         demoUrl={demoUrl}
-        label={labels.liveDemo}
+        label={demoLabel || labels.liveDemo}
         comingSoon={liveComingSoon}
         onComingSoonClick={onComingSoonClick}
       />
@@ -299,7 +300,8 @@ function ProjectCard({
         <div className="w-full shrink-0 self-stretch sm:w-auto sm:self-center">
           <ProjectActions
             githubUrl={project.githubUrl}
-            demoUrl={project.iframeSrc}
+            demoUrl={project.downloadApkUrl || project.iframeSrc}
+            demoLabel={project.downloadApkUrl ? labels.downloadApk : labels.liveDemo}
             demoVideoSrc={project.demoVideoSrc}
             labels={labels}
             comingSoon={comingSoon}
@@ -330,7 +332,8 @@ function ProjectCard({
 
         <ProjectActions
           githubUrl={project.githubUrl}
-          demoUrl={project.iframeSrc}
+          demoUrl={project.downloadApkUrl || project.iframeSrc}
+          demoLabel={project.downloadApkUrl ? labels.downloadApk : labels.liveDemo}
           demoVideoSrc={project.demoVideoSrc}
           labels={labels}
           comingSoon={comingSoon}

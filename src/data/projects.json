@@ -10,7 +10,6 @@
   },
   "settings": {
     "projectsPerPage": 4,
-    "demoVideoUrl": "https://www.youtube.com/watch?v=MzEFeIRJ0eQ",
     "demoVideoEmbedUrl": "https://www.youtube.com/embed/MzEFeIRJ0eQ",
     "demoVideoModalTitle": "Project demo video"
   },
@@ -18,6 +17,7 @@
     "demoVideo": "Demo Video",
     "github": "GitHub",
     "liveDemo": "Live demo",
+    "downloadApk": "Download APK",
     "grid": "Grid",
     "list": "List",
     "paginationAriaLabel": "Projects pagination",
@@ -156,6 +156,7 @@
       "description": "Flutter BMI calculator with a result gauge, healthy-range tips, and local history.",
       "bg": "bg-teal-100 dark:bg-teal-950/40",
       "githubUrl": "https://github.com/zahidsourcecode/BMI_Calculator",
+      "downloadApkUrl": "https://drive.google.com/file/d/1wwA9WjJyF9t1MzvYF6qc8T-5pjL-A3-h/view",
       "demoVideoSrc": "/BMI_Calculator_Demo.mp4",
       "demoVideoTitle": "BMI Calculator demo"
     }

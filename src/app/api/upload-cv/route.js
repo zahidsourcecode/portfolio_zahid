@@ -1,7 +1,6 @@
 import { writeFile } from "fs/promises";
 import path from "path";
-
-const CV_PIN = "2438";
+import { CV_PIN } from "../../lib/cvPin";
 
 export async function POST(request) {
   try {
