@@ -6,7 +6,8 @@
   },
   "header": {
     "title": "Projects",
-    "description": "Built with a modern technology stack including JavaScript, TypeScript, React, Vue.js, Next.js, Angular, C#, Python, Node.js, Express, SQL databases, Stripe, bKash, Socket.IO, Vite, Bootstrap, and Tailwind CSS."
+    "eyebrow": "Selected work",
+    "description": "Production systems and focused demos — spanning enterprise platforms, healthcare, fintech, and modern web apps."
   },
   "settings": {
     "projectsPerPage": 4,
@@ -25,11 +26,14 @@
     "nextPageAriaLabel": "Next page",
     "pageAriaLabel": "Page",
     "closeVideoAriaLabel": "Close demo video",
+    "demoProjectsTab": "Demo Projects",
+    "professionalProjectsTab": "Professional Projects",
     "liveProjectsTab": "Live",
     "cloudProjectsTab": "Cloud",
     "upcomingProjectsTab": "Upcoming",
     "mobileAppProjectsTab": "Mobile App",
-    "projectsTabAriaLabel": "Project category",
+    "projectsTabAriaLabel": "Project type",
+    "demoCategoryAriaLabel": "Demo project category",
     "comingSoonTitle": "Coming Soon...",
     "comingSoonMessage": "This project is under planning and will be available soon.",
     "comingSoonCloseLabel": "Close"
@@ -225,6 +229,100 @@
       "tags": ["Planned", "Push", "Notifications"],
       "description": "Push notifications for mobile and desktop clients.",
       "bg": "bg-cyan-100 dark:bg-cyan-950/40"
+    }
+  ],
+  "professionalProjects": [
+    {
+      "id": "meeting-manager",
+      "title": "Meeting Manager",
+      "role": "Meeting Manager",
+      "tags": ["Professional", "Web"],
+      "image": "/professional/meeting-manager.jpg",
+      "description": "Professional meeting management platform for scheduling, collaboration, and follow-up.",
+      "bg": "bg-sky-100 dark:bg-sky-950/40",
+      "liveUrl": "https://meetingmanager.dk/",
+      "demoVideoSrc": "https://meetingmanager.dk/wp-content/uploads/MM-pa%CC%8A-65-sek-DA-2.mp4",
+      "demoVideoTitle": "Meeting Manager demo"
+    },
+    {
+      "id": "nextit-accesserp",
+      "title": "Next IT",
+      "role": "Next IT AccessERP",
+      "tags": ["Professional", "ERP"],
+      "image": "/professional/nextit-accesserp.png",
+      "description": "Enterprise ERP solution delivered for Next IT business operations.",
+      "bg": "bg-indigo-100 dark:bg-indigo-950/40",
+      "liveUrl": "https://nextitltd.com/accesserp.php"
+    },
+    {
+      "id": "nextit-hr",
+      "title": "Next IT HR Project",
+      "role": "Next IT HR Scope",
+      "tags": ["Professional", "HR"],
+      "image": "/professional/nextit-hr.png",
+      "description": "HR management platform covering workforce processes for Next IT.",
+      "bg": "bg-violet-100 dark:bg-violet-950/40",
+      "liveUrl": "https://nextitltd.com/hr-scope.php"
+    },
+    {
+      "id": "pet-matrix",
+      "title": "Pet Matrix",
+      "role": "Pet Matrix",
+      "tags": ["Professional", "Web"],
+      "image": "/professional/pet-matrix.png",
+      "description": "Professional web platform for pet-related services and operations.",
+      "bg": "bg-rose-100 dark:bg-rose-950/40",
+      "liveUrl": "https://miracleadvance.com/petmatrix/"
+    },
+    {
+      "id": "envision-next",
+      "title": "Envision Next",
+      "role": "Envision Next Endoscopy IT System",
+      "tags": ["Professional", "Healthcare"],
+      "image": "/professional/envision-next.png",
+      "description": "Endoscopy IT system supporting clinical workflows and reporting.",
+      "bg": "bg-teal-100 dark:bg-teal-950/40",
+      "liveUrl": "https://miracleadvance.com/envisionnext-endoscopy-it-system/"
+    },
+    {
+      "id": "case-track",
+      "title": "Case Track",
+      "role": "Case Track",
+      "tags": ["Professional", "Web"],
+      "image": "/professional/case-track.png",
+      "description": "Case tracking application for managing workflows and case progress.",
+      "bg": "bg-amber-100 dark:bg-amber-950/40",
+      "liveUrl": "https://casetrackapp.com/"
+    },
+    {
+      "id": "my-task-2-do",
+      "title": "My Task 2 Do",
+      "role": "My Task 2 Do",
+      "tags": ["Professional", "Productivity"],
+      "image": "/professional/my-task-2-do.png",
+      "description": "Task management platform for organizing and tracking daily work.",
+      "bg": "bg-orange-100 dark:bg-orange-950/40",
+      "liveUrl": "https://mytask2do.com/"
+    },
+    {
+      "id": "rizq",
+      "title": "Rizq",
+      "role": "Rizq",
+      "tags": ["Professional", "Web"],
+      "image": "/professional/rizq.png",
+      "description": "Professional web application delivered for the Rizq platform.",
+      "bg": "bg-emerald-100 dark:bg-emerald-950/40",
+      "liveUrl": "https://rizq.today/"
+    },
+    {
+      "id": "grant-thornton",
+      "title": "Grant Thornton",
+      "role": "Grant Thornton",
+      "tags": ["Professional", "Enterprise"],
+      "image": "/professional/grant-thornton.jpg",
+      "description": "Enterprise advisory and professional services platform work with Grant Thornton.",
+      "bg": "bg-slate-100 dark:bg-slate-950/40",
+      "liveUrl": "https://www.grantthornton.com/"
     }
   ]
 }

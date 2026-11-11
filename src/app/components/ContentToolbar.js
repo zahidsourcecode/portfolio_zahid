@@ -48,37 +48,37 @@ export default function ContentToolbar({
   setView,
   viewBtnClass,
   leading = null,
+  centerStatus = false,
   className = "mb-6",
 }) {
   const paginationItems = getPaginationItems(currentPage, totalPages);
+  const statusCentered = centerStatus || Boolean(leading);
 
   return (
     <div
-      className={`${className} ${
-        leading
-          ? "relative flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-3"
-          : "flex flex-col gap-3 md:flex-row md:items-center md:gap-4"
+      className={`${className} relative flex min-h-[3.25rem] min-w-0 flex-nowrap items-center gap-1.5 sm:min-h-14 sm:gap-3 ${
+        leading || centerStatus ? "justify-between" : "justify-end md:justify-between"
       }`}
     >
-      {leading ? <div className="relative z-10 w-full min-w-0 sm:w-auto sm:shrink">{leading}</div> : null}
+      {leading ? (
+        <div className="relative z-10 min-w-0 shrink">{leading}</div>
+      ) : null}
 
       {statusText ? (
         <p
-          className={`min-w-0 text-xs font-bold text-slate-900 dark:text-white sm:text-sm ${
-            leading
-              ? "order-last w-full truncate text-center sm:order-none md:pointer-events-none md:absolute md:left-1/2 md:top-1/2 md:z-0 md:w-auto md:-translate-x-1/2 md:-translate-y-1/2"
-              : "md:flex-1"
+          className={`min-w-0 truncate text-xs font-bold text-slate-900 dark:text-white sm:text-sm ${
+            statusCentered
+              ? `pointer-events-none absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2 text-center ${
+                  leading ? "hidden md:block" : ""
+                }`
+              : "flex-1 text-center md:text-left"
           }`}
         >
           {statusText}
         </p>
       ) : null}
 
-      <div
-        className={`relative z-10 flex w-full flex-nowrap items-center justify-end gap-1.5 sm:ml-auto sm:w-auto sm:shrink-0 sm:gap-2 ${
-          leading ? "" : "md:w-auto"
-        }`}
-      >
+      <div className="relative z-10 ml-auto flex w-auto shrink-0 flex-nowrap items-center justify-end gap-1.5 sm:gap-2">
         {totalPages > 1 && (
           <nav
             aria-label={labels.paginationAriaLabel}

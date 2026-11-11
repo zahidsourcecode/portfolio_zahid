@@ -238,12 +238,15 @@ function ProjectActions({
   demoVideoSrc,
   labels,
   comingSoon = false,
+  requireOwnDemoVideo = false,
   onDemoVideoClick,
   onComingSoonClick,
 }) {
   const githubComingSoon = comingSoon || !githubUrl;
   const liveComingSoon = comingSoon || !demoUrl;
-  const videoComingSoon = comingSoon && !demoVideoSrc;
+  const videoComingSoon = comingSoon
+    ? !demoVideoSrc
+    : requireOwnDemoVideo && !demoVideoSrc;
 
   return (
     <div className="flex w-full min-w-0 flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
@@ -276,11 +279,17 @@ function ProjectCard({
   view,
   labels,
   comingSoon = false,
+  requireOwnDemoVideo = false,
   onDemoVideoClick,
   onComingSoonClick,
 }) {
   const imageComingSoon = comingSoon || !project.image;
   const titleComingSoon = comingSoon || !project.iframeSrc;
+  const demoUrl =
+    project.downloadApkUrl || project.liveUrl || project.iframeSrc;
+  const demoLabel = project.downloadApkUrl
+    ? labels.downloadApk
+    : labels.liveDemo;
 
   if (view === "list") {
     return (
@@ -300,11 +309,12 @@ function ProjectCard({
         <div className="w-full shrink-0 self-stretch sm:w-auto sm:self-center">
           <ProjectActions
             githubUrl={project.githubUrl}
-            demoUrl={project.downloadApkUrl || project.iframeSrc}
-            demoLabel={project.downloadApkUrl ? labels.downloadApk : labels.liveDemo}
+            demoUrl={demoUrl}
+            demoLabel={demoLabel}
             demoVideoSrc={project.demoVideoSrc}
             labels={labels}
             comingSoon={comingSoon}
+            requireOwnDemoVideo={requireOwnDemoVideo}
             onDemoVideoClick={onDemoVideoClick}
             onComingSoonClick={onComingSoonClick}
           />
@@ -332,11 +342,12 @@ function ProjectCard({
 
         <ProjectActions
           githubUrl={project.githubUrl}
-          demoUrl={project.downloadApkUrl || project.iframeSrc}
-          demoLabel={project.downloadApkUrl ? labels.downloadApk : labels.liveDemo}
+          demoUrl={demoUrl}
+          demoLabel={demoLabel}
           demoVideoSrc={project.demoVideoSrc}
           labels={labels}
           comingSoon={comingSoon}
+          requireOwnDemoVideo={requireOwnDemoVideo}
           onDemoVideoClick={onDemoVideoClick}
           onComingSoonClick={onComingSoonClick}
         />
@@ -415,20 +426,30 @@ export default function ProjectsContent() {
   const cloudProjects = projectsData?.cloudProjects ?? [];
   const mobileAppProjects = projectsData?.mobileAppProjects ?? [];
   const upcomingProjects = projectsData?.upcomingProjects ?? [];
+  const professionalProjects = projectsData?.professionalProjects ?? [];
   const projectsPerPage = projectsData?.settings?.projectsPerPage ?? 4;
   const tabParam = searchParams.get("tab");
-  const activeTab =
-    tabParam === "cloud" || tabParam === "upcoming" || tabParam === "mobile-app"
+  const categoryParam = searchParams.get("category");
+  const legacyDemoCategories = new Set(["live", "cloud", "upcoming", "mobile-app"]);
+  const isProfessionalTab = tabParam === "professional";
+  const demoCategory =
+    !isProfessionalTab && legacyDemoCategories.has(tabParam)
       ? tabParam
-      : "live";
-  const projectsByTab = {
+      : legacyDemoCategories.has(categoryParam)
+        ? categoryParam
+        : "live";
+  const projectsByDemoCategory = {
     live: projects,
     cloud: cloudProjects,
     "mobile-app": mobileAppProjects,
     upcoming: upcomingProjects,
   };
-  const activeProjects = projectsByTab[activeTab] ?? projects;
-  const isComingSoonTab = activeTab === "cloud" || activeTab === "upcoming";
+  const activeProjects = isProfessionalTab
+    ? professionalProjects
+    : (projectsByDemoCategory[demoCategory] ?? projects);
+  const isComingSoonTab =
+    !isProfessionalTab &&
+    (demoCategory === "cloud" || demoCategory === "upcoming");
 
   const totalPages = Math.ceil(activeProjects.length / projectsPerPage) || 1;
   const rawPage = parseInt(searchParams.get("page") || "1", 10);
@@ -441,10 +462,13 @@ export default function ProjectsContent() {
     return activeProjects.slice(start, start + projectsPerPage);
   }, [activeProjects, currentPage, projectsPerPage]);
 
-  const buildProjectsHref = (tab, page) => {
+  const buildProjectsHref = (topTab, category, page) => {
     const params = new URLSearchParams();
-    if (tab === "cloud" || tab === "upcoming" || tab === "mobile-app") {
-      params.set("tab", tab);
+    if (topTab === "professional") {
+      params.set("tab", "professional");
+    } else if (category && category !== "live") {
+      params.set("tab", "demo");
+      params.set("category", category);
     }
     if (page > 1) params.set("page", String(page));
     const query = params.toString();
@@ -453,23 +477,45 @@ export default function ProjectsContent() {
 
   const goToPage = (page) => {
     if (page < 1 || page > totalPages) return;
-    router.push(buildProjectsHref(activeTab, page));
+    router.push(
+      buildProjectsHref(
+        isProfessionalTab ? "professional" : "demo",
+        demoCategory,
+        page
+      )
+    );
   };
 
-  const setActiveTab = (tab) => {
-    router.push(buildProjectsHref(tab, 1));
+  const setTopTab = (topTab) => {
+    router.push(
+      buildProjectsHref(topTab, topTab === "demo" ? "live" : demoCategory, 1)
+    );
+  };
+
+  const setDemoCategory = (category) => {
+    router.push(buildProjectsHref("demo", category, 1));
   };
 
   const viewBtnClass = (mode) =>
-    `inline-flex min-h-11 items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-lg text-sm font-medium border border-brand cursor-pointer transition ${
+    `inline-flex h-9 sm:h-11 items-center gap-1.5 px-3 sm:px-3.5 rounded-lg text-sm font-medium border border-brand cursor-pointer transition ${
       view === mode
         ? "bg-brand text-white"
         : "bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-200"
     }`;
 
-  const tabBtnClass = (tab) =>
-    `inline-flex min-h-10 sm:min-h-11 flex-1 sm:flex-none items-center justify-center rounded-lg px-1.5 sm:px-3 py-2 text-[0.7rem] sm:text-sm font-semibold whitespace-nowrap transition-colors cursor-pointer ${
-      activeTab === tab
+  const topTabBtnClass = (topTab) => {
+    const isActive =
+      topTab === "professional" ? isProfessionalTab : !isProfessionalTab;
+    return `group relative inline-flex min-h-12 flex-1 items-center justify-center gap-2 px-3 py-3 text-sm font-semibold tracking-wide transition-colors cursor-pointer sm:min-h-14 sm:text-[0.95rem] ${
+      isActive
+        ? "text-slate-900 dark:text-white"
+        : "text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
+    }`;
+  };
+
+  const demoTabBtnClass = (category) =>
+    `inline-flex h-9 sm:h-11 flex-1 sm:flex-none items-center justify-center rounded-lg px-1.5 sm:px-3 text-[0.7rem] sm:text-sm font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+      demoCategory === category
         ? "bg-brand text-white shadow-md shadow-brand/25"
         : "bg-white/90 text-slate-600 hover:bg-brand-light/50 hover:text-brand-dark dark:bg-slate-800/90 dark:text-slate-300 dark:hover:bg-brand/10 dark:hover:text-brand"
     }`;
@@ -517,60 +563,117 @@ export default function ProjectsContent() {
   return (
     <main className="page-gradient !min-h-0 min-w-0 overflow-x-hidden px-3 py-6 pb-4 pt-16 sm:px-6 sm:pt-20">
       <div className="mx-auto max-w-5xl min-w-0">
-        <div className="mb-3">
-          <h1 className="sr-only">{header.title}</h1>
-          <p className="whitespace-pre-line text-sm sm:text-base text-slate-600 dark:text-slate-400">
+        <div className="mb-5 sm:mb-6">
+          {header.eyebrow ? (
+            <p className="mb-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-brand-dark dark:text-brand sm:text-xs">
+              {header.eyebrow}
+            </p>
+          ) : null}
+          <h1 className="font-[family-name:var(--font-playfair)] text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+            {header.title}
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-[0.95rem]">
             {header.description}
           </p>
         </div>
 
+        <div
+          className="mb-3 grid w-full grid-cols-2 border-b border-slate-200/90 dark:border-slate-700/80"
+          role="tablist"
+          aria-label={labels.projectsTabAriaLabel}
+        >
+          <button
+            type="button"
+            role="tab"
+            aria-selected={!isProfessionalTab}
+            onClick={() => setTopTab("demo")}
+            className={topTabBtnClass("demo")}
+          >
+            <span className="sm:hidden">Demo</span>
+            <span className="hidden sm:inline">{labels.demoProjectsTab}</span>
+            <span
+              className={`absolute inset-x-0 bottom-0 h-0.5 origin-center transition-transform duration-300 ${
+                !isProfessionalTab
+                  ? "scale-x-100 bg-brand"
+                  : "scale-x-0 bg-brand/40 group-hover:scale-x-50"
+              }`}
+              aria-hidden
+            />
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={isProfessionalTab}
+            onClick={() => setTopTab("professional")}
+            className={topTabBtnClass("professional")}
+          >
+            <span className="sm:hidden">Professional</span>
+            <span className="hidden sm:inline">
+              {labels.professionalProjectsTab}
+            </span>
+            <span
+              className={`absolute inset-x-0 bottom-0 h-0.5 origin-center transition-transform duration-300 ${
+                isProfessionalTab
+                  ? "scale-x-100 bg-brand"
+                  : "scale-x-0 bg-brand/40 group-hover:scale-x-50"
+              }`}
+              aria-hidden
+            />
+          </button>
+        </div>
+
         <ContentToolbar
           leading={
-            <div
-              className="inline-flex w-full gap-1 rounded-xl border border-brand/20 bg-brand-light/30 p-1 dark:border-brand/15 dark:bg-slate-900/50 sm:w-auto sm:gap-1.5 sm:p-1.5"
-              role="tablist"
-              aria-label={labels.projectsTabAriaLabel}
-            >
-              <button
-                type="button"
-                role="tab"
-                aria-selected={activeTab === "live"}
-                onClick={() => setActiveTab("live")}
-                className={tabBtnClass("live")}
+            !isProfessionalTab ? (
+              <div
+                className="inline-flex h-[3.25rem] max-w-full items-center gap-1 rounded-xl border border-brand/20 bg-brand-light/30 p-1 dark:border-brand/15 dark:bg-slate-900/50 sm:h-14 sm:gap-1.5 sm:p-1.5"
+                role="tablist"
+                aria-label={labels.demoCategoryAriaLabel}
               >
-                {labels.liveProjectsTab}
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={activeTab === "cloud"}
-                onClick={() => setActiveTab("cloud")}
-                className={tabBtnClass("cloud")}
-              >
-                {labels.cloudProjectsTab}
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={activeTab === "mobile-app"}
-                onClick={() => setActiveTab("mobile-app")}
-                className={tabBtnClass("mobile-app")}
-              >
-                <span className="sm:hidden">Mobile</span>
-                <span className="hidden sm:inline">{labels.mobileAppProjectsTab}</span>
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={activeTab === "upcoming"}
-                onClick={() => setActiveTab("upcoming")}
-                className={tabBtnClass("upcoming")}
-              >
-                {labels.upcomingProjectsTab}
-              </button>
-            </div>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={demoCategory === "live"}
+                  onClick={() => setDemoCategory("live")}
+                  className={demoTabBtnClass("live")}
+                >
+                  {labels.liveProjectsTab}
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={demoCategory === "cloud"}
+                  onClick={() => setDemoCategory("cloud")}
+                  className={demoTabBtnClass("cloud")}
+                >
+                  {labels.cloudProjectsTab}
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={demoCategory === "mobile-app"}
+                  onClick={() => setDemoCategory("mobile-app")}
+                  className={demoTabBtnClass("mobile-app")}
+                >
+                  <span className="sm:hidden">Mobile</span>
+                  <span className="hidden sm:inline">
+                    {labels.mobileAppProjectsTab}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={demoCategory === "upcoming"}
+                  onClick={() => setDemoCategory("upcoming")}
+                  className={demoTabBtnClass("upcoming")}
+                >
+                  {labels.upcomingProjectsTab}
+                </button>
+              </div>
+            ) : null
           }
           statusText={`Total ${activeProjects.length} Projects`}
+          centerStatus={isProfessionalTab}
           totalPages={totalPages}
           currentPage={currentPage}
           goToPage={goToPage}
@@ -590,6 +693,7 @@ export default function ProjectsContent() {
                 view="grid"
                 labels={labels}
                 comingSoon={isComingSoonTab}
+                requireOwnDemoVideo={isProfessionalTab}
                 onDemoVideoClick={openDemoVideo}
                 onComingSoonClick={openComingSoon}
               />
@@ -606,6 +710,7 @@ export default function ProjectsContent() {
                 view="list"
                 labels={labels}
                 comingSoon={isComingSoonTab}
+                requireOwnDemoVideo={isProfessionalTab}
                 onDemoVideoClick={openDemoVideo}
                 onComingSoonClick={openComingSoon}
               />
